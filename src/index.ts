@@ -3,6 +3,12 @@ import { Vinci } from "./vinci";
 const app = document.querySelector(".app-canvas") as HTMLDivElement;
 const vinci = new Vinci(app, app.clientWidth, app.clientHeight);
 
+
+//
+console.log(vinci)
+
+
+
 // const data = [
 //     // {   
 //     //     id: "0131202page1",

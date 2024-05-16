@@ -1,5 +1,11 @@
 import Konva from "konva";
 
+export interface CoreOptions {
+  width: number;
+  height: number;
+  devicePixelRatio?: number;
+  // createCustomContext2D?: (opts: { width: number; height: number; devicePixelRatio: number };
+}
 
 export type BoardBaseEventMap = {
     loadSource: void;
@@ -50,3 +56,23 @@ export type CoreEventMap = BoardBaseEventMap & {
   [key: string]: any;
 };
 
+
+export type VinciMode = 'select' | 'drag' | 'readOnly';
+
+
+export interface VinciSettings {
+  mode?: VinciMode;
+}
+
+export type VinciOptions = CoreOptions & VinciSettings;
+
+export interface VinciStorage {
+  mode: VinciMode;
+  enableRuler: boolean;
+  enableScale: boolean;
+  enableScroll: boolean;
+  enableSelect: boolean;
+  enableTextEdit: boolean;
+  enableDrag: boolean;
+  enableInfo: boolean;
+}
