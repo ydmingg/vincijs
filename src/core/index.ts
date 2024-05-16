@@ -11,7 +11,7 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
         
         const board = new Board<E>({ boardContent })
         const sharer = board.getSharer();
-        console.log(sharer);
+        // console.log(sharer);
         
 
         this.BOARD = board;
