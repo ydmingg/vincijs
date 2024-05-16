@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        /* 基础配置 */
+        "target": "esnext",
+        "module": "ES2015",
+        "removeComments": false,
+        "declaration": false,
+        "sourceMap": false,
+        /* 强类型检查配置 */
+        "strict": true,
+        "noImplicitAny": false,
+        /* 模块分析配置 */
+        "baseUrl": "./",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "paths": {
+            "@src/*": ["src/*"],
+            "@pages/*":["pages/*"]
+        },
+        "lib": [
+            "ES2021",
+            "dom",
+            "DOM.Iterable"
+        ],
+    },
+    "include": ["src"],
+    // "exclude": [
+    //     "./src/login.ts",
+    // ]
+}

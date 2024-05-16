@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://book.funxdata.com/public/per/ly.ico">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+    <title>vinciJS</title>
+    <link href="https://static.funxdata.com/release/css/css-preview232101.css" rel="stylesheet">
+    <style>
+        .app-data-lt,.app-data-rt{
+            width: 240px;
+            height: 100%;
+            background-color: rgba(0,0,0,.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="row h-100%">
+            <div class="app-data-lt p-20">
+                <div class="vg-input-value bg-gray-100 pages" ></div>
+            </div>
+            <div class="app-canvas h-100% flex1"></div>
+            <div class="app-data-rt p-20">
+                <input class="vg-input-value bg-gray-100 scale" type="text">
+            </div>
+        </div>
+    </div>
+    <div id="popout"></div>
+    <script type="module" src="./src/index.ts"></script>
+</body>
+
+</html>
