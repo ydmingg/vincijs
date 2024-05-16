@@ -3,17 +3,18 @@ import { Board } from "../board";
 import { newBoardContent } from "../tools";
 
 export class Core<E extends CoreEventMap = CoreEventMap> { 
-    // BOARD: Board<E>;
+    BOARD: Board<E>;
 
     constructor(app:HTMLDivElement, opts:any) { 
         const { width, height } = opts
         const boardContent = newBoardContent(app, { width, height });
-        // console.log(boardContent);
         
+        const board = new Board<E>({ boardContent })
+        const sharer = board.getSharer();
+        console.log(sharer);
         
-        const board = new Board({boardContent})
 
-        // this.BOARD = board;
+        this.BOARD = board;
         
         
 

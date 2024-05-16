@@ -37,7 +37,7 @@ export function newBoardContent(
     const viewContent = newElements.group(ctxOpts);
     const boardContent = newElements.group(ctxOpts);
 
-    const view = () => { 
+    const vinciView = () => { 
         // lastContent.clear();
         // viewContent.clear();
         // boardContent.clear();
@@ -52,7 +52,7 @@ export function newBoardContent(
         lastContent,
         viewContent,
         boardContent,
-        view,
+        vinciView,
     }
     
     return content;

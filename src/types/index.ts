@@ -20,7 +20,7 @@ export interface BoardContent {
     viewContent: Konva.Group;
     // helperContent: Konva.Group;
     boardContent: Konva.Group;
-    view: () => void;
+    vinciView: () => void;
 }
 
 

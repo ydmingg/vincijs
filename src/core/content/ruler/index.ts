@@ -19,7 +19,7 @@ const rulerData = {
 // 标尺
 function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: number; viewOffset: number }) { 
     const { scale, viewLength, viewOffset } = opts;
-    console.log(opts);
+    // console.log(opts);
 
     
     
