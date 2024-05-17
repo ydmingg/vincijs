@@ -1,3 +1,11 @@
+export * from "./board";
+export * from "./data";
+export * from "./element";
+export * from "./point";
+export * from "./render";
+export * from "./store";
+export * from "./util";
+export * from "./view";
 import Konva from "konva";
 
 export interface CoreOptions {
@@ -12,16 +20,6 @@ export type BoardBaseEventMap = {
   };
 export type BoardExtendEventMap = BoardBaseEventMap & Record<string, any>;
 
-
-// 
-
-export interface BoardContent { 
-    lastContent: Konva.Group;
-    viewContent: Konva.Group;
-    // helperContent: Konva.Group;
-    boardContent: Konva.Group;
-    vinciView: () => void;
-}
 
 
 // core

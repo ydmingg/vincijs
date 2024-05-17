@@ -2,7 +2,7 @@ import { Core } from '../core/index';
 import { changeMode } from './mode';
 import { Store } from '../tools';
 import { VinciStorage } from '../types';
-import { getDefaultStorage } from './config';
+import { defaultSettings,getDefaultStorage } from './config';
 import type { vinciEvent } from './event';
 
 export class Vinci{ 
@@ -13,14 +13,14 @@ export class Vinci{
     });
 
     constructor(app: HTMLDivElement, appWidth: number, appHeight: number) { 
-        const opts = {appWidth,appHeight}
+        const opts = {...defaultSettings, appWidth,appHeight}
         const { width, height } = { width: appWidth, height: appHeight }
         const core = new Core<vinciEvent>(app, { width, height })
         this.CORE = core
         this.OPTS = opts
         // 初始化
         this.init();
-
+        
     }
 
     init() { 

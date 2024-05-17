@@ -1,6 +1,9 @@
 export function deepClone<T = any>(target: T): T {
+    
     function _clone(t: T) {
+      
       const type = is(t);
+      
       if (['Null', 'Number', 'String', 'Boolean', 'Undefined'].indexOf(type) >= 0) {
         return t;
       } else if (type === 'Array') {

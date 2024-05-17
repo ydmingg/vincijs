@@ -1,5 +1,7 @@
 import { deepClone } from './data';
 
+
+
 export class Store<T extends Record<string | symbol, any> = Record<string | symbol, any>> {
   #temp: T;
   #backUpDefaultStorage: T;
@@ -10,6 +12,7 @@ export class Store<T extends Record<string | symbol, any> = Record<string | symb
   }
 
   set<K extends keyof T>(name: K, value: T[K]) {
+    
     this.#temp[name] = value;
   }
 
@@ -36,3 +39,4 @@ export class Store<T extends Record<string | symbol, any> = Record<string | symb
     return deepClone(this.#backUpDefaultStorage);
   }
 }
+
