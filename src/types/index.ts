@@ -1,76 +1,19 @@
-export * from "./board";
-export * from "./data";
-export * from "./element";
-export * from "./point";
-export * from "./render";
-export * from "./store";
-export * from "./util";
-export * from "./view";
-import Konva from "konva";
-
-export interface CoreOptions {
-  width: number;
-  height: number;
-  devicePixelRatio?: number;
-  // createCustomContext2D?: (opts: { width: number; height: number; devicePixelRatio: number };
-}
-
-export type BoardBaseEventMap = {
-    loadSource: void;
-  };
-export type BoardExtendEventMap = BoardBaseEventMap & Record<string, any>;
-
-
-
-// core
-export type CursorType =
-  | 'resize-left'
-  | 'resize-right'
-  | 'resize-top'
-  | 'resize-bottom'
-  | 'resize-top-left'
-  | 'resize-top-right'
-  | 'resize-bottom-left'
-  | 'resize-bottom-right'
-  | 'drag-default'
-  | 'drag-active'
-  | 'default';
-
-
-// core
-export interface CoreEventCursor {
-  type: CursorType | string | null;
-  // groupQueue?: Element<'group'>[];
-  // element?: Element<ElementType>;
-}
-
-export interface CoreEventChange {
-  type: string;
-  // data: Data;
-}
-export type CoreEventMap = BoardBaseEventMap & {
-  cursor: CoreEventCursor;
-  change: CoreEventChange;
-  [key: string]: any;
-};
-
-
-export type VinciMode = 'select' | 'drag' | 'readOnly';
-
-
-export interface VinciSettings {
-  mode?: VinciMode;
-}
-
-export type VinciOptions = CoreOptions & VinciSettings;
-
-export interface VinciStorage {
-  mode: VinciMode;
-  enableRuler: boolean;
-  enableScale: boolean;
-  enableScroll: boolean;
-  enableSelect: boolean;
-  enableTextEdit: boolean;
-  enableDrag: boolean;
-  enableInfo: boolean;
-}
+export * from './lib/util';
+export * from './lib/point';
+export * from './lib/data';
+export * from './lib/element';
+export * from './lib/view';
+export * from './lib/board';
+export * from './lib/renderer';
+export * from './lib/loader';
+export * from './lib/store';
+export * from './lib/watcher';
+export * from './lib/core';
+export * from './lib/idraw';
+export * from './lib/middleware';
+export * from './lib/context2d';
+export * from './lib/controller';
+export * from './lib/html';
+export * from './lib/svg-path';
+export * from './lib/config';
+export * from './lib/modify';

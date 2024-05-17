@@ -1,98 +1,123 @@
 import { EventEmitter } from '../tools';
-import { Data, BoardRenderer, RendererEventMap } from '../types';
+import type { DataLayout, LoadItemMap,Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
+import { drawElementList, drawLayout } from './draw/index';
 import { Loader } from './loader';
 
-export class Render extends EventEmitter<RendererEventMap> implements BoardRenderer{ 
-  OPTS
-  LOADER: Loader = new Loader();
-  HASDESTROYED: boolean = false;
-  constructor(opts) { 
+export class Renderer extends EventEmitter<RendererEventMap> implements BoardRenderer {
+  #opts: RendererOptions;
+  #loader: Loader = new Loader();
+  #hasDestroyed: boolean = false;
+
+  constructor(opts: RendererOptions) {
     super();
-    this.OPTS = opts
-    this.init();
-      
-  }
-  init() { 
-    const loader = this.LOADER;
-    // loader.on('load', (e) => {
-    //   this.trigger('load', e);
-    // });
-
+    this.#opts = opts;
+    this.#init();
   }
 
-
-  updateOptions(opts) {
-      this.OPTS = opts;
+  isDestroyed() {
+    return this.#hasDestroyed;
   }
 
-  drawData(data: Data, opts) {
-      const loader = this.LOADER;
-      const { calculator } = this.OPTS;
-      const viewContext = this.OPTS.viewContext;
-      viewContext.clearRect(0, 0, viewContext.canvas.width, viewContext.canvas.height);
-      const parentElementSize = {
-        x: 0,
-        y: 0,
-        w: opts.viewSizeInfo.width,
-        h: opts.viewSizeInfo.height
-      };
-      // if (data.underlay) {
-      //   drawUnderlay(viewContext, data.underlay, {
-      //     loader,
-      //     calculator,
-      //     parentElementSize,
-      //     parentOpacity: 1,
-      //     ...opts
-      //   });
-      // }
-      const drawOpts = {
-        loader,
-        calculator,
-        parentElementSize,
-      //   elementAssets: data.assets,
-        parentOpacity: 1,
-        ...opts
-      };
-      
-  }
-  
-  scale(num: number) {
-      const { sharer } = this.OPTS;
-      if (!sharer) {
-        // TODO
-        return;
-      }
-      const { data, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth, devicePixelRatio } =
-        sharer.getActiveStoreSnapshot();
-      if (data) {
-        this.drawData(data, {
-          viewScaleInfo: {
-            scale: num,
-            offsetTop,
-            offsetBottom,
-            offsetLeft,
-            offsetRight
-          },
-          viewSizeInfo: {
-            width,
-            height,
-            contextHeight,
-            contextWidth,
-            devicePixelRatio
-          }
-        });
-      }
-  }
   destroy() {
-      // this.clear();
-      this.OPTS = null as any;
+    this.clear();
+    this.#opts = null as any;
+    this.#loader.destroy();
+    this.#loader = null as any;
+    this.#hasDestroyed = true;
   }
-  isDestroyed() { 
-      return this.HASDESTROYED;
+
+  #init() {
+    const loader = this.#loader;
+    loader.on('load', (e) => {
+      this.trigger('load', e);
+    });
+    loader.on('error', (e) => {
+      // TODO
+      // eslint-disable-next-line no-console
+      console.error(e);
+    });
   }
+
+  updateOptions(opts: RendererOptions) {
+    this.#opts = opts;
+  }
+
+  drawData(data: Data, opts: RendererDrawOptions) {
+    const loader = this.#loader;
+    const { calculator } = this.#opts;
+    const viewContext = this.#opts.viewContext;
+    viewContext.clearRect(0, 0, viewContext.canvas.width, viewContext.canvas.height);
+    const parentElementSize = {
+      x: 0,
+      y: 0,
+      w: opts.viewSizeInfo.width,
+      h: opts.viewSizeInfo.height
+    };
+    // if (data.underlay) {
+    //   drawUnderlay(viewContext, data.underlay, {
+    //     loader,
+    //     calculator,
+    //     parentElementSize,
+    //     parentOpacity: 1,
+    //     ...opts
+    //   });
+    // }
+    const drawOpts = {
+      loader,
+      calculator,
+      parentElementSize,
+      elementAssets: data.assets,
+      parentOpacity: 1,
+      ...opts
+    };
+    if (data.layout) {
+      drawLayout(viewContext, data.layout as DataLayout, drawOpts, () => {
+        drawElementList(viewContext, data, drawOpts);
+      });
+    } else {
+      drawElementList(viewContext, data, drawOpts);
+    }
+  }
+
+  scale(num: number) {
+    const { sharer } = this.#opts;
+    if (!sharer) {
+      // TODO
+      return;
+    }
+    const { data, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth, devicePixelRatio } =
+      sharer.getActiveStoreSnapshot();
+    if (data) {
+      this.drawData(data, {
+        viewScaleInfo: {
+          scale: num,
+          offsetTop,
+          offsetBottom,
+          offsetLeft,
+          offsetRight
+        },
+        viewSizeInfo: {
+          width,
+          height,
+          contextHeight,
+          contextWidth,
+          devicePixelRatio
+        }
+      });
+    }
+  }
+
+  setLoadItemMap(itemMap: LoadItemMap) {
+    this.#loader.setLoadItemMap(itemMap);
+  }
+
+  getLoadItemMap(): LoadItemMap {
+    return this.#loader.getLoadItemMap();
+  }
+
   getLoader(): Loader {
-      return this.LOADER;
+    return this.#loader;
   }
-
-
 }
+
+export { drawRect } from './draw';
