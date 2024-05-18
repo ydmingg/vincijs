@@ -9,7 +9,7 @@ export * from './lib/loader';
 export * from './lib/store';
 export * from './lib/watcher';
 export * from './lib/core';
-export * from './lib/idraw';
+export * from './lib/vinci';
 export * from './lib/middleware';
 export * from './lib/context2d';
 export * from './lib/controller';

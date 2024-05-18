@@ -126,5 +126,5 @@ export {
 } from '../tools';
 export { Vinci } from './vinci';
 export { eventKeys } from './event';
-export type { IDrawEvent, IDrawEventKeys } from './event';
+export type { VinciEvent, VinciEventKeys } from './event';
 export type { ExportImageFileResult, ExportImageFileBaseOptions } from './file';

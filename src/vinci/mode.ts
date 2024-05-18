@@ -1,4 +1,4 @@
-import type { IDrawMode, IDrawStorage } from '../types';
+import type { VinciMode, VinciStorage } from '../types';
 import { Store } from '../tools';
 import {
   Core,
@@ -11,13 +11,13 @@ import {
   MiddlewareDragger,
   MiddlewareInfo
 } from '../core';
-import { IDrawEvent } from './event';
+import { VinciEvent } from './event';
 
-function isValidMode(mode: string | IDrawMode) {
+function isValidMode(mode: string | VinciMode) {
   return ['select', 'drag', 'readOnly'].includes(mode);
 }
 
-export function runMiddlewares(core: Core<IDrawEvent>, store: Store<IDrawStorage>) {
+export function runMiddlewares(core: Core<VinciEvent>, store: Store<VinciStorage>) {
   const { enableRuler, enableScale, enableScroll, enableSelect, enableTextEdit, enableDrag, enableInfo } = store.getSnapshot();
   if (enableScroll === true) {
     core.use(MiddlewareScroller);
@@ -64,7 +64,7 @@ export function runMiddlewares(core: Core<IDrawEvent>, store: Store<IDrawStorage
   }
 }
 
-export function changeMode(mode: IDrawMode, core: Core<IDrawEvent>, store: Store<IDrawStorage>) {
+export function changeMode(mode: VinciMode, core: Core<VinciEvent>, store: Store<VinciStorage>) {
   let enableScale: boolean = false;
   let enableScroll: boolean = false;
   let enableSelect: boolean = false;
@@ -73,13 +73,13 @@ export function changeMode(mode: IDrawMode, core: Core<IDrawEvent>, store: Store
   let enableRuler: boolean = false;
   const enableInfo: boolean = true;
 
-  let innerMode: IDrawMode = 'select';
+  let innerMode: VinciMode = 'select';
   store.set('mode', innerMode);
   if (isValidMode(mode)) {
     innerMode = mode;
   } else {
     // eslint-disable-next-line no-console
-    console.warn(`${mode} is invalid mode of iDraw.js`);
+    console.warn(`${mode} is invalid mode of Vinci.js`);
   }
 
   if (innerMode === 'select') {

@@ -10,10 +10,10 @@ import {
     middlewareEventTextChange
 } from '../core';
 
-const idrawEventChange = eventChange;
+const VinciEventChange = eventChange;
 
-export type IDrawEvent = CoreEventMap & {
-  [idrawEventChange]: {
+export type VinciEvent = CoreEventMap & {
+  [VinciEventChange]: {
     data: Data;
     type:
       | 'updateElement'
@@ -30,8 +30,8 @@ export type IDrawEvent = CoreEventMap & {
   };
 };
 
-export interface IDrawEventKeys {
-  change: typeof idrawEventChange;
+export interface VinciEventKeys {
+  change: typeof VinciEventChange;
   ruler: typeof middlewareEventRuler;
   scale: typeof middlewareEventScale;
   select: typeof middlewareEventSelect;
@@ -40,8 +40,8 @@ export interface IDrawEventKeys {
   textChange: typeof middlewareEventTextChange;
 }
 
-const innerEventKeys: IDrawEventKeys = {
-  change: idrawEventChange,
+const innerEventKeys: VinciEventKeys = {
+  change: VinciEventChange,
   ruler: middlewareEventRuler,
   scale: middlewareEventScale,
   select: middlewareEventSelect,
@@ -50,10 +50,10 @@ const innerEventKeys: IDrawEventKeys = {
   textChange: middlewareEventTextChange
 };
 
-const eventKeys = {} as IDrawEventKeys;
+const eventKeys = {} as VinciEventKeys;
 Object.keys(innerEventKeys).forEach((keyName: string) => {
   Object.defineProperty(eventKeys, keyName, {
-    value: innerEventKeys[keyName as keyof IDrawEventKeys],
+    value: innerEventKeys[keyName as keyof VinciEventKeys],
     writable: false
   });
 });

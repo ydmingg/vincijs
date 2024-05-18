@@ -1,10 +1,10 @@
 import { Core, middlewareEventSelectInGroup } from '../core';
 import type {
   PointSize,
-  IDrawOptions,
-  IDrawSettings,
-  IDrawFeature,
-  IDrawMode,
+  VinciOptions,
+  VinciSettings,
+  VinciFeature,
+  VinciMode,
   Data,
   ViewSizeInfo,
   ViewScaleInfo,
@@ -12,9 +12,9 @@ import type {
   Element,
   RecursivePartial,
   ElementPosition,
-  IDrawStorage
+  VinciStorage
 } from '../types';
-import type { IDrawEvent } from './event';
+import type { VinciEvent } from './event';
 import {
   createElement,
   insertElementToListByPosition,
@@ -35,16 +35,16 @@ import { eventKeys } from './event';
 import { changeMode, runMiddlewares } from './mode';
 
 export class Vinci {
-  #core: Core<IDrawEvent>;
-  #opts: IDrawOptions;
-  #store: Store<IDrawStorage> = new Store<IDrawStorage>({
+  #core: Core<VinciEvent>;
+  #opts: VinciOptions;
+  #store: Store<VinciStorage> = new Store<VinciStorage>({
     defaultStorage: getDefaultStorage()
   });
 
-  constructor(mount: HTMLDivElement, options: IDrawOptions) {
+  constructor(mount: HTMLDivElement, options: VinciOptions) {
     const opts = { ...defaultSettings, ...options };
     const { width, height, devicePixelRatio, createCustomContext2D } = opts;
-    const core = new Core<IDrawEvent>(mount, { width, height, devicePixelRatio, createCustomContext2D });
+    const core = new Core<VinciEvent>(mount, { width, height, devicePixelRatio, createCustomContext2D });
     this.#core = core;
     this.#opts = opts;
     this.#init();
@@ -56,10 +56,10 @@ export class Vinci {
     changeMode('select', core, store);
   }
 
-  #setFeature(feat: IDrawFeature, status: boolean) {
+  #setFeature(feat: VinciFeature, status: boolean) {
     const store = this.#store;
     if (['ruler', 'scroll', 'scale', 'info'].includes(feat)) {
-      const map: Record<IDrawFeature | string, keyof Omit<IDrawStorage, 'mode'>> = {
+      const map: Record<VinciFeature | string, keyof Omit<VinciStorage, 'mode'>> = {
         ruler: 'enableRuler',
         scroll: 'enableScroll',
         scale: 'enableScale',
@@ -75,7 +75,7 @@ export class Vinci {
     }
   }
 
-  reset(opts: IDrawSettings) {
+  reset(opts: VinciSettings) {
     const core = this.#core;
     const store = this.#store;
     store.clear();
@@ -87,18 +87,18 @@ export class Vinci {
     };
   }
 
-  setMode(mode: IDrawMode) {
+  setMode(mode: VinciMode) {
     const core = this.#core;
     const store = this.#store;
     changeMode(mode || defaultMode, core, store);
     core.refresh();
   }
 
-  enable(feat: IDrawFeature) {
+  enable(feat: VinciFeature) {
     this.#setFeature(feat, true);
   }
 
-  disable(feat: IDrawFeature) {
+  disable(feat: VinciFeature) {
     this.#setFeature(feat, false);
   }
 
@@ -148,15 +148,15 @@ export class Vinci {
     this.#core.resize(opts);
   }
 
-  on<T extends keyof IDrawEvent>(name: T, callback: (e: IDrawEvent[T]) => void) {
+  on<T extends keyof VinciEvent>(name: T, callback: (e: VinciEvent[T]) => void) {
     this.#core.on(name, callback);
   }
 
-  off<T extends keyof IDrawEvent>(name: T, callback: (e: IDrawEvent[T]) => void) {
+  off<T extends keyof VinciEvent>(name: T, callback: (e: VinciEvent[T]) => void) {
     this.#core.off(name, callback);
   }
 
-  trigger<T extends keyof IDrawEvent>(name: T, e?: IDrawEvent[T]) {
+  trigger<T extends keyof VinciEvent>(name: T, e?: VinciEvent[T]) {
     this.#core.trigger(name, e);
   }
 

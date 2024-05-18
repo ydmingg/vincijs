@@ -1,13 +1,13 @@
-import type { IDrawSettings, IDrawStorage, IDrawMode } from '../types';
+import type { VinciSettings, VinciStorage, VinciMode } from '../types';
 
-export const defaultMode: IDrawMode = 'select';
+export const defaultMode: VinciMode = 'select';
 
-export const defaultSettings: Required<IDrawSettings> = {
+export const defaultSettings: Required<VinciSettings> = {
   mode: defaultMode
 };
 
-export function getDefaultStorage(): IDrawStorage {
-  const storage: IDrawStorage = {
+export function getDefaultStorage(): VinciStorage {
+  const storage: VinciStorage = {
     mode: defaultMode,
     enableRuler: false,
     enableScale: false,
