@@ -43,8 +43,6 @@ export class Vinci {
 
   constructor(mount: HTMLDivElement, options: IDrawOptions) {
     const opts = { ...defaultSettings, ...options };
-    // console.log(opts);
-
     const { width, height, devicePixelRatio, createCustomContext2D } = opts;
     const core = new Core<IDrawEvent>(mount, { width, height, devicePixelRatio, createCustomContext2D });
     this.#core = core;

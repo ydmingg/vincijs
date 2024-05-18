@@ -1,4 +1,4 @@
-export type * from '../types';
+export * from '../types';
 export {
   Core,
   MiddlewareSelector,
@@ -124,7 +124,7 @@ export {
   calcElementViewRectInfoMap,
   sortElementsViewVisiableInfoMap
 } from '../tools';
-export { Vinci } from './idraw';
+export { Vinci } from './vinci';
 export { eventKeys } from './event';
 export type { IDrawEvent, IDrawEventKeys } from './event';
 export type { ExportImageFileResult, ExportImageFileBaseOptions } from './file';

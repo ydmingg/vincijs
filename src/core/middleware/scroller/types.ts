@@ -1,4 +1,4 @@
-import type { Point, ElementSize } from '@idraw/types';
+import type { Point, ElementSize } from '../../../types';
 import { keyXThumbRect, keyYThumbRect, keyPrevPoint, keyActivePoint, keyActiveThumbType } from './config';
 
 export type DeepScrollerSharedStorage = {

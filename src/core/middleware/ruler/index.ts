@@ -6,8 +6,6 @@ import type { DeepRulerSharedStorage } from './types';
 export const middlewareEventRuler = '@middleware/show-ruler';
 
 export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventMap> = (opts) => {
-  // console.log('ruler', opts);
-
   const { boardContent, viewer, eventHub, calculator } = opts;
   const { helperContext, underContext } = boardContent;
   let show: boolean = true;
@@ -37,8 +35,6 @@ export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventM
     beforeDrawFrame: ({ snapshot }) => {
       if (show === true) {
         const viewScaleInfo = getViewScaleInfoFromSnapshot(snapshot);
-        // console.log(viewScaleInfo);
-
         const viewSizeInfo = getViewSizeInfoFromSnapshot(snapshot);
         drawScrollerSelectedArea(helperContext, { snapshot, calculator });
 

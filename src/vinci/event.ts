@@ -1,13 +1,13 @@
 import type { CoreEventMap, Data } from '../types';
-import { eventChange } from '../tools';
 
 import {
-  middlewareEventRuler,
-  middlewareEventScale,
-  middlewareEventSelect,
-  middlewareEventSelectClear,
-  middlewareEventTextEdit,
-  middlewareEventTextChange
+    eventChange,
+    middlewareEventRuler,
+    middlewareEventScale,
+    middlewareEventSelect,
+    middlewareEventSelectClear,
+    middlewareEventTextEdit,
+    middlewareEventTextChange
 } from '../core';
 
 const idrawEventChange = eventChange;

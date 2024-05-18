@@ -41,14 +41,8 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
   #eventHub: EventEmitter<T> = new EventEmitter<T>();
   #hasDestroyed: boolean = false;
   constructor(opts: BoardOptions) {
-    // console.log(opts);
-
     const { boardContent } = opts;
-    // console.log('sfasdfa', boardContent);
-
     const sharer = new Sharer();
-    // console.log(sharer);
-
     const calculator = new Calculator({ viewContext: boardContent.viewContext });
     const watcher = new BoardWatcher({
       boardContent,
@@ -59,7 +53,6 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
       sharer,
       calculator
     });
-    // console.log(renderer);
 
     this.#opts = opts;
     this.#sharer = sharer;
@@ -102,43 +95,43 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
 
   #init() {
     this.#watcher.on('pointStart', this.#handlePointStart.bind(this));
-    // this.#watcher.on('pointEnd', this.#handlePointEnd.bind(this));
-    // // this.#watcher.on(
-    // //   'pointMove',
-    // //   throttle((e) => {
-    // //     this.#handlePointMove(e);
-    // //   }, throttleTime)
-    // // );
-    // // this.#watcher.on(
-    // //   'hover',
-    // //   throttle((e) => {
-    // //     this.#handleHover(e);
-    // //   }, throttleTime)
-    // // );
-    // // this.#watcher.on(
-    // //   'wheel',
-    // //   throttle((e) => {
-    // //     this.#handleWheel(e);
-    // //   }, throttleTime)
-    // // );
-    // // this.#watcher.on(
-    // //   'wheelScale',
-    // //   throttle((e) => {
-    // //     this.#handleWheelScale(e);
-    // //   }, throttleTime)
-    // // );
-    // this.#watcher.on('pointMove', this.#handlePointMove.bind(this));
-    // this.#watcher.on('hover', this.#handleHover.bind(this));
-    // this.#watcher.on('wheel', this.#handleWheel.bind(this));
-    // this.#watcher.on('wheelScale', this.#handleWheelScale.bind(this));
-    // this.#watcher.on('scrollX', this.#handleScrollX.bind(this));
-    // this.#watcher.on('scrollY', this.#handleScrollY.bind(this));
-    // this.#watcher.on('resize', this.#handleResize.bind(this));
-    // this.#watcher.on('doubleClick', this.#handleDoubleClick.bind(this));
+    this.#watcher.on('pointEnd', this.#handlePointEnd.bind(this));
+    // this.#watcher.on(
+    //   'pointMove',
+    //   throttle((e) => {
+    //     this.#handlePointMove(e);
+    //   }, throttleTime)
+    // );
+    // this.#watcher.on(
+    //   'hover',
+    //   throttle((e) => {
+    //     this.#handleHover(e);
+    //   }, throttleTime)
+    // );
+    // this.#watcher.on(
+    //   'wheel',
+    //   throttle((e) => {
+    //     this.#handleWheel(e);
+    //   }, throttleTime)
+    // );
+    // this.#watcher.on(
+    //   'wheelScale',
+    //   throttle((e) => {
+    //     this.#handleWheelScale(e);
+    //   }, throttleTime)
+    // );
+    this.#watcher.on('pointMove', this.#handlePointMove.bind(this));
+    this.#watcher.on('hover', this.#handleHover.bind(this));
+    this.#watcher.on('wheel', this.#handleWheel.bind(this));
+    this.#watcher.on('wheelScale', this.#handleWheelScale.bind(this));
+    this.#watcher.on('scrollX', this.#handleScrollX.bind(this));
+    this.#watcher.on('scrollY', this.#handleScrollY.bind(this));
+    this.#watcher.on('resize', this.#handleResize.bind(this));
+    this.#watcher.on('doubleClick', this.#handleDoubleClick.bind(this));
 
-    // this.#renderer.on('load', () => {
-    //   this.#eventHub.trigger('loadResource');
-    // });
+    this.#renderer.on('load', () => {
+      this.#eventHub.trigger('loadResource');
+    });
   }
 
   #handlePointStart(e: BoardWatcherEventMap['pointStart']) {

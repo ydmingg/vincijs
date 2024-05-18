@@ -30,7 +30,6 @@ interface RulerScale {
 
 function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: number; viewOffset: number }): RulerScale[] {
   const { scale, viewLength, viewOffset } = opts;
-
   const list: RulerScale[] = [];
   let rulerUnit = 10;
 

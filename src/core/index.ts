@@ -31,14 +31,8 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
     container.appendChild(canvas);
 
     const boardContent = createBoardContent(canvas, { width, height, devicePixelRatio, offscreen: true, createCustomContext2D });
-    // console.log(boardContent);
-
     const board = new Board<E>({ boardContent, container });
-    // console.log(board);
-
     const sharer = board.getSharer();
-    // console.log(sharer);
-
     sharer.setActiveViewSizeInfo({
       width,
       height,
@@ -46,15 +40,12 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
       contextWidth: width,
       contextHeight: height
     });
-    // console.log(sharer);
-
     this.#board = board;
-
     this.resize(sharer.getActiveViewSizeInfo());
-    // const eventHub = board.getEventHub();
-    // new Cursor(container, {
-    //   eventHub
-    // });
+    const eventHub = board.getEventHub();
+    new Cursor(container, {
+      eventHub
+    });
   }
 
   isDestroyed() {
