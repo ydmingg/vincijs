@@ -1,5 +1,5 @@
 import type { Point, BoardMiddleware, PointWatcherEvent, BoardWatherWheelEvent } from '../../../types';
-import { drawScroller, isPointInScrollThumb } from './util';
+import { drawScroller, isPointInScrollThumb } from './tools';
 // import type { ScrollbarThumbType } from './util';
 import { keyXThumbRect, keyYThumbRect, keyPrevPoint, keyActivePoint, keyActiveThumbType } from './config';
 import type { DeepScrollerSharedStorage } from './types';

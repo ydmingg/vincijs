@@ -1,6 +1,6 @@
 import type { ViewContext2D, PointSize } from '../../../types';
 import { referenceColor } from './config';
-import { drawLine, drawCrossByCenter } from './draw-base';
+import { drawLine, drawCrossByCenter } from './vinci-base';
 
 export function drawReferenceLines(
   ctx: ViewContext2D,

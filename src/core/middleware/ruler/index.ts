@@ -1,6 +1,6 @@
 import type { BoardMiddleware, CoreEventMap } from '../../../types';
 import { getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot } from '../../../tools';
-import { drawRulerBackground, drawXRuler, drawYRuler, calcXRulerScaleList, calcYRulerScaleList, drawUnderGrid, drawScrollerSelectedArea } from './util';
+import { drawRulerBackground, drawXRuler, drawYRuler, calcXRulerScaleList, calcYRulerScaleList, drawUnderGrid, drawScrollerSelectedArea } from './tools';
 import type { DeepRulerSharedStorage } from './types';
 
 export const middlewareEventRuler = '@middleware/show-ruler';

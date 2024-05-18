@@ -1,17 +1,17 @@
 import type { CoreOptions } from './core';
 
-export type IDrawMode = 'select' | 'drag' | 'readOnly';
+export type VinciMode = 'select' | 'drag' | 'readOnly';
 
-export type IDrawFeature = 'ruler' | 'scroll' | 'scale' | 'info' | 'selectInGroup'; // TODO other feature
+export type VinciFeature = 'ruler' | 'scroll' | 'scale' | 'info' | 'selectInGroup'; // TODO other feature
 
-export interface IDrawSettings {
-  mode?: IDrawMode;
+export interface VinciSettings {
+  mode?: VinciMode;
 }
 
-export type IDrawOptions = CoreOptions & IDrawSettings;
+export type VinciOptions = CoreOptions & VinciSettings;
 
-export interface IDrawStorage {
-  mode: IDrawMode;
+export interface VinciStorage {
+  mode: VinciMode;
   enableRuler: boolean;
   enableScale: boolean;
   enableScroll: boolean;

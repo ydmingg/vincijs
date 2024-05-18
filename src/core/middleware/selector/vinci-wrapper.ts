@@ -13,7 +13,7 @@ import type {
 import { rotateElementVertexes, calcViewPointSize, calcViewVertexes, calcViewElementSize } from '../../../tools';
 import type { AreaSize } from './types';
 import { resizeControllerBorderWidth, areaBorderWidth, wrapperColor, selectWrapperBorderWidth, lockColor, controllerSize } from './config';
-import { drawVertexes, drawLine, drawCircleController, drawCrossVertexes } from './draw-base';
+import { drawVertexes, drawLine, drawCircleController, drawCrossVertexes } from './vinci-base';
 // import { drawAuxiliaryExperimentBox } from './draw-auxiliary';
 
 export function drawHoverVertexesWrapper(

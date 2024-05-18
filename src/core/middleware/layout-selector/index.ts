@@ -3,7 +3,7 @@ import { calcLayoutSizeController, isViewPointInVertexes, getViewScaleInfoFromSn
 import type { LayoutSelectorSharedStorage, ControlType } from './types';
 import { keyLayoutActionType, keyLayoutController, keyLayoutControlType } from './config';
 import { keyActionType as keyElementActionType, middlewareEventSelectClear } from '../selector';
-import { drawLayoutController } from './util';
+import { drawLayoutController } from './tools';
 import { eventChange } from '../../config';
 
 export const MiddlewareLayoutSelector: BoardMiddleware<LayoutSelectorSharedStorage> = (opts) => {

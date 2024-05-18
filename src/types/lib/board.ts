@@ -1,8 +1,8 @@
 import type { Point, PointSize } from './point';
 import type { BoardContent, ViewCalculator, ViewScaleInfo, ViewSizeInfo } from './view';
-import type { UtilEventEmitter } from './util';
+import type { UtilEventEmitter } from './tools';
 import type { ActiveStore, StoreSharer } from './store';
-import type { RendererEventMap, RendererOptions, RendererDrawOptions, RendererLoader } from './renderer';
+import type { RendererEventMap, RendererOptions, RendererDrawOptions, RendererLoader } from './render';
 import type { Data } from './data';
 
 export type BoardBaseEventMap = {

@@ -1,7 +1,7 @@
 import type { BoardMiddleware, ViewRectInfo, Element } from '../../../types';
 import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createUUID, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
 import { keySelectedElementList, keyActionType, keyGroupQueue } from '../selector';
-import { drawSizeInfoText, drawPositionInfoText, drawAngleInfoText } from './draw-info';
+import { drawSizeInfoText, drawPositionInfoText, drawAngleInfoText } from './vinci-info';
 import type { DeepInfoSharedStorage } from './types';
 
 const infoBackground = '#1973bac6';

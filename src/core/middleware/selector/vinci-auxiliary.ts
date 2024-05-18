@@ -1,6 +1,6 @@
 import type { ViewContext2D, Element, ViewScaleInfo, ViewSizeInfo, ViewCalculator, ViewRectInfo } from '../../../types';
 import { auxiliaryColor } from './config';
-import { drawLine, drawCrossByCenter } from './draw-base';
+import { drawLine, drawCrossByCenter } from './vinci-base';
 
 interface ViewBoxInfo {
   minX: number;

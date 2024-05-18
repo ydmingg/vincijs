@@ -32,8 +32,8 @@ import {
   drawListArea,
   drawGroupQueueVertexesWrappers,
   drawSelectedElementControllersVertexes
-} from './draw-wrapper';
-import { drawReferenceLines } from './draw-reference';
+} from './vinci-wrapper';
+import { drawReferenceLines } from './vinci-reference';
 import {
   getPointTarget,
   resizeElement,
@@ -43,7 +43,7 @@ import {
   isElementInGroup,
   isPointInViewActiveGroup,
   calcMoveInGroup
-} from './util';
+} from './tools';
 import {
   middlewareEventSelect,
   middlewareEventSelectClear,

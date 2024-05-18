@@ -1,5 +1,5 @@
 import type { Element, ElementPosition } from './element';
-import type { RecursivePartial } from './util';
+import type { RecursivePartial } from './tools';
 
 export type ModifyType = 'updateElement' | 'addElement' | 'deleteElement' | 'moveElement';
 

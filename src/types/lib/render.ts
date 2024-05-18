@@ -1,7 +1,7 @@
 import type { ViewScaleInfo, ViewCalculator, ViewSizeInfo } from './view';
 import type { Element, ElementSize, ElementAssets } from './element';
 import type { LoaderEventMap, LoadElementType, LoadContent, LoadItemMap } from './loader';
-import type { UtilEventEmitter } from './util';
+import type { UtilEventEmitter } from './tools';
 import type { StoreSharer } from './store';
 import { ViewContext2D } from './context2d';
 
