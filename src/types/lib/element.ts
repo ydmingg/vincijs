@@ -84,12 +84,9 @@ export interface ElementBaseDetail {
   clipPath?: ElementClipPath;
 }
 
-// interface ElementRectDetail extends ElementBaseDetail {
-//   // color?: string;
-//   // background?: string;
-// }
-
-export interface ElementRectDetail extends ElementBaseDetail {}
+export interface ElementRectDetail extends ElementBaseDetail {
+    
+}
 
 export interface ElementTextDetail extends ElementBaseDetail {
   text: string;
