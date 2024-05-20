@@ -96,30 +96,6 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
   #init() {
     this.#watcher.on('pointStart', this.#handlePointStart.bind(this));
     this.#watcher.on('pointEnd', this.#handlePointEnd.bind(this));
-    // this.#watcher.on(
-    //   'pointMove',
-    //   throttle((e) => {
-    //     this.#handlePointMove(e);
-    //   }, throttleTime)
-    // );
-    // this.#watcher.on(
-    //   'hover',
-    //   throttle((e) => {
-    //     this.#handleHover(e);
-    //   }, throttleTime)
-    // );
-    // this.#watcher.on(
-    //   'wheel',
-    //   throttle((e) => {
-    //     this.#handleWheel(e);
-    //   }, throttleTime)
-    // );
-    // this.#watcher.on(
-    //   'wheelScale',
-    //   throttle((e) => {
-    //     this.#handleWheelScale(e);
-    //   }, throttleTime)
-    // );
     this.#watcher.on('pointMove', this.#handlePointMove.bind(this));
     this.#watcher.on('hover', this.#handleHover.bind(this));
     this.#watcher.on('wheel', this.#handleWheel.bind(this));

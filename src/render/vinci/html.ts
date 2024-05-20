@@ -5,6 +5,7 @@ import { getOpacity } from './box';
 export function drawHTML(ctx: ViewContext2D, elem: Element<'html'>, opts: RendererDrawElementOptions) {
   const content = opts.loader.getContent(elem);
   const { viewScaleInfo, viewSizeInfo, parentOpacity } = opts;
+  
   const { x, y, w, h, angle } = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo }) || elem;
   rotateElement(ctx, { x, y, w, h, angle }, () => {
     if (!content && !opts.loader.isDestroyed()) {
