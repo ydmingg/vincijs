@@ -82,3 +82,42 @@ export const Demo = () => {
     // 居中
     // vinci.centerContent();
 }
+
+
+// 标准化数据结构
+const Data = [
+    {   
+        id: "0131202layer1",
+        name: "layer1",
+        title: "层1",
+        type: "group",
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 100,
+        detail: {
+            background: 'red',
+            borderWidth: 10,
+            borderColor: '#3f51b5',
+            children: [
+                {},
+                {},
+            ]
+        }
+    },
+    {   
+        id: "0131202rect1",
+        name: "rect1",
+        title: "矩形1",
+        type: "rect",
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 100,
+        detail: {
+            background: 'red',
+            borderWidth: 10,
+            borderColor: '#3f51b5',
+        }
+    },
+]
