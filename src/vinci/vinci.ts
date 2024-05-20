@@ -58,13 +58,16 @@ export class Vinci {
 
   #setFeature(feat: VinciFeature, status: boolean) {
     const store = this.#store;
+    // 检测数组中是否包含某个元素
     if (['ruler', 'scroll', 'scale', 'info'].includes(feat)) {
+      // 设置一个通用类型Record，设置键的类型为(VinciFeature(联合类型) | string)，获取VinciStorage中除了mode以外的所有值
       const map: Record<VinciFeature | string, keyof Omit<VinciStorage, 'mode'>> = {
         ruler: 'enableRuler',
         scroll: 'enableScroll',
         scale: 'enableScale',
         info: 'enableInfo'
-      };
+      };      
+      
       store.set(map[feat], !!status);
       runMiddlewares(this.#core, store);
       this.#core.refresh();
