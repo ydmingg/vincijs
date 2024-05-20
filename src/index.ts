@@ -1,4 +1,5 @@
 import { Vinci } from "./vinci";
+import { signIn } from "./data";
 
 const app = document.querySelector(".app-canvas") as HTMLDivElement;
 const vinci = new Vinci(app, {
@@ -48,10 +49,39 @@ const data = {
                 // draggable: true
     
             }
-        }
+        },
+        {   
+            uuid: "0131202text1",
+            name: "text1",
+            // title: "矩形1",
+            x: 50,
+            y: 300,
+            w: 140,
+            h: 40,
+            angle: 0,
+            type: "text",
+            detail: {
+                text: "Piksel",
+                color: "black",
+                fontSize: 40,
+                fontFamily: "DM Sans",
+                opacity: 1,
+                textAlign: "left",
+                lineHeight: 40,
+                fontWeight: "bold"
+    
+            }
+        },
     
     ]
 }
 
 
 vinci.setData(data)
+
+
+// 渲染元素
+vinci.addElement(signIn)
+
+// 居中
+// vinci.centerContent();
