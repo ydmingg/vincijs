@@ -186,6 +186,7 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
 
     viewContext.canvas.width = width * devicePixelRatio;
     viewContext.canvas.height = height * devicePixelRatio;
+    
 
     sharer.setActiveViewSizeInfo(newViewSize);
     if (!opts?.ignoreUpdateVisibleStatus) {

@@ -12,7 +12,7 @@ const defaultActiveStorage: ActiveStore = {
   offsetLeft: 0,
   offsetRight: 0,
   offsetTop: 0,
-  offsetBottom: 0
+  offsetBottom: 0,
 };
 
 export class Sharer implements StoreSharer<Record<string | number | symbol, any>> {
