@@ -156,7 +156,7 @@ export const signIn = {
             w: 431,
             h: 56,
             detail: {
-                text: "Welcome to iDraw",
+                text: "Welcome to Piksel",
                 color: "white",
                 fontSize: 40,
                 fontFamily: "DM Sans",
@@ -173,7 +173,7 @@ export const signIn = {
             w: 341,
             h: 55,
             detail: {
-                text: "A simple JavaScript framework for Drawing on the web..",
+                text: "A simple JavaScript framework for Pikseling on the web..",
                 color: "white",
                 fontSize: 18,
                 fontFamily: "Inter",
