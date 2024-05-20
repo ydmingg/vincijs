@@ -3,12 +3,7 @@ import { signIn } from "./data";
 
 export const Demo = () => { 
     const app = document.querySelector(".app-canvas") as HTMLDivElement;
-    const vinci = new Vinci(app, {
-        width: app.clientWidth, 
-        height: app.clientHeight,
-    });
-
-
+    const vinci = new Vinci(app, app.clientWidth, app.clientHeight);
 
     const data = {
         elements:[
