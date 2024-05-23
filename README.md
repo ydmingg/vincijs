@@ -1,21 +1,21 @@
-# vinciJS
+# vincijs
 
 ## 简介
 
-vinciJS 是一个基于 [KonvaJS](https://github.com/konvajs/konva) 的免费开源的2D图形渲染器。使用了最新的主流技术开发，开箱即用。
+vinciJS 是一个基于 [vincijs](https://github.com/konvajs/konva) 的免费开源的2D图形渲染器。使用了最新的主流技术开发，开箱即用。
 
 
 ## 使用
 
-- `git clone git@github.com:ydmingg/vinciJS.git`
-- `cd vinciJS`
+- `git clone git@github.com:ydmingg/vincijs.git`
+- `cd vincijs`
 - `npm install`
 - `npm run dev`
 
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/ydmingg/vinciJS/issues/new) 或者提交一个 Pull
+非常欢迎你的加入！[提一个 Issue](https://github.com/ydmingg/vincijs/issues/new) 或者提交一个 Pull
 Request。
 
 **Pull Request:**
