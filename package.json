@@ -1,6 +1,6 @@
 {
 	"name": "vincijs",
-	"version": "1.5.2301",
+	"version": "1.5.2401",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
