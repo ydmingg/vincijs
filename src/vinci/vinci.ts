@@ -141,9 +141,10 @@ export class Vinci {
 
   centerContent(opts?: { data?: Data }) {
     const data = opts?.data || this.#core.getData();
+    
     const { viewSizeInfo } = this.getViewInfo();
     if ((Array.isArray(data) && data.length > 0)) {
-      const result = calcViewCenterContent(data!, { viewSizeInfo });
+      const result = calcViewCenterContent(data, { viewSizeInfo });
       this.setViewScale(result);
     }
   }
