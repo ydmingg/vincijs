@@ -52,6 +52,7 @@ export interface ViewCalculator {
     p: Point,
     opts: { data: Data; viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo; groupQueue?: Element<'group'>[] }
   ): { index: number; element: null | Element<ElementType>; groupQueueIndex: number };
+
   resetViewVisibleInfoMap(
     data: Data,
     opts: {
@@ -59,6 +60,7 @@ export interface ViewCalculator {
       viewSizeInfo: ViewSizeInfo;
     }
   ): void;
+  
   updateVisiableStatus(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): void;
   calcViewRectInfoFromOrigin(
     uuid: string,

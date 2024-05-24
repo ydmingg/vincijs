@@ -161,6 +161,7 @@ export function getPointTarget(
   // over-element
   if (data) {
     const { index, element } = calculator.getPointElement(p as Point, { data, viewScaleInfo, viewSizeInfo });
+    
     if (index >= 0 && element && element?.operations?.invisible !== true) {
       target.elements = [element];
       target.type = 'over-element';
@@ -865,7 +866,7 @@ export function getSelectedListArea(
   const elements: Element<ElementType>[] = [];
   const { viewScaleInfo, viewSizeInfo, start, end } = opts;
 
-  if (!(Array.isArray(data.elements) && start && end)) {
+  if (!(Array.isArray(data) && start && end)) {
     return { indexes, uuids, elements };
   }
   const startX = Math.min(start.x, end.x);
@@ -873,12 +874,12 @@ export function getSelectedListArea(
   const startY = Math.min(start.y, end.y);
   const endY = Math.max(start.y, end.y);
 
-  for (let idx = 0; idx < data.elements.length; idx++) {
-    const elem = data.elements[idx];
+  for (let idx = 0; idx < data.length; idx++) {
+    const elem = data[idx];
     if (elem?.operations?.lock === true) {
       continue;
     }
-    const elemSize = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo });
+    const elemSize = calcViewElementSize(elem, { viewScaleInfo });
 
     const center = calcElementCenter(elemSize);
     if (center.x >= startX && center.x <= endX && center.y >= startY && center.y <= endY) {
@@ -922,7 +923,7 @@ export function calcSelectedElementsArea(
     if (elem?.operations?.invisible) {
       continue;
     }
-    const elemSize = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo });
+    const elemSize = calcViewElementSize(elem, { viewScaleInfo });
 
     if (elemSize.angle && (elemSize.angle > 0 || elemSize.angle < 0)) {
       const ves = rotateElementVertexes(elemSize);

@@ -76,8 +76,9 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
       modifiedOptions?: ModifyOptions;
     }
   ) {
-    validateElements(data?.elements || []);
+    validateElements(data || []);
     this.#board.setData(data, opts);
+    
   }
 
   getData(): Data | null {

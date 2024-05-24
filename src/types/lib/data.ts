@@ -16,11 +16,14 @@ export type DataLayout = Pick<ElementSize, 'x' | 'y' | 'w' | 'h'> & {
     disabledBottomRight?: boolean;
   };
 };
-export interface Data<E extends Record<string, any> = Record<string, any>> {
-  elements: Element<ElementType, E>[];
-  assets?: ElementAssets;
-  layout?: DataLayout;
-}
+// export interface Data<E extends Record<string, any> = Record<string, any>> {
+//   elements: Element<ElementType, E>[];
+//   assets?: ElementAssets;
+//   layout?: DataLayout;
+// }
+// 定义Data的类型是一个数组
+export type Data<E extends Record<string, any> = Record<string, any>> = Element<ElementType, E>[]
+
 
 export type Matrix = [
   number,

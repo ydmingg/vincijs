@@ -51,7 +51,7 @@ export function getSelectedElementUUIDs(data: Data, indexes: Array<number | stri
   return uuids;
 }
 
-export function validateElements(elements: Array<Element<ElementType>>): boolean {
+export function validateElements(elements: Array<Element<ElementType>>): boolean {  
   let isValid = true;
   if (Array.isArray(elements)) {
     const uuids: string[] = [];

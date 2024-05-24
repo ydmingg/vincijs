@@ -95,6 +95,7 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
   ): void {
     if (data) {
       this.#opts.calculator.resetViewVisibleInfoMap(data, opts);
+      
     }
   }
 

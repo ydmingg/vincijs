@@ -277,11 +277,12 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     const viewSizeInfo = sharer.getActiveViewSizeInfo();
     const viewScaleInfo = sharer.getActiveViewScaleInfo();
     // const currentScaleInfo = sharer.getActiveViewScaleInfo();
-    const newViewContextSize = calcElementsContextSize(data.elements, {
+    const newViewContextSize = calcElementsContextSize(data, {
       viewWidth: viewSizeInfo.width,
       viewHeight: viewSizeInfo.height,
       extend: true
     });
+    
     if (modifiedOptions) {
       // TODO
       // this.#viewer.modifyViewVisibleInfoMap(data, {

@@ -92,7 +92,7 @@ export class Calculator implements ViewCalculator {
     }
   ): void {
     if (data) {
-      const { viewVisibleInfoMap, invisibleCount, visibleCount } = sortElementsViewVisiableInfoMap(data.elements, opts);
+      const { viewVisibleInfoMap, invisibleCount, visibleCount } = sortElementsViewVisiableInfoMap(data, opts);
       this.#store.set('viewVisibleInfoMap', viewVisibleInfoMap);
       this.#store.set('invisibleCount', invisibleCount);
       this.#store.set('visibleCount', visibleCount);

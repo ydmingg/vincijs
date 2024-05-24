@@ -83,7 +83,7 @@ export function viewScroll(opts: { moveX?: number; moveY?: number; viewScaleInfo
   };
 }
 
-export function calcViewElementSize(size: ElementSize, opts: { viewScaleInfo: ViewScaleInfo }): ElementSize {
+export function calcViewElementSize(size: ElementSize, opts: { viewScaleInfo: ViewScaleInfo}): ElementSize {
   const { viewScaleInfo } = opts;
   const { x, y, w, h, angle } = size;
   const { scale, offsetTop, offsetLeft } = viewScaleInfo;
