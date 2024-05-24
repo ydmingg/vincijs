@@ -206,8 +206,8 @@ export class Vinci {
 
   updateElement(element: Element) {
     const core = this.#core;
-    const data: Data = core.getData() || { elements: [] };
-    updateElementInList(element.uuid, element, data.elements);
+    const data: Data = core.getData() || [];
+    updateElementInList(element.uuid, element, data);
     core.setData(data);
     core.refresh();
     core.trigger(eventKeys.change, { data, type: 'updateElement' });
@@ -220,12 +220,12 @@ export class Vinci {
     }
   ): Data {
     const core = this.#core;
-    const data: Data = core.getData() || { elements: [] };
+    const data: Data = core.getData() || [];
     if (!opts || !opts?.position?.length) {
-      data.elements.push(element);
+      data.push(element);
     } else if (opts?.position) {
       const position = [...opts?.position];
-      insertElementToListByPosition(element, position, data.elements);
+      insertElementToListByPosition(element, position, data);
     }
     core.setData(data);
     core.refresh();
@@ -235,8 +235,8 @@ export class Vinci {
 
   deleteElement(uuid: string) {
     const core = this.#core;
-    const data: Data = core.getData() || { elements: [] };
-    deleteElementInList(uuid, data.elements);
+    const data: Data = core.getData() || [];
+    deleteElementInList(uuid, data);
     core.setData(data);
     core.refresh();
     core.trigger(eventKeys.change, { data, type: 'deleteElement' });
@@ -244,20 +244,20 @@ export class Vinci {
 
   moveElement(uuid: string, to: ElementPosition) {
     const core = this.#core;
-    const data: Data = core.getData() || { elements: [] };
-    const from = getElementPositionFromList(uuid, data.elements);
-    const { elements: list } = moveElementPosition(data.elements, { from, to });
-    data.elements = list;
+    let data: Data = core.getData() || [];
+    const from = getElementPositionFromList(uuid, data);
+    const list = moveElementPosition(data, { from, to });
+    data = list.elements;
     core.setData(data);
     core.refresh();
     core.trigger(eventKeys.change, { data, type: 'moveElement' });
   }
 
   async getImageBlobURL(opts: ExportImageFileBaseOptions): Promise<ExportImageFileResult> {
-    const data = this.getData() || { elements: [] };
+    const data = this.getData() || [];
     const { devicePixelRatio } = opts;
 
-    const outputSize = calcElementListSize(data.elements);
+    const outputSize = calcElementListSize(data);
     const { viewSizeInfo } = this.getViewInfo();
     return await exportImageFileBlobURL({
       width: outputSize.w,

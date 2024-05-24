@@ -5,10 +5,12 @@ import { drawElement } from './group';
 const defaultDetail = getDefaultElementDetailConfig();
 
 export function drawElementList(ctx: ViewContext2D, data: Data, opts: RendererDrawElementOptions) {
-  const { elements = [] } = data;
+  console.log(data);
+  
+  // const { elements = [] } = data;
   const { parentOpacity } = opts;
-  for (let i = 0; i < elements.length; i++) {
-    const element = elements[i];
+  for (let i = 0; i < data.length; i++) {
+    const element = data[i];
     const elem = {
       ...element,
       ...{

@@ -141,10 +141,10 @@ export const Demo = () => {
 
 
     // 渲染元素
-    // vinci.addElement(signIn)
+    vinci.addElement(signIn)
 
     // 居中
-    // vinci.centerContent();
+    vinci.centerContent();
 }
 
 

@@ -62,21 +62,23 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
     //     ...opts
     //   });
     // }
+    
     const drawOpts = {
       loader,
       calculator,
       parentElementSize,
-      elementAssets: data.assets,
+      // elementAssets: data.assets,
       parentOpacity: 1,
       ...opts
     };
-    if (data.layout) {
-      drawLayout(viewContext, data.layout as DataLayout, drawOpts, () => {
-        drawElementList(viewContext, data, drawOpts);
-      });
-    } else {
-      drawElementList(viewContext, data, drawOpts);
-    }
+    // if (data.layout) {
+    //   drawLayout(viewContext, data.layout as DataLayout, drawOpts, () => {
+    //     drawElementList(viewContext, data, drawOpts);
+    //   });
+    // } else {
+    //   drawElementList(viewContext, data, drawOpts);
+    // }
+    drawElementList(viewContext, data, drawOpts);
   }
 
   scale(num: number) {

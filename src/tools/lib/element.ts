@@ -37,14 +37,14 @@ function getGroupUUIDs(elements: Array<Element<ElementType>>, index: string): st
 
 export function getSelectedElementUUIDs(data: Data, indexes: Array<number | string>): string[] {
   let uuids: string[] = [];
-  if (Array.isArray(data?.elements) && data?.elements?.length > 0 && Array.isArray(indexes) && indexes.length > 0) {
+  if (Array.isArray(data) && data.length > 0 && Array.isArray(indexes) && indexes.length > 0) {
     indexes.forEach((idx: number | string) => {
       if (typeof idx === 'number') {
-        if (data?.elements?.[idx]) {
-          uuids.push(data.elements[idx].uuid);
+        if (data[idx]) {
+          uuids.push(data[idx].uuid);
         }
       } else if (typeof idx === 'string') {
-        uuids = uuids.concat(getGroupUUIDs(data.elements, idx));
+        uuids = uuids.concat(getGroupUUIDs(data, idx));
       }
     });
   }
