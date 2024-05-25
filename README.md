@@ -15,8 +15,7 @@ vincijs 是一个基于 [vincijs](https://github.com/konvajs/konva) 的免费开
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/ydmingg/vincijs/issues/new) 或者提交一个 Pull
-Request。
+非常欢迎你的加入！[提一个 Issue](https://github.com/ydmingg/vincijs/issues/new) 或者提交一个 Pull Request。
 
 **Pull Request:**
 
