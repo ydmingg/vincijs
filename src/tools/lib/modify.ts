@@ -9,25 +9,25 @@ export function modifyElement<T extends ModifyType = ModifyType>(data: Data, opt
     const opts: ModifyOptions<'addElement'> = options as ModifyOptions<'addElement'>;
     const { element, position } = opts.content;
     if (position?.length > 0) {
-      insertElementToListByPosition(element, [...position], data.elements);
+      insertElementToListByPosition(element, [...position], data);
     } else {
-      data.elements.push(element);
+      data.push(element);
     }
   } else if (type === 'deleteElement') {
     const opts: ModifyOptions<'deleteElement'> = options as ModifyOptions<'deleteElement'>;
     const { position } = opts.content;
-    deleteElementInListByPosition(position, data.elements);
+    deleteElementInListByPosition(position, data);
   } else if (type === 'moveElement') {
     const opts: ModifyOptions<'moveElement'> = options as ModifyOptions<'moveElement'>;
     const { from, to } = opts.content;
-    const movedResult = moveElementPosition(data.elements, { from, to });
+    const movedResult = moveElementPosition(data, { from, to });
     (content as ModifyContentMap['moveElement']).from = movedResult.from;
     (content as ModifyContentMap['moveElement']).to = movedResult.to;
-    data.elements = movedResult.elements;
+    data = movedResult.elements;
   } else if (type === 'updateElement') {
     const opts: ModifyOptions<'updateElement'> = options as ModifyOptions<'updateElement'>;
     const { position, afterModifiedElement } = opts.content;
-    updateElementInListByPosition(position, afterModifiedElement, data.elements);
+    updateElementInListByPosition(position, afterModifiedElement, data);
   }
   return { data, content };
 }

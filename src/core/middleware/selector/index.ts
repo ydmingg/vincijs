@@ -133,7 +133,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         viewScaleInfo: sharer.getActiveViewScaleInfo()
       });
       sharer.setSharedStorage(keySelectedElementController, controller);
-      sharer.setSharedStorage(keySelectedElementPosition, getElementPositionFromList(list[0].uuid, sharer.getActiveStorage('data')?.elements || []));
+      sharer.setSharedStorage(keySelectedElementPosition, getElementPositionFromList(list[0].uuid, sharer.getActiveStorage('data') || []));
     } else {
       sharer.setSharedStorage(keySelectedElementController, null);
       sharer.setSharedStorage(keySelectedElementPosition, []);
@@ -185,9 +185,9 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
     const actionType = sharer.getSharedStorage(keyActionType);
     const data = sharer.getActiveStorage('data');
     if (positions && Array.isArray(positions)) {
-      elements = findElementsFromListByPositions(positions, data?.elements || []);
+      elements = findElementsFromListByPositions(positions, data || []);
     } else {
-      elements = findElementsFromList(uuids, data?.elements || []);
+      elements = findElementsFromList(uuids, data || []);
     }
 
     let needRefresh = false;
@@ -201,7 +201,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
     }
     if (needRefresh) {
       const elem = elements[0];
-      const groupQueue = getGroupQueueFromList(elem.uuid, data?.elements || []);
+      const groupQueue = getGroupQueueFromList(elem.uuid, data || []);
       sharer.setSharedStorage(keyGroupQueue, groupQueue);
       updateSelectedElementList(elements);
       viewer.drawFrame();
@@ -497,7 +497,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
                   type: 'updateElement',
                   content: {
                     element: elem,
-                    position: getElementPositionFromList(elem.uuid, data.elements) || []
+                    position: getElementPositionFromList(elem.uuid, data) || []
                   }
                 },
                 viewSizeInfo,
@@ -660,8 +660,8 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         if (!needDrawFrame) {
           return;
         }
-        if (data && Array.isArray(data?.elements) && (['drag', 'drag-list'] as ActionType[]).includes(actionType)) {
-          const viewInfo = calcElementsViewInfo(data.elements, viewSizeInfo, { extend: true });
+        if (data && Array.isArray(data) && (['drag', 'drag-list'] as ActionType[]).includes(actionType)) {
+          const viewInfo = calcElementsViewInfo(data, viewSizeInfo, { extend: true });
           sharer.setActiveStorage('contextHeight', viewInfo.contextSize.contextHeight);
           sharer.setActiveStorage('contextWidth', viewInfo.contextSize.contextWidth);
         }
@@ -709,7 +709,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         eventHub.trigger(middlewareEventTextEdit, {
           element: target.elements[0],
           groupQueue: sharer.getSharedStorage(keyGroupQueue) || [],
-          position: getElementPositionFromList(target.elements[0]?.uuid, sharer.getActiveStorage('data')?.elements || []),
+          position: getElementPositionFromList(target.elements[0]?.uuid, sharer.getActiveStorage('data') || []),
           viewScaleInfo: sharer.getActiveViewScaleInfo()
         });
       }

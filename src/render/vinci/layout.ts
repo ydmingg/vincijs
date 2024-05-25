@@ -5,7 +5,7 @@ import { drawBoxShadow, drawBoxBackground, drawBoxBorder } from './box';
 export function drawLayout(ctx: ViewContext2D, layout: DataLayout, opts: RendererDrawElementOptions, renderContent: (ctx: ViewContext2D) => void) {
   const { viewScaleInfo, viewSizeInfo, parentOpacity } = opts;
   const elem: Element = { uuid: 'layout', type: 'group', ...layout };
-  const { x, y, w, h } = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo }) || elem;
+  const { x, y, w, h } = calcViewElementSize(elem, { viewScaleInfo }) || elem;
   const angle = 0;
   const viewElem: Element = { ...elem, ...{ x, y, w, h, angle } } as Element;
   ctx.globalAlpha = 1;

@@ -5,7 +5,7 @@ import { drawBox, drawBoxShadow, getOpacity } from './box';
 export function drawImage(ctx: ViewContext2D, elem: Element<'image'>, opts: RendererDrawElementOptions) {
   const content = opts.loader.getContent(elem);
   const { viewScaleInfo, viewSizeInfo, parentOpacity } = opts;
-  const { x, y, w, h, angle } = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo }) || elem;
+  const { x, y, w, h, angle } = calcViewElementSize(elem, { viewScaleInfo }) || elem;
 
   const viewElem = { ...elem, ...{ x, y, w, h, angle } };
   rotateElement(ctx, { x, y, w, h, angle }, () => {

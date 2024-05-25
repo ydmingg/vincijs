@@ -82,7 +82,7 @@ export function calcReferenceInfo(
   }
 ) {
   const { data, groupQueue, calculator, viewScaleInfo, viewSizeInfo } = opts;
-  let targetElements: Element[] = data.elements || [];
+  let targetElements: Element[] = data || [];
   if (groupQueue?.length > 0) {
     targetElements = (groupQueue[groupQueue.length - 1] as Element<'group'>)?.detail?.children || [];
   }

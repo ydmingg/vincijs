@@ -184,14 +184,14 @@ export class Calculator implements ViewCalculator {
   ): void {
     const { modifyOptions, viewScaleInfo, viewSizeInfo } = opts;
     const { type, content } = modifyOptions;
-    const list = data.elements;
+    const list = data;
     const viewVisibleInfoMap = this.#store.get('viewVisibleInfoMap');
     if (type === 'deleteElement') {
       const { element } = content as ModifyOptions<'deleteElement'>['content'];
       delete viewVisibleInfoMap[element.uuid];
     } else if (type === 'addElement' || type === 'updateElement') {
       const { position } = content as ModifyOptions<'addElement'>['content'];
-      const element = findElementFromListByPosition(position, data.elements);
+      const element = findElementFromListByPosition(position, data);
       const groupQueue = getGroupQueueByElementPosition(list, position);
       if (element) {
         const originRectInfo = calcElementOriginRectInfo(element, {

@@ -160,7 +160,9 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     textarea.style.background = '#FFFFFF';
     textarea.style.color = '#333333';
     textarea.style.fontSize = `${detail.fontSize * scale}px`;
-    textarea.style.lineHeight = `${detail.lineHeight * scale}px`;
+    if(detail.lineHeight){
+      textarea.style.lineHeight = `${detail.lineHeight * scale}px`;
+    }
     textarea.style.fontFamily = detail.fontFamily;
     textarea.style.fontWeight = `${detail.fontWeight}`;
     textarea.style.padding = '0';

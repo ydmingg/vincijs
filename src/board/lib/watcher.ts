@@ -208,8 +208,8 @@ export function getPointResult(p: Point, data: Data): PointResult {
     index: -1,
     element: null
   };
-  for (let i = 0; i < data.elements.length; i++) {
-    const elem = data.elements[i];
+  for (let i = 0; i < data.length; i++) {
+    const elem = data[i];
     if (p.x >= elem.x && p.x <= elem.x + elem.w && p.y >= elem.y && p.y <= elem.y + elem.h) {
       result.index = i;
       result.element = elem;

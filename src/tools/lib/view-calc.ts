@@ -247,8 +247,8 @@ export function getViewPointAtElement(
     return result;
   }
 
-  for (let i = data.elements.length - 1; i >= 0; i--) {
-    const elem = data.elements[i];
+  for (let i = data.length - 1; i >= 0; i--) {
+    const elem = data[i];
     if (elem?.operations?.invisible === true) {
       continue;
     }
