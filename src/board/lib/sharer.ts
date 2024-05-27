@@ -4,6 +4,7 @@ import { Store } from '../../tools';
 const defaultActiveStorage: ActiveStore = {
   width: 0,
   height: 0,
+  background:"#000",
   devicePixelRatio: 1,
   contextWidth: 0,
   contextHeight: 0,
@@ -81,6 +82,7 @@ export class Sharer implements StoreSharer<Record<string | number | symbol, any>
   setActiveViewSizeInfo(size: ViewSizeInfo) {
     this.#activeStore.set('width', size.width);
     this.#activeStore.set('height', size.height);
+    this.#activeStore.set('background', size.background);
     this.#activeStore.set('devicePixelRatio', size.devicePixelRatio);
     this.#activeStore.set('contextWidth', size.contextWidth);
     this.#activeStore.set('contextHeight', size.contextHeight);
@@ -90,6 +92,7 @@ export class Sharer implements StoreSharer<Record<string | number | symbol, any>
     const sizeInfo: ViewSizeInfo = {
       width: this.#activeStore.get('width'),
       height: this.#activeStore.get('height'),
+      background: this.#activeStore.get('background'),
       devicePixelRatio: this.#activeStore.get('devicePixelRatio'),
       contextWidth: this.#activeStore.get('contextWidth'),
       contextHeight: this.#activeStore.get('contextHeight')

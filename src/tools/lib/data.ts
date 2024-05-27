@@ -102,7 +102,7 @@ export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
     });
   };
 
-  _scanElements(sortedData.elements);
+  // _scanElements(sortedData.elements);
   sortedData.assets = assets;
   return sortedData;
 }

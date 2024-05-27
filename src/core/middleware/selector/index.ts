@@ -718,11 +718,11 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
 
     beforeDrawFrame({ snapshot }) {
       const { activeStore, sharedStore } = snapshot;
-      const { scale, offsetLeft, offsetTop, offsetRight, offsetBottom, width, height, contextHeight, contextWidth, devicePixelRatio } = activeStore;
+      const { scale, offsetLeft, offsetTop, offsetRight, offsetBottom, width, height, background, contextHeight, contextWidth, devicePixelRatio } = activeStore;
 
       const sharer = opts.sharer;
       const viewScaleInfo = { scale, offsetLeft, offsetTop, offsetRight, offsetBottom };
-      const viewSizeInfo = { width, height, contextHeight, contextWidth, devicePixelRatio };
+      const viewSizeInfo = { width, height, contextHeight, contextWidth, background, devicePixelRatio };
       const selectedElements = sharedStore[keySelectedElementList];
       const elem = selectedElements[0];
       const hoverElement: Element = sharedStore[keyHoverElement] as Element;
