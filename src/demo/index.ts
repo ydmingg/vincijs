@@ -73,7 +73,7 @@ export const Demo = () => {
     // }
     const data1 = [
         {   
-            id: "0131202page1",
+            id: "013120d2page1",
             name: "page1",
             title: "页面1",
             type: "group",
@@ -89,7 +89,7 @@ export const Demo = () => {
             }
         },
         {   
-            id: "0131202page1",
+            id: "0131202psage1",
             name: "page1",
             title: "页面1",
             type: "group",
@@ -121,7 +121,7 @@ export const Demo = () => {
             }
         },
         {   
-            id: "0131202rect1",
+            id: "0131202rectd1",
             name: "rect1",
             title: "矩形",
             x: 100,
@@ -139,17 +139,17 @@ export const Demo = () => {
             }
         },
         {   
-            id: "0131202text1",
+            id: "0131202texd1",
             name: "text1",
             title: "文字",
             x: 50,
             y: 300,
-            w: 140,
+            w: 300,
             h: 40,
             angle: 0,
             type: "text",
             detail: {
-                text: "Piksel",
+                text: "Piksel 协同设计",
                 color: "black",
                 fontSize: 40,
                 fontFamily: "DM Sans",
