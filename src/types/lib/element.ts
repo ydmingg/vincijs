@@ -139,6 +139,7 @@ export interface ElementPathDetail extends ElementBaseDetail {
   strokeLineCap?: 'butt' | 'round' | 'square';
 }
 
+
 export interface ElementDetailMap {
   rect: ElementRectDetail;
   circle: ElementCircleDetail;

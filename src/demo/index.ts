@@ -202,6 +202,10 @@ export const Demo = () => {
     vinci.disable('info')
     vinci.disable('ruler')
 
+    /**************** 标注点 ******************/
+    
+    // vinci.addElement()
+
 }
 
 

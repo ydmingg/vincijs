@@ -87,7 +87,7 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
       // TODO
       return;
     }
-    const { data, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth, devicePixelRatio } =
+    const { data, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth,background, devicePixelRatio } =
       sharer.getActiveStoreSnapshot();
     if (data) {
       this.drawData(data, {
@@ -103,6 +103,7 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
           height,
           contextHeight,
           contextWidth,
+          background,
           devicePixelRatio
         }
       });
