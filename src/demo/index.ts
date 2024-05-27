@@ -1,5 +1,5 @@
 import { Vinci } from "../vinci/index";
-import { signIn } from "./data";
+import { signIn,svgData } from "./data";
 
 export const Demo = () => { 
     const app = document.querySelector("#app") as HTMLDivElement;
@@ -163,12 +163,10 @@ export const Demo = () => {
     
     ]
 
-
-    vinci.setData(data1)
-
-
     // 渲染元素
-    // vinci.addElement(signIn)
+    vinci.setData(data1)
+    // 插入元素
+    vinci.addElement(svgData)
     // 居中
     vinci.centerContent();
     // 获取data
