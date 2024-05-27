@@ -1,5 +1,5 @@
 import type { Data, ElementAssets, Elements, ElementType, Element, LoadItemMap } from '../../types';
-import { createAssetId, createUUID, isAssetId } from './uuid';
+import { createAssetId, createid, isAssetId } from './id';
 
 export function deepClone<T = any>(target: T): T {
   function _clone(t: T) {
@@ -30,15 +30,15 @@ export function deepClone<T = any>(target: T): T {
 
 export function deepCloneElement<T extends Element = Element>(element: T): T {
   const elem = deepClone(element);
-  const _resetUUID = (e: Element) => {
-    e.uuid = createUUID();
+  const _resetid = (e: Element) => {
+    e.id = createid();
     if (e.type === 'group' && (e as Element<'group'>).detail.children) {
       (e as Element<'group'>).detail.children.forEach((child) => {
-        _resetUUID(child);
+        _resetid(child);
       });
     }
   };
-  _resetUUID(elem);
+  _resetid(elem);
   return elem;
 }
 
@@ -59,34 +59,34 @@ export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
     elems.forEach((elem: Element<ElementType>) => {
       if (elem.type === 'image' && (elem as Element<'image'>).detail.src) {
         const src = (elem as Element<'image'>).detail.src;
-        const assetUUID = createAssetId(src);
-        if (!assets[assetUUID]) {
-          assets[assetUUID] = {
+        const assetid = createAssetId(src);
+        if (!assets[assetid]) {
+          assets[assetid] = {
             type: 'image',
             value: src
           };
         }
-        (elem as Element<'image'>).detail.src = assetUUID;
+        (elem as Element<'image'>).detail.src = assetid;
       } else if (elem.type === 'svg') {
         const svg = (elem as Element<'svg'>).detail.svg;
-        const assetUUID = createAssetId(svg);
-        if (!assets[assetUUID]) {
-          assets[assetUUID] = {
+        const assetid = createAssetId(svg);
+        if (!assets[assetid]) {
+          assets[assetid] = {
             type: 'svg',
             value: svg
           };
         }
-        (elem as Element<'svg'>).detail.svg = assetUUID;
+        (elem as Element<'svg'>).detail.svg = assetid;
       } else if (elem.type === 'html') {
         const html = (elem as Element<'html'>).detail.html;
-        const assetUUID = createAssetId(html);
-        if (!assets[assetUUID]) {
-          assets[assetUUID] = {
+        const assetid = createAssetId(html);
+        if (!assets[assetid]) {
+          assets[assetid] = {
             type: 'html',
             value: html
           };
         }
-        (elem as Element<'html'>).detail.html = assetUUID;
+        (elem as Element<'html'>).detail.html = assetid;
       } else if (elem.type === 'group' && Array.isArray((elem as Element<'group'>).detail.children)) {
         const groupAssets = (elem as Element<'group'>).detail.assets || {};
         Object.keys(groupAssets).forEach((assetId) => {
@@ -120,14 +120,14 @@ export function filterCompactData(data: Data, opts?: { loadItemMap?: LoadItemMap
             value: loadItemMap[src].source as string
           };
         } else if (!assets[src]) {
-          const assetUUID = createAssetId(src);
-          if (!assets[assetUUID]) {
-            assets[assetUUID] = {
+          const assetid = createAssetId(src);
+          if (!assets[assetid]) {
+            assets[assetid] = {
               type: 'image',
               value: src
             };
           }
-          (elem as Element<'image'>).detail.src = assetUUID;
+          (elem as Element<'image'>).detail.src = assetid;
         }
       } else if (elem.type === 'svg') {
         const svg = (elem as Element<'svg'>).detail.svg;
@@ -138,14 +138,14 @@ export function filterCompactData(data: Data, opts?: { loadItemMap?: LoadItemMap
             value: loadItemMap[svg].source as string
           };
         } else if (!assets[svg]) {
-          const assetUUID = createAssetId(svg);
-          if (!assets[assetUUID]) {
-            assets[assetUUID] = {
+          const assetid = createAssetId(svg);
+          if (!assets[assetid]) {
+            assets[assetid] = {
               type: 'svg',
               value: svg
             };
           }
-          (elem as Element<'svg'>).detail.svg = assetUUID;
+          (elem as Element<'svg'>).detail.svg = assetid;
         }
       } else if (elem.type === 'html') {
         const html = (elem as Element<'html'>).detail.html;
@@ -156,14 +156,14 @@ export function filterCompactData(data: Data, opts?: { loadItemMap?: LoadItemMap
             value: loadItemMap[html].source as string
           };
         } else if (!assets[html]) {
-          const assetUUID = createAssetId(html);
-          if (!assets[assetUUID]) {
-            assets[assetUUID] = {
+          const assetid = createAssetId(html);
+          if (!assets[assetid]) {
+            assets[assetid] = {
               type: 'html',
               value: html
             };
           }
-          (elem as Element<'html'>).detail.html = assetUUID;
+          (elem as Element<'html'>).detail.html = assetid;
         }
       } else if (elem.type === 'group' && Array.isArray((elem as Element<'group'>).detail.children)) {
         const groupAssets = (elem as Element<'group'>).detail.assets || {};

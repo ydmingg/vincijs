@@ -165,12 +165,12 @@ export class Vinci {
     this.#core.trigger(name, e);
   }
 
-  selectElement(uuid: string) {
-    this.selectElements([uuid]);
+  selectElement(id: string) {
+    this.selectElements([id]);
   }
 
-  selectElements(uuids: string[]) {
-    this.trigger(eventKeys.select, { uuids });
+  selectElements(ids: string[]) {
+    this.trigger(eventKeys.select, { ids });
   }
 
   selectElementByPosition(position: ElementPosition) {
@@ -182,7 +182,7 @@ export class Vinci {
   }
 
   cancelElements() {
-    this.trigger(eventKeys.select, { uuids: [] });
+    this.trigger(eventKeys.select, { ids: [] });
   }
 
   createElement<T extends ElementType>(
@@ -208,7 +208,7 @@ export class Vinci {
   updateElement(element: Element) {
     const core = this.#core;
     const data: Data = core.getData() || [];
-    updateElementInList(element.uuid, element, data);
+    updateElementInList(element.id, element, data);
     core.setData(data);
     core.refresh();
     core.trigger(eventKeys.change, { data, type: 'updateElement' });
@@ -234,19 +234,19 @@ export class Vinci {
     return data;
   }
 
-  deleteElement(uuid: string) {
+  deleteElement(id: string) {
     const core = this.#core;
     const data: Data = core.getData() || [];
-    deleteElementInList(uuid, data);
+    deleteElementInList(id, data);
     core.setData(data);
     core.refresh();
     core.trigger(eventKeys.change, { data, type: 'deleteElement' });
   }
 
-  moveElement(uuid: string, to: ElementPosition) {
+  moveElement(id: string, to: ElementPosition) {
     const core = this.#core;
     let data: Data = core.getData() || [];
-    const from = getElementPositionFromList(uuid, data);
+    const from = getElementPositionFromList(id, data);
     const list = moveElementPosition(data, { from, to });
     data = list.elements;
     core.setData(data);

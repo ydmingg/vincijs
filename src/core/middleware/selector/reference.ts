@@ -72,7 +72,7 @@ const getClosestNumInSortedKeys = (sortedKeys: number[], target: number) => {
 const isEqualNum = (a: number, b: number) => Math.abs(a - b) < 0.00001;
 
 export function calcReferenceInfo(
-  uuid: string,
+  id: string,
   opts: {
     data: Data;
     groupQueue: Element<'group'>[];
@@ -88,15 +88,15 @@ export function calcReferenceInfo(
   }
   const siblingViewRectInfoList: ViewRectInfo[] = [];
   targetElements.forEach((elem: Element) => {
-    if (elem.uuid !== uuid) {
-      const info = calculator.calcViewRectInfoFromRange(elem.uuid, { checkVisible: true, viewScaleInfo, viewSizeInfo });
+    if (elem.id !== id) {
+      const info = calculator.calcViewRectInfoFromRange(elem.id, { checkVisible: true, viewScaleInfo, viewSizeInfo });
       if (info) {
         siblingViewRectInfoList.push(info);
       }
     }
   });
 
-  const targetRectInfo = calculator.calcViewRectInfoFromRange(uuid, { viewScaleInfo, viewSizeInfo });
+  const targetRectInfo = calculator.calcViewRectInfoFromRange(id, { viewScaleInfo, viewSizeInfo });
 
   if (!targetRectInfo) {
     return null;

@@ -12,7 +12,7 @@ type TextEditEvent = {
 
 type TextChangeEvent = {
   element: {
-    uuid: string;
+    id: string;
     detail: {
       text: string;
     };
@@ -197,7 +197,7 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
       activeElem.detail.text = textarea.innerText || '';
       eventHub.trigger(middlewareEventTextChange, {
         element: {
-          uuid: activeElem.uuid,
+          id: activeElem.id,
           detail: {
             text: activeElem.detail.text
           }
@@ -211,7 +211,7 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     if (activeElem && activePosition) {
       eventHub.trigger(middlewareEventTextChange, {
         element: {
-          uuid: activeElem.uuid,
+          id: activeElem.id,
           detail: {
             text: activeElem.detail.text
           }

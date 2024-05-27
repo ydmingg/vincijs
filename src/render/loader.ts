@@ -1,5 +1,5 @@
 import type { RendererLoader, LoaderEventMap, LoadFunc, LoadContent, LoadItem, LoadItemMap, LoadElementType, Element, ElementAssets } from '../types';
-import { loadImage, loadHTML, loadSVG, EventEmitter, createAssetId, isAssetId, createUUID } from '../tools';
+import { loadImage, loadHTML, loadSVG, EventEmitter, createAssetId, isAssetId, createid } from '../tools';
 
 const supportElementTypes: LoadElementType[] = ['image', 'svg', 'html'];
 
@@ -18,7 +18,7 @@ const getAssetIdFromElement = (element: Element<'image' | 'svg' | 'html'>) => {
     }
     return createAssetId(source);
   }
-  return createAssetId(`${createUUID()}-${element.uuid}-${createUUID()}-${createUUID()}`);
+  return createAssetId(`${createid()}-${element.id}-${createid()}-${createid()}`);
 };
 
 export class Loader extends EventEmitter<LoaderEventMap> implements RendererLoader {
@@ -33,7 +33,7 @@ export class Loader extends EventEmitter<LoaderEventMap> implements RendererLoad
       const src = assets[elem.detail.src]?.value || elem.detail.src;
       const content = await loadImage(src);
       return {
-        uuid: elem.uuid,
+        id: elem.id,
         lastModified: Date.now(),
         content
       };
@@ -45,7 +45,7 @@ export class Loader extends EventEmitter<LoaderEventMap> implements RendererLoad
         height: elem.detail.originH || elem.h
       });
       return {
-        uuid: elem.uuid,
+        id: elem.id,
         lastModified: Date.now(),
         content
       };
@@ -54,7 +54,7 @@ export class Loader extends EventEmitter<LoaderEventMap> implements RendererLoad
       const svg = assets[elem.detail.svg]?.value || elem.detail.svg;
       const content = await loadSVG(svg);
       return {
-        uuid: elem.uuid,
+        id: elem.id,
         lastModified: Date.now(),
         content
       };

@@ -63,7 +63,7 @@ export interface ViewCalculator {
   
   updateVisiableStatus(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): void;
   calcViewRectInfoFromOrigin(
-    uuid: string,
+    id: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
@@ -71,7 +71,7 @@ export interface ViewCalculator {
     }
   ): ViewRectInfo | null;
   calcViewRectInfoFromRange(
-    uuid: string,
+    id: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
@@ -124,5 +124,5 @@ export type ViewVisibleInfo = ViewRectInfoMap & {
 };
 
 export type ViewVisibleInfoMap = {
-  [uuid: string]: ViewVisibleInfo;
+  [id: string]: ViewVisibleInfo;
 };

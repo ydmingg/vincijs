@@ -133,14 +133,14 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         viewScaleInfo: sharer.getActiveViewScaleInfo()
       });
       sharer.setSharedStorage(keySelectedElementController, controller);
-      sharer.setSharedStorage(keySelectedElementPosition, getElementPositionFromList(list[0].uuid, sharer.getActiveStorage('data') || []));
+      sharer.setSharedStorage(keySelectedElementPosition, getElementPositionFromList(list[0].id, sharer.getActiveStorage('data') || []));
     } else {
       sharer.setSharedStorage(keySelectedElementController, null);
       sharer.setSharedStorage(keySelectedElementPosition, []);
     }
 
     if (opts?.triggerEvent === true) {
-      eventHub.trigger(middlewareEventSelect, { uuids: list.map((elem) => elem.uuid) });
+      eventHub.trigger(middlewareEventSelect, { ids: list.map((elem) => elem.id) });
     }
   };
 
@@ -180,14 +180,14 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
 
   clear();
 
-  const selectCallback = ({ uuids, positions }: { uuids: string[]; positions: ElementPosition[] }) => {
+  const selectCallback = ({ ids, positions }: { ids: string[]; positions: ElementPosition[] }) => {
     let elements: Element[] = [];
     const actionType = sharer.getSharedStorage(keyActionType);
     const data = sharer.getActiveStorage('data');
     if (positions && Array.isArray(positions)) {
       elements = findElementsFromListByPositions(positions, data || []);
     } else {
-      elements = findElementsFromList(uuids, data || []);
+      elements = findElementsFromList(ids, data || []);
     }
 
     let needRefresh = false;
@@ -201,7 +201,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
     }
     if (needRefresh) {
       const elem = elements[0];
-      const groupQueue = getGroupQueueFromList(elem.uuid, data || []);
+      const groupQueue = getGroupQueueFromList(elem.id, data || []);
       sharer.setSharedStorage(keyGroupQueue, groupQueue);
       updateSelectedElementList(elements);
       viewer.drawFrame();
@@ -314,7 +314,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         target.type === 'over-element' &&
         sharer.getSharedStorage(keyActionType) === 'select' &&
         target.elements.length === 1 &&
-        target.elements[0].uuid === getActiveElements()?.[0]?.uuid
+        target.elements[0].id === getActiveElements()?.[0]?.id
       ) {
         return;
       }
@@ -323,7 +323,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         target.type === 'over-element' &&
         sharer.getSharedStorage(keyActionType) === null &&
         target.elements.length === 1 &&
-        target.elements[0].uuid === sharer.getSharedStorage(keyHoverElement)?.uuid
+        target.elements[0].id === sharer.getSharedStorage(keyHoverElement)?.id
       ) {
         return;
       }
@@ -443,7 +443,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
           let totalMoveX = calculator.toGridNum(moveX / scale);
           let totalMoveY = calculator.toGridNum(moveY / scale);
 
-          const referenceInfo = calcReferenceInfo(elems[0].uuid, {
+          const referenceInfo = calcReferenceInfo(elems[0].id, {
             calculator,
             data,
             groupQueue,
@@ -497,7 +497,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
                   type: 'updateElement',
                   content: {
                     element: elem,
-                    position: getElementPositionFromList(elem.uuid, data) || []
+                    position: getElementPositionFromList(elem.id, data) || []
                   }
                 },
                 viewSizeInfo,
@@ -709,7 +709,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
         eventHub.trigger(middlewareEventTextEdit, {
           element: target.elements[0],
           groupQueue: sharer.getSharedStorage(keyGroupQueue) || [],
-          position: getElementPositionFromList(target.elements[0]?.uuid, sharer.getActiveStorage('data') || []),
+          position: getElementPositionFromList(target.elements[0]?.id, sharer.getActiveStorage('data') || []),
           viewScaleInfo: sharer.getActiveViewScaleInfo()
         });
       }

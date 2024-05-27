@@ -1,5 +1,5 @@
 import type { Element, ElementSize, ElementSizeController, ViewRectVertexes, PointSize, ViewScaleInfo, LayoutSizeController } from '../../types';
-import { createUUID } from './uuid';
+import { createid } from './id';
 import { getCenterFromTwoPoints } from './point';
 import { calcElementVertexesInGroup, calcElementVertexes } from './vertex';
 import { calcViewElementSize } from './view-calc';
@@ -33,7 +33,7 @@ export function calcElementSizeController(
   const ctrlGroupQueue = [
     ...[
       {
-        uuid: createUUID(),
+        id: createid(),
         x,
         y,
         w,

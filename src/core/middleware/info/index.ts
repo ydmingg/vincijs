@@ -1,5 +1,5 @@
 import type { BoardMiddleware, ViewRectInfo, Element } from '../../../types';
-import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createUUID, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
+import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createid, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
 import { keySelectedElementList, keyActionType, keyGroupQueue } from '../selector';
 import { drawSizeInfoText, drawPositionInfoText, drawAngleInfoText } from './vinci-info';
 import type { DeepInfoSharedStorage } from './types';
@@ -35,7 +35,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
             ...groupQueue,
             ...[
               {
-                uuid: createUUID(),
+                id: createid(),
                 x,
                 y,
                 w,
@@ -49,7 +49,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
 
           const calcOpts = { viewScaleInfo, viewSizeInfo };
 
-          const rangeRectInfo = calculator.calcViewRectInfoFromOrigin(elem.uuid, calcOpts);
+          const rangeRectInfo = calculator.calcViewRectInfoFromOrigin(elem.id, calcOpts);
           let totalAngle = 0;
           totalGroupQueue.forEach((group) => {
             totalAngle += group.angle || 0;

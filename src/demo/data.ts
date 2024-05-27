@@ -1,7 +1,7 @@
 // 外部数据
 export const signIn = {
     name: "Sign In",
-    uuid: "c4268e7c-66c4-ab00-2313-8bdea47bdff1",
+    id: "c4268e7c-66c4-ab00-2313-8bdea47bdff1",
     type: "group",
     x: 300,
     y: 100,
@@ -9,7 +9,7 @@ export const signIn = {
     h: 950,
     detail: {
         children: [{
-            uuid: "ec28b7ed-a6d9-f264-5cb8-8e441b4d9008",
+            id: "ec28b7ed-a6d9-f264-5cb8-8e441b4d9008",
             type: "rect",
             name: "Background",
             x: 0,
@@ -20,7 +20,7 @@ export const signIn = {
                 background: "#FFFFFF"
             }
         }, {
-            uuid: "ab02cfdb-6cfe-a6b0-c5fd-037645ce6a84",
+            id: "ab02cfdb-6cfe-a6b0-c5fd-037645ce6a84",
             type: "rect",
             name: "Preview Background",
             x: 0,
@@ -31,7 +31,7 @@ export const signIn = {
                 background: "#353945"
             }
         }, {
-            uuid: "35743342-2fa0-af65-1965-46d91558c9fe",
+            id: "35743342-2fa0-af65-1965-46d91558c9fe",
             name: "Logo Button",
             type: "rect",
             x: 52,
@@ -46,7 +46,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "8f31ac65-dcc7-4c82-277a-e523b9876d17",
+            id: "8f31ac65-dcc7-4c82-277a-e523b9876d17",
             name: "Logo",
             type: "path",
             x: 105,
@@ -131,7 +131,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "b5bc3974-3058-1aa6-ceb6-979072ce4038",
+            id: "b5bc3974-3058-1aa6-ceb6-979072ce4038",
             name: "Logo Name",
             type: "text",
             x: 132,
@@ -149,7 +149,7 @@ export const signIn = {
                 fontWeight: "bold"
             }
         }, {
-            uuid: "7575c930-e409-e417-37ba-a77130525370",
+            id: "7575c930-e409-e417-37ba-a77130525370",
             type: "text",
             x: 158,
             y: 248.125,
@@ -166,7 +166,7 @@ export const signIn = {
                 fontWeight: "bold"
             }
         }, {
-            uuid: "8c879085-b544-54f3-1ce5-dc6352fc839d",
+            id: "8c879085-b544-54f3-1ce5-dc6352fc839d",
             type: "text",
             x: 158,
             y: 343.5625,
@@ -182,7 +182,7 @@ export const signIn = {
                 lineHeight: 25
             }
         }, {
-            uuid: "0f731092-d90c-4375-ff65-8867fbf37b75",
+            id: "0f731092-d90c-4375-ff65-8867fbf37b75",
             name: "Preview Image",
             type: "path",
             x: 258,
@@ -294,7 +294,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "310646fd-e465-00ef-6dd7-cdfd52d78ac6",
+            id: "310646fd-e465-00ef-6dd7-cdfd52d78ac6",
             type: "text",
             x: 855,
             y: 165.6875,
@@ -311,7 +311,7 @@ export const signIn = {
                 fontWeight: "600"
             }
         }, {
-            uuid: "28a6b043-29fe-6c4f-7f2b-406860940505",
+            id: "28a6b043-29fe-6c4f-7f2b-406860940505",
             type: "text",
             x: 855,
             y: 217.8125,
@@ -327,7 +327,7 @@ export const signIn = {
                 lineHeight: 16
             }
         }, {
-            uuid: "79de7c71-38f6-18ef-719c-8632e3f62e63",
+            id: "79de7c71-38f6-18ef-719c-8632e3f62e63",
             type: "text",
             x: 855,
             y: 294.5625,
@@ -344,7 +344,7 @@ export const signIn = {
                 fontWeight: "500"
             }
         }, {
-            uuid: "61485823-71af-d87b-027d-0a57fb170929",
+            id: "61485823-71af-d87b-027d-0a57fb170929",
             name: "E-mail Input Box",
             type: "rect",
             x: 855,
@@ -359,7 +359,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "a37ced5d-e4ad-00a6-c3d7-3df4016312bb",
+            id: "a37ced5d-e4ad-00a6-c3d7-3df4016312bb",
             type: "text",
             x: 871,
             y: 333.4375,
@@ -376,7 +376,7 @@ export const signIn = {
                 fontWeight: "500"
             }
         }, {
-            uuid: "f298d62d-f984-43c8-bb69-4192dec12c12",
+            id: "f298d62d-f984-43c8-bb69-4192dec12c12",
             type: "text",
             x: 855,
             y: 395.5625,
@@ -393,7 +393,7 @@ export const signIn = {
                 fontWeight: "500"
             }
         }, {
-            uuid: "166e3ec3-9f60-a9bc-cbdd-0baae9a5b933",
+            id: "166e3ec3-9f60-a9bc-cbdd-0baae9a5b933",
             name: "Password Input Box",
             type: "rect",
             x: 855,
@@ -408,7 +408,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "e4104e95-aba4-e18f-7781-0abb359b4bd7",
+            id: "e4104e95-aba4-e18f-7781-0abb359b4bd7",
             type: "text",
             x: 871,
             y: 433.4375,
@@ -425,7 +425,7 @@ export const signIn = {
                 fontWeight: "500"
             }
         }, {
-            uuid: "72a6d0a1-dc1a-a49e-2071-17d897a42b1a",
+            id: "72a6d0a1-dc1a-a49e-2071-17d897a42b1a",
             type: "text",
             x: 1185.875,
             y: 474.5,
@@ -441,7 +441,7 @@ export const signIn = {
                 lineHeight: 11
             }
         }, {
-            uuid: "b3c3a613-6676-5eeb-2ce7-f639ed930682",
+            id: "b3c3a613-6676-5eeb-2ce7-f639ed930682",
             name: "Sign In Button",
             type: "rect",
             x: 855,
@@ -456,7 +456,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "05512905-5b0e-c357-2170-46c1e3de3d6a",
+            id: "05512905-5b0e-c357-2170-46c1e3de3d6a",
             type: "text",
             x: 1041.8125,
             y: 530.4375,
@@ -473,7 +473,7 @@ export const signIn = {
                 fontWeight: "bold"
             }
         }, {
-            uuid: "640e0c66-5139-a4ad-34df-730ad0c851ee",
+            id: "640e0c66-5139-a4ad-34df-730ad0c851ee",
             type: "text",
             x: 993.0625,
             y: 596.875,
@@ -490,7 +490,7 @@ export const signIn = {
                 fontWeight: "500"
             }
         }, {
-            uuid: "24c60794-02f7-cc92-9892-cd7753f71b4b",
+            id: "24c60794-02f7-cc92-9892-cd7753f71b4b",
             name: "Google Button",
             type: "group",
             x: 956,
@@ -499,7 +499,7 @@ export const signIn = {
             h: 52,
             detail: {
                 children: [{
-                    uuid: "7e55b258-1b15-0b9f-c063-8707572fe76b",
+                    id: "7e55b258-1b15-0b9f-c063-8707572fe76b",
                     type: "rect",
                     x: 0,
                     y: 0,
@@ -517,7 +517,7 @@ export const signIn = {
                         opacity: 1
                     }
                 }, {
-                    uuid: "a86d5846-4d60-315b-c15d-c41965fddc79",
+                    id: "a86d5846-4d60-315b-c15d-c41965fddc79",
                     type: "group",
                     x: 15,
                     y: 15,
@@ -525,7 +525,7 @@ export const signIn = {
                     h: 23.1875,
                     detail: {
                         children: [{
-                            uuid: "860d80e9-5d11-bf74-ead2-920a197c6b29",
+                            id: "860d80e9-5d11-bf74-ead2-920a197c6b29",
                             type: "path",
                             x: 0,
                             y: 6.25,
@@ -576,7 +576,7 @@ export const signIn = {
                                 opacity: 1
                             }
                         }, {
-                            uuid: "463c2d98-c0fc-9f39-4bc0-979d0838b2a5",
+                            id: "463c2d98-c0fc-9f39-4bc0-979d0838b2a5",
                             type: "path",
                             x: 11.875,
                             y: 9.4375,
@@ -633,7 +633,7 @@ export const signIn = {
                                 opacity: 1
                             }
                         }, {
-                            uuid: "9baecf16-beef-f0dc-9043-b1dfd10ce13a",
+                            id: "9baecf16-beef-f0dc-9043-b1dfd10ce13a",
                             type: "path",
                             x: 1.375,
                             y: 14,
@@ -678,7 +678,7 @@ export const signIn = {
                                 opacity: 1
                             }
                         }, {
-                            uuid: "a8052f29-56e5-8478-2210-527ac1b1a844",
+                            id: "a8052f29-56e5-8478-2210-527ac1b1a844",
                             type: "path",
                             x: 1.3125,
                             y: 0,
@@ -729,7 +729,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "adbb4f1b-d240-8d7b-fa17-45dc791a1f1b",
+            id: "adbb4f1b-d240-8d7b-fa17-45dc791a1f1b",
             name: "Apple Button",
             type: "group",
             x: 1040,
@@ -738,7 +738,7 @@ export const signIn = {
             h: 52,
             detail: {
                 children: [{
-                    uuid: "75ec0fb2-3c24-e79b-3673-a7ae3b777c23",
+                    id: "75ec0fb2-3c24-e79b-3673-a7ae3b777c23",
                     type: "rect",
                     x: 0,
                     y: 0,
@@ -756,7 +756,7 @@ export const signIn = {
                         opacity: 1
                     }
                 }, {
-                    uuid: "f3911d82-3eaa-c36b-1af4-bbbaadf926b3",
+                    id: "f3911d82-3eaa-c36b-1af4-bbbaadf926b3",
                     name: "Apple",
                     type: "path",
                     x: 15,
@@ -838,7 +838,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "b23e3db2-52c5-6be3-34a1-3109740cb35c",
+            id: "b23e3db2-52c5-6be3-34a1-3109740cb35c",
             name: "Facebook Button",
             type: "group",
             x: 1124,
@@ -847,7 +847,7 @@ export const signIn = {
             h: 52,
             detail: {
                 children: [{
-                    uuid: "161e2ddb-7df6-6e5c-b13f-850dd986607d",
+                    id: "161e2ddb-7df6-6e5c-b13f-850dd986607d",
                     type: "rect",
                     x: 0,
                     y: 0,
@@ -865,7 +865,7 @@ export const signIn = {
                         opacity: 1
                     }
                 }, {
-                    uuid: "c4503188-8bcb-9595-dcd6-a3debef0cae9",
+                    id: "c4503188-8bcb-9595-dcd6-a3debef0cae9",
                     name: "Fackbook",
                     type: "path",
                     x: 20,
@@ -935,7 +935,7 @@ export const signIn = {
                 opacity: 1
             }
         }, {
-            uuid: "baaf3e0c-977f-b107-2511-ebd09b10cd7a",
+            id: "baaf3e0c-977f-b107-2511-ebd09b10cd7a",
             type: "text",
             x: 960.125,
             y: 752.0625,
@@ -952,7 +952,7 @@ export const signIn = {
                 fontWeight: "600"
             }
         }, {
-            uuid: "4f210438-f0c3-f2c3-dc6c-b11b1f943338",
+            id: "4f210438-f0c3-f2c3-dc6c-b11b1f943338",
             type: "text",
             x: 1121.5,
             y: 752.0625,

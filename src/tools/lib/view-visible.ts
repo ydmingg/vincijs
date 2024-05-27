@@ -32,7 +32,7 @@ export function sortElementsViewVisiableInfoMap(
       groupQueue: groupQueue || []
     });
 
-    visibleInfoMap[elem.uuid] = {
+    visibleInfoMap[elem.id] = {
       ...baseInfo,
       ...{
         originRectInfo: originRectInfo as ViewRectInfo,
@@ -81,8 +81,8 @@ function isRangeRectInfoCollide(info1: ViewRectInfo, info2: ViewRectInfo): boole
 
 // function logViewVisibleInfoMapStatus(viewVisibleInfoMap: ViewVisibleInfoMap) {
 //   console.log('------------------------------------------------');
-//   Object.keys(viewVisibleInfoMap).forEach((uuid) => {
-//     const item = viewVisibleInfoMap[uuid];
+//   Object.keys(viewVisibleInfoMap).forEach((id) => {
+//     const item = viewVisibleInfoMap[id];
 //     const info = item.originRectInfo;
 //     const rect = {
 //       x: info.topLeft.x,
@@ -90,7 +90,7 @@ function isRangeRectInfoCollide(info1: ViewRectInfo, info2: ViewRectInfo): boole
 //       w: info.bottomRight.x - info.topLeft.x,
 //       h: info.bottomRight.y - info.topLeft.y
 //     };
-//     console.log('view: ', uuid, item.isVisibleInView, rect);
+//     console.log('view: ', id, item.isVisibleInView, rect);
 //   });
 // }
 
@@ -105,8 +105,8 @@ export function updateViewVisibleInfoMapStatus(
   const canvasRectInfo = calcVisibleOriginCanvasRectInfo(opts);
   let visibleCount = 0;
   let invisibleCount = 0;
-  Object.keys(viewVisibleInfoMap).forEach((uuid) => {
-    const info = viewVisibleInfoMap[uuid];
+  Object.keys(viewVisibleInfoMap).forEach((id) => {
+    const info = viewVisibleInfoMap[id];
     info.isVisibleInView = isRangeRectInfoCollide(info.rangeRectInfo, canvasRectInfo);
     info.isVisibleInView ? visibleCount++ : invisibleCount++;
   });

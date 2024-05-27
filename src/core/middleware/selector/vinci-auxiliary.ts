@@ -36,7 +36,7 @@ export function drawAuxiliaryExperimentBox(
   if (!element) {
     return;
   }
-  const viewRectInfo = calculator.calcViewRectInfoFromRange(element.uuid, { viewScaleInfo, viewSizeInfo });
+  const viewRectInfo = calculator.calcViewRectInfoFromRange(element.id, { viewScaleInfo, viewSizeInfo });
   if (!viewRectInfo) {
     return;
   }

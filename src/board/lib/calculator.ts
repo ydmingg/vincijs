@@ -56,7 +56,7 @@ export class Calculator implements ViewCalculator {
 
   needRender(elem: Element<ElementType>): boolean {
     const viewVisibleInfoMap = this.#store.get('viewVisibleInfoMap');
-    const info = viewVisibleInfoMap[elem.uuid];
+    const info = viewVisibleInfoMap[elem.id];
     if (!info) {
       return true;
     }
@@ -107,14 +107,14 @@ export class Calculator implements ViewCalculator {
   }
 
   calcViewRectInfoFromOrigin(
-    uuid: string,
+    id: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
       viewSizeInfo: ViewSizeInfo;
     }
   ): ViewRectInfo | null {
-    const infoData = this.#store.get('viewVisibleInfoMap')[uuid];
+    const infoData = this.#store.get('viewVisibleInfoMap')[id];
     if (!infoData?.originRectInfo) {
       return null;
     }
@@ -141,14 +141,14 @@ export class Calculator implements ViewCalculator {
   }
 
   calcViewRectInfoFromRange(
-    uuid: string,
+    id: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
       viewSizeInfo: ViewSizeInfo;
     }
   ): ViewRectInfo | null {
-    const infoData = this.#store.get('viewVisibleInfoMap')[uuid];
+    const infoData = this.#store.get('viewVisibleInfoMap')[id];
     if (!infoData?.originRectInfo) {
       return null;
     }
@@ -188,7 +188,7 @@ export class Calculator implements ViewCalculator {
     const viewVisibleInfoMap = this.#store.get('viewVisibleInfoMap');
     if (type === 'deleteElement') {
       const { element } = content as ModifyOptions<'deleteElement'>['content'];
-      delete viewVisibleInfoMap[element.uuid];
+      delete viewVisibleInfoMap[element.id]
     } else if (type === 'addElement' || type === 'updateElement') {
       const { position } = content as ModifyOptions<'addElement'>['content'];
       const element = findElementFromListByPosition(position, data);
@@ -204,7 +204,7 @@ export class Calculator implements ViewCalculator {
           isGroup: element?.type === 'group',
           position: [...position]
         };
-        viewVisibleInfoMap[element.uuid] = newViewVisibleInfo;
+        viewVisibleInfoMap[element.id] = newViewVisibleInfo;
         if (type === 'updateElement') {
           this.updateVisiableStatus({ viewScaleInfo, viewSizeInfo });
         }

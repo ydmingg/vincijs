@@ -30,7 +30,7 @@ export interface CoreEventCursor {
 }
 
 export interface CoreEventSelect {
-  uuids: string[];
+  ids: string[];
   positions?: Array<Array<number>>;
 }
 export interface CoreEventChange {

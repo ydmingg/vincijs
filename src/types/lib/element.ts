@@ -141,13 +141,13 @@ export interface ElementPathDetail extends ElementBaseDetail {
 
 export interface ElementDetailMap {
   rect: ElementRectDetail;
-  // circle: ElementCircleDetail;
-  // text: ElementTextDetail;
-  // image: ElementImageDetail;
-  // html: ElementHTMLDetail;
-  // svg: ElementSVGDetail;
-  // group: ElementGroupDetail;
-  // path: ElementPathDetail;
+  circle: ElementCircleDetail;
+  text: ElementTextDetail;
+  image: ElementImageDetail;
+  html: ElementHTMLDetail;
+  svg: ElementSVGDetail;
+  group: ElementGroupDetail;
+  path: ElementPathDetail;
 }
 
 // export type ElementType = 'text' | 'rect' | 'circle' | 'image' | 'svg' | 'html' | 'group';
@@ -164,8 +164,9 @@ export interface ElementOperations {
 }
 
 export interface Element<T extends ElementType = ElementType> extends ElementSize {
-  uuid: string;
+  id: string;
   name?: string;
+  title?: string;
   type: any;
   detail: ElementDetailMap[T];
   operations?: ElementOperations;

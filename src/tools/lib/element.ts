@@ -12,10 +12,10 @@ import type {
   ElementPosition
 } from '../../types';
 import { rotateElementVertexes } from './rotate';
-import { isAssetId, createAssetId } from './uuid';
+import { isAssetId, createAssetId } from './id';
 
-function getGroupUUIDs(elements: Array<Element<ElementType>>, index: string): string[] {
-  const uuids: string[] = [];
+function getGroupids(elements: Array<Element<ElementType>>, index: string): string[] {
+  const ids: string[] = [];
   if (typeof index === 'string' && /^\d+(\.\d+)*$/.test(index)) {
     const nums = index.split('.');
     let target: Array<Element<ElementType>> = elements;
@@ -24,7 +24,7 @@ function getGroupUUIDs(elements: Array<Element<ElementType>>, index: string): st
       if (typeof num === 'string') {
         const elem = target[parseInt(num)];
         if (elem && nums.length === 0) {
-          uuids.push(elem.uuid);
+          ids.push(elem.id);
         } else if (elem.type === 'group' && nums.length > 0) {
           target = (elem as Element<'group'>)?.detail?.children || [];
         }
@@ -32,42 +32,42 @@ function getGroupUUIDs(elements: Array<Element<ElementType>>, index: string): st
       break;
     }
   }
-  return uuids;
+  return ids;
 }
 
-export function getSelectedElementUUIDs(data: Data, indexes: Array<number | string>): string[] {
-  let uuids: string[] = [];
+export function getSelectedElementids(data: Data, indexes: Array<number | string>): string[] {
+  let ids: string[] = [];
   if (Array.isArray(data) && data.length > 0 && Array.isArray(indexes) && indexes.length > 0) {
     indexes.forEach((idx: number | string) => {
       if (typeof idx === 'number') {
         if (data[idx]) {
-          uuids.push(data[idx].uuid);
+          ids.push(data[idx].id);
         }
       } else if (typeof idx === 'string') {
-        uuids = uuids.concat(getGroupUUIDs(data, idx));
+        ids = ids.concat(getGroupids(data, idx));
       }
     });
   }
-  return uuids;
+  return ids;
 }
 
 export function validateElements(elements: Array<Element<ElementType>>): boolean {  
   let isValid = true;
   if (Array.isArray(elements)) {
-    const uuids: string[] = [];
+    const ids: string[] = [];
     elements.forEach((elem) => {
-      if (typeof elem.uuid === 'string' && elem.uuid) {
-        if (uuids.includes(elem.uuid)) {
+      if (typeof elem.id === 'string' && elem.id) {
+        if (ids.includes(elem.id)) {
           isValid = false;
           // eslint-disable-next-line no-console
-          console.warn(`Duplicate uuids: ${elem.uuid}`);
+          console.warn(`Duplicate ids: ${elem.id}`);
         } else {
-          uuids.push(elem.uuid);
+          ids.push(elem.id);
         }
       } else {
         isValid = false;
         // eslint-disable-next-line no-console
-        console.warn('Element missing uuid', elem);
+        console.warn('Element missing id', elem);
       }
       if (elem.type === 'group') {
         isValid = validateElements((elem as Element<'group'>)?.detail?.children);
@@ -232,16 +232,16 @@ export function getElemenetsAssetIds(elements: Elements): string[] {
   return assetIds;
 }
 
-export function findElementFromList(uuid: string, list: Element<ElementType>[]): Element<ElementType> | null {
+export function findElementFromList(id: string, list: Element<ElementType>[]): Element<ElementType> | null {
   let result: Element<ElementType> | null = null;
   for (let i = 0; i < list.length; i++) {
     const elem = list[i];
-    if (elem.uuid === uuid) {
+    if (elem.id === id) {
       result = elem;
       break;
     } else if (!result && elem.type === 'group') {
-      const resultInGroup = findElementFromList(uuid, (elem as Element<'group'>)?.detail?.children || []);
-      if (resultInGroup?.uuid === uuid) {
+      const resultInGroup = findElementFromList(id, (elem as Element<'group'>)?.detail?.children || []);
+      if (resultInGroup?.id === id) {
         result = resultInGroup;
         break;
       }
@@ -250,13 +250,13 @@ export function findElementFromList(uuid: string, list: Element<ElementType>[]):
   return result;
 }
 
-export function findElementsFromList(uuids: string[], list: Element<ElementType>[]): Element<ElementType>[] {
+export function findElementsFromList(ids: string[], list: Element<ElementType>[]): Element<ElementType>[] {
   const result: Element<ElementType>[] = [];
 
   function _find(elements: Element<ElementType>[]) {
     for (let i = 0; i < elements.length; i++) {
       const elem = elements[i];
-      if (uuids.includes(elem.uuid)) {
+      if (ids.includes(elem.id)) {
         result.push(elem);
       } else if (elem.type === 'group') {
         _find((elem as Element<'group'>)?.detail?.children || []);
@@ -267,20 +267,20 @@ export function findElementsFromList(uuids: string[], list: Element<ElementType>
   return result;
 }
 
-export function getGroupQueueFromList(uuid: string, elements: Element<ElementType>[]): Element<'group'>[] {
+export function getGroupQueueFromList(id: string, elements: Element<ElementType>[]): Element<'group'>[] {
   const groupQueue: Element<'group'>[] = [];
 
-  function _scan(uuid: string, elements: Element<ElementType>[]): Element<ElementType> | null {
+  function _scan(id: string, elements: Element<ElementType>[]): Element<ElementType> | null {
     let result: Element<ElementType> | null = null;
     for (let i = 0; i < elements.length; i++) {
       const elem = elements[i];
-      if (elem.uuid === uuid) {
+      if (elem.id === id) {
         result = elem;
         break;
       } else if (!result && elem.type === 'group') {
         groupQueue.push(elem as Element<'group'>);
-        const resultInGroup = _scan(uuid, (elem as Element<'group'>)?.detail?.children || []);
-        if (resultInGroup?.uuid === uuid) {
+        const resultInGroup = _scan(id, (elem as Element<'group'>)?.detail?.children || []);
+        if (resultInGroup?.id === id) {
           result = resultInGroup;
           break;
         }
@@ -289,7 +289,7 @@ export function getGroupQueueFromList(uuid: string, elements: Element<ElementTyp
     }
     return result;
   }
-  _scan(uuid, elements);
+  _scan(id, elements);
   return groupQueue;
 }
 
@@ -440,7 +440,7 @@ export function findElementQueueFromListByPosition(position: ElementPosition, li
   return result;
 }
 
-export function getElementPositionFromList(uuid: string, elements: Element<ElementType>[]): ElementPosition {
+export function getElementPositionFromList(id: string, elements: Element<ElementType>[]): ElementPosition {
   const result: ElementPosition = [];
   let over = false;
   const _loop = (list: Element<ElementType>[]) => {
@@ -450,7 +450,7 @@ export function getElementPositionFromList(uuid: string, elements: Element<Eleme
       }
       result.push(i);
       const elem = list[i];
-      if (elem.uuid === uuid) {
+      if (elem.id === id) {
         over = true;
         break;
       } else if (elem.type === 'group') {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { RecursivePartial, Element, Elements, ElementPosition, ElementSize, ElementType, ViewScaleInfo, ViewSizeInfo } from '../../types';
-import { createUUID } from './uuid';
+import { createid } from './id';
 import {
   defaultText,
   getDefaultElementRectDetail,
@@ -89,7 +89,7 @@ export function createElement<T extends ElementType>(
   const elem: Element<T> = {
     ...elementSize,
     ...baseElem,
-    uuid: createUUID(),
+    id: createid(),
     type,
     detail: {
       ...detail,
@@ -149,8 +149,8 @@ export function deleteElementInListByPosition(position: ElementPosition, list: E
   return result;
 }
 
-export function deleteElementInList(uuid: string, list: Element[]): boolean {
-  const position = getElementPositionFromList(uuid, list);
+export function deleteElementInList(id: string, list: Element[]): boolean {
+  const position = getElementPositionFromList(id, list);
   return deleteElementInListByPosition(position, list);
 }
 
@@ -256,11 +256,11 @@ function mergeElement<T extends Element<ElementType> = Element<ElementType>>(ori
   return originElem;
 }
 
-export function updateElementInList(uuid: string, updateContent: RecursivePartial<Element<ElementType>>, elements: Element[]): Element | null {
+export function updateElementInList(id: string, updateContent: RecursivePartial<Element<ElementType>>, elements: Element[]): Element | null {
   let targetElement: Element | null = null;
   for (let i = 0; i < elements.length; i++) {
     const elem = elements[i];
-    if (elem.uuid === uuid) {
+    if (elem.id === id) {
       if (elem.type === 'group' && elem.operations?.deepResize === true) {
         if ((updateContent.w && updateContent.w > 0) || (updateContent.h && updateContent.h > 0)) {
           deepResizeGroupElement(elem as Element<'group'>, {
@@ -274,7 +274,7 @@ export function updateElementInList(uuid: string, updateContent: RecursivePartia
       targetElement = elem;
       break;
     } else if (elem.type === 'group') {
-      targetElement = updateElementInList(uuid, updateContent, (elem as Element<'group'>)?.detail?.children || []);
+      targetElement = updateElementInList(id, updateContent, (elem as Element<'group'>)?.detail?.children || []);
     }
   }
   return targetElement;

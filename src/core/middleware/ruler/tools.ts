@@ -254,7 +254,7 @@ export function drawScrollerSelectedArea(ctx: ViewContext2D, opts: { snapshot: B
     const yAreaStartList: number[] = [];
     const yAreaEndList: number[] = [];
     selectedElementList.forEach((elem: Element) => {
-      const rectInfo = calculator.calcViewRectInfoFromRange(elem.uuid, {
+      const rectInfo = calculator.calcViewRectInfoFromRange(elem.id, {
         viewScaleInfo,
         viewSizeInfo
       });

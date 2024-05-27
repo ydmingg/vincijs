@@ -72,7 +72,7 @@ export function getModifiedElement(target: ModifiedElement, originElement: Eleme
           _walk(t[key]);
         } else {
           const pathStr = pathList.join('.');
-          if (pathStr !== 'uuid') {
+          if (pathStr !== 'id') {
             const value = _get(originElement, pathStr);
             _set(modifiedElement, pathList.join('.'), value);
           }

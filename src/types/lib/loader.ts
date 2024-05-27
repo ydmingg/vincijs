@@ -26,7 +26,7 @@ export interface LoaderEventMap {
 }
 
 export interface LoadResult<C> {
-  uuid: string;
+  id: string;
   lastModified: number;
   content: C;
 }

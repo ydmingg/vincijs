@@ -3,9 +3,9 @@ import type { RecursivePartial } from './tools';
 
 export type ModifyType = 'updateElement' | 'addElement' | 'deleteElement' | 'moveElement';
 
-export type ModifiedElement = Omit<RecursivePartial<Element>, 'uuid'>;
+export type ModifiedElement = Omit<RecursivePartial<Element>, 'id'>;
 
-export type ModifiedTargetElement = ModifiedElement & { uuid: string };
+export type ModifiedTargetElement = ModifiedElement & { id: string };
 
 export interface ModifyContentMap {
   updateElement: { position: ElementPosition; beforeModifiedElement: ModifiedElement; afterModifiedElement: ModifiedElement };

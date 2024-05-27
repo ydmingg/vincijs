@@ -860,14 +860,14 @@ export function getSelectedListArea(
     viewSizeInfo: ViewSizeInfo;
     calculator: ViewCalculator;
   }
-): { indexes: number[]; uuids: string[]; elements: Element<ElementType>[] } {
+): { indexes: number[]; ids: string[]; elements: Element<ElementType>[] } {
   const indexes: number[] = [];
-  const uuids: string[] = [];
+  const ids: string[] = [];
   const elements: Element<ElementType>[] = [];
   const { viewScaleInfo, viewSizeInfo, start, end } = opts;
 
   if (!(Array.isArray(data) && start && end)) {
-    return { indexes, uuids, elements };
+    return { indexes, ids, elements };
   }
   const startX = Math.min(start.x, end.x);
   const endX = Math.max(start.x, end.x);
@@ -884,7 +884,7 @@ export function getSelectedListArea(
     const center = calcElementCenter(elemSize);
     if (center.x >= startX && center.x <= endX && center.y >= startY && center.y <= endY) {
       indexes.push(idx);
-      uuids.push(elem.uuid);
+      ids.push(elem.id);
       elements.push(elem);
       if (elemSize.angle && (elemSize.angle > 0 || elemSize.angle < 0)) {
         const ves = rotateElementVertexes(elemSize);
@@ -900,7 +900,7 @@ export function getSelectedListArea(
     }
   }
 
-  return { indexes, uuids, elements };
+  return { indexes, ids, elements };
 }
 
 export function calcSelectedElementsArea(
@@ -962,7 +962,7 @@ export function isElementInGroup(elem: Element<ElementType>, group: Element<'gro
   if (group?.type === 'group' && Array.isArray(group?.detail?.children)) {
     for (let i = 0; i < group.detail.children.length; i++) {
       const child = group.detail.children[i];
-      if (elem.uuid === child.uuid) {
+      if (elem.id === child.id) {
         return true;
       }
     }

@@ -29,7 +29,7 @@ export const Demo = () => {
     //         //     }
     //         // },
     //         {   
-    //             uuid: "0131202rect1",
+    //             id: "0131202rect1",
     //             name: "rect1",
     //             // title: "矩形1",
     //             x: 100,
@@ -47,7 +47,7 @@ export const Demo = () => {
     //             }
     //         },
     //         {   
-    //             uuid: "0131202text1",
+    //             id: "0131202text1",
     //             name: "text1",
     //             // title: "矩形1",
     //             x: 50,
@@ -72,31 +72,26 @@ export const Demo = () => {
     //     ]
     // }
     const data1 = [
-        // {   
-        //     id: "0131202page1",
-        //     name: "page1",
-        //     title: "页面1",
-        //     type: "group",
-        //     x: 0,
-        //     y: 0,
-        //     width: 100,
-        //     height: 100,
-        //     detail: {
-        //         background: 'red',
-        //         borderWidth: 10,
-        //         borderColor: '#3f51b5',
-        //         children: [
-        //             {},
-        //             {},
-        //             {},
-    
-        //         ]
-        //     }
-        // },
         {   
-            uuid: "0131202rect1",
+            id: "0131202page1",
+            name: "page1",
+            title: "页面1",
+            type: "group",
+            x: -100,
+            y: 0,
+            w: 100,
+            h: 100,
+            detail: {
+                background: '#ccc',
+                borderWidth: 8,
+                borderColor: '#3f51b5',
+                children: []
+            }
+        },
+        {   
+            id: "0131202rect1",
             name: "rect1",
-            // title: "矩形1",
+            title: "矩形",
             x: 100,
             y: 100,
             w: 100,
@@ -111,28 +106,28 @@ export const Demo = () => {
     
             }
         },
-        // {   
-        //     uuid: "0131202text1",
-        //     name: "text1",
-        //     // title: "矩形1",
-        //     x: 50,
-        //     y: 300,
-        //     w: 140,
-        //     h: 40,
-        //     angle: 0,
-        //     type: "text",
-        //     detail: {
-        //         text: "Piksel",
-        //         color: "black",
-        //         fontSize: 40,
-        //         fontFamily: "DM Sans",
-        //         opacity: 1,
-        //         textAlign: "left",
-        //         lineHeight: 40,
-        //         fontWeight: "bold"
+        {   
+            id: "0131202text1",
+            name: "text1",
+            title: "文字",
+            x: 50,
+            y: 300,
+            w: 140,
+            h: 40,
+            angle: 0,
+            type: "text",
+            detail: {
+                text: "Piksel",
+                color: "black",
+                fontSize: 40,
+                fontFamily: "DM Sans",
+                opacity: 1,
+                textAlign: "left",
+                lineHeight: 40,
+                fontWeight: "bold"
     
-        //     }
-        // },
+            }
+        },
     
     ]
 
