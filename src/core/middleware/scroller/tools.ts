@@ -4,14 +4,14 @@ import { keyActivePoint, keyActiveThumbType, keyPrevPoint, keyXThumbRect, keyYTh
 
 const minScrollerWidth = 12;
 const scrollerLineWidth = 16;
-const scrollerThumbAlpha = 0.3;
+const scrollerThumbAlpha = 1;
 
 export type ScrollbarThumbType = 'X' | 'Y';
 
 const scrollConfig = {
   width: minScrollerWidth,
-  thumbColor: '#000000AA',
-  scrollBarColor: '#FFFFFF60',
+  thumbColor: 'rgba(0,0,0,.15)',
+  scrollBarColor: 'rgba(255,255,255,1)',
   showScrollBar: false
 };
 
