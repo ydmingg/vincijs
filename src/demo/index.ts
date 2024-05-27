@@ -2,7 +2,7 @@ import { Vinci } from "../vinci/index";
 import { signIn } from "./data";
 
 export const Demo = () => { 
-    const app = document.querySelector(".app-canvas") as HTMLDivElement;
+    const app = document.querySelector("#app") as HTMLDivElement;
     const vinci = new Vinci(app, app.clientWidth, app.clientHeight);
 
     // const data = {
