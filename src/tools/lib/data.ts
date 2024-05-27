@@ -51,6 +51,8 @@ function is(target: any): string {
 
 export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
   const assets: ElementAssets = data.assets || {};
+
+  
   let sortedData = data;
   if (opts?.clone === true) {
     sortedData = deepClone(data);

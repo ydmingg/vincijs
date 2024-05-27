@@ -89,6 +89,38 @@ export const Demo = () => {
             }
         },
         {   
+            id: "0131202page1",
+            name: "page1",
+            title: "页面1",
+            type: "group",
+            x: -50,
+            y: 0,
+            w: 100,
+            h: 100,
+            detail: {
+                background: '#ccc',
+                borderWidth: 8,
+                borderColor: '#3f51b5',
+                children: []
+            }
+        },
+        {   
+            id: "0131202page1",
+            name: "page1",
+            title: "页面1",
+            type: "group",
+            x: 0,
+            y: 0,
+            w: 100,
+            h: 100,
+            detail: {
+                background: '#ccc',
+                borderWidth: 8,
+                borderColor: '#3f51b5',
+                children: []
+            }
+        },
+        {   
             id: "0131202rect1",
             name: "rect1",
             title: "矩形",
@@ -137,9 +169,40 @@ export const Demo = () => {
 
     // 渲染元素
     // vinci.addElement(signIn)
-
     // 居中
     vinci.centerContent();
+    // 获取data
+    // console.log(vinci.getData());
+    // 切换试图
+    // vinci.setMode('drag');
+    // 选择元素
+    // const getData = vinci.getData()
+    // vinci.selectElement(getData![0].id)
+    // 更新元素
+    // const getData = vinci.getData()
+    // const el = getData![0]
+    // el.detail.borderColor = "blue"
+    // vinci.updateElement(el)
+    // 删除元素
+    // const ID = vinci.getData()![0].id;
+    // vinci.deleteElement(ID)
+    // 删除元素后重新渲染
+    // const ID = vinci.getData()![0].id;
+    // vinci.moveElement(ID, [1, 2]);
+    // console.log(vinci.getData());
+    // 修改画布
+    // vinci.resize({
+    //     width:200,
+    //     height:200
+    // })
+    // 开/关（标尺，滚动条，缩放，信息显示，）
+    // vinci.enable('ruler')
+    // vinci.enable('scroll')
+    // vinci.enable('scale')
+    // vinci.enable('info')
+    vinci.disable('info')
+    vinci.disable('ruler')
+
 }
 
 
