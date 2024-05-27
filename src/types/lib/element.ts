@@ -163,15 +163,12 @@ export interface ElementOperations {
   deepResize?: boolean;
 }
 
-export interface Element<T extends ElementType = ElementType, E extends Record<string, any> = Record<string, any>> extends ElementSize {
+export interface Element<T extends ElementType = ElementType> extends ElementSize {
   uuid: string;
   name?: string;
   type: any;
   detail: ElementDetailMap[T];
   operations?: ElementOperations;
-  extends?: E;
 }
-
-// export type Elements = Element<ElementType>[];
 
 export type ElementPosition = number[];
