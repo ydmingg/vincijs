@@ -31,6 +31,7 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
     container.appendChild(canvas);
 
     const boardContent = createBoardContent(canvas, { width, height, devicePixelRatio, offscreen: true, createCustomContext2D });
+    
     const board = new Board<E>({ boardContent, container });
     const sharer = board.getSharer();
     sharer.setActiveViewSizeInfo({

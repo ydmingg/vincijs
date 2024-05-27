@@ -45,7 +45,7 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
     const { renderer, boardContent, beforeDrawFrame, afterDrawFrame } = this.#opts;
 
     if (snapshot) {
-      const { scale, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth, devicePixelRatio } = snapshot.activeStore;
+      const { scale, offsetTop, offsetBottom, offsetLeft, offsetRight, width, height, contextHeight, contextWidth, background, devicePixelRatio } = snapshot.activeStore;
 
       const viewScaleInfo: ViewScaleInfo = {
         scale,
@@ -59,6 +59,7 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
         height,
         contextHeight,
         contextWidth,
+        background,
         devicePixelRatio
       };
       if (snapshot?.activeStore.data) {
@@ -172,12 +173,13 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
     const originViewSize = sharer.getActiveViewSizeInfo();
     const newViewSize = { ...originViewSize, ...viewSize };
 
-    const { width, height, devicePixelRatio } = newViewSize;
+    const { width, height, background="#EFEFEF", devicePixelRatio } = newViewSize;
     const { underContext, boardContext, helperContext, viewContext } = this.#opts.boardContent;
     boardContext.canvas.width = width * devicePixelRatio;
     boardContext.canvas.height = height * devicePixelRatio;
     boardContext.canvas.style.width = `${width}px`;
     boardContext.canvas.style.height = `${height}px`;
+    boardContext.canvas.style.background = background;
 
     underContext.canvas.width = width * devicePixelRatio;
     underContext.canvas.height = height * devicePixelRatio;

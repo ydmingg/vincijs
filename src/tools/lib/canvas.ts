@@ -117,6 +117,7 @@ export function createBoardContent(
       boardContext.drawImage(helperContext.canvas, 0, 0, width, height);
       underContext.clearRect(0, 0, width, height);
       viewContext.clearRect(0, 0, width, height);
+      
       helperContext.clearRect(0, 0, width, height);
     };
 
@@ -127,6 +128,7 @@ export function createBoardContent(
       boardContext,
       drawView
     };
+    
     return content;
   }
 }

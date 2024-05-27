@@ -193,7 +193,8 @@ export const Demo = () => {
     // 修改画布
     // vinci.resize({
     //     width:200,
-    //     height:200
+    //     height: 200,
+    //     background: "#EFEFEF"
     // })
     // 开/关（标尺，滚动条，缩放，信息显示，）
     // vinci.enable('ruler')

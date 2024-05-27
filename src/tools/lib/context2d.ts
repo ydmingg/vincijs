@@ -188,6 +188,7 @@ export class Context2D implements ViewContext2D {
   }
 
   clearRect(x: number, y: number, w: number, h: number) {
+    
     return this.#ctx.clearRect(this.$doPixelRatio(x), this.$doPixelRatio(y), this.$doPixelRatio(w), this.$doPixelRatio(h));
   }
 

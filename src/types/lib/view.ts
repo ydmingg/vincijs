@@ -20,6 +20,7 @@ export interface ViewContextSize {
 export interface ViewSizeInfo extends ViewContextSize {
   width: number;
   height: number;
+  background: string;
   devicePixelRatio: number;
 }
 
