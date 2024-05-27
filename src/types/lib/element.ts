@@ -79,14 +79,12 @@ export interface ElementBaseDetail {
   shadowOffsetX?: number;
   shadowOffsetY?: number;
   shadowBlur?: number;
-  background?: string | LinearGradientColor | RadialGradientColor;
+  background?: string | LinearGradientColor | RadialGradientColor ;
   opacity?: number;
   clipPath?: ElementClipPath;
 }
 
-export interface ElementRectDetail extends ElementBaseDetail {
-    
-}
+export interface ElementRectDetail extends ElementBaseDetail {}
 
 export interface ElementTextDetail extends ElementBaseDetail {
   text: string;
@@ -143,13 +141,13 @@ export interface ElementPathDetail extends ElementBaseDetail {
 
 export interface ElementDetailMap {
   rect: ElementRectDetail;
-  circle: ElementCircleDetail;
-  text: ElementTextDetail;
-  image: ElementImageDetail;
-  html: ElementHTMLDetail;
-  svg: ElementSVGDetail;
-  group: ElementGroupDetail;
-  path: ElementPathDetail;
+  // circle: ElementCircleDetail;
+  // text: ElementTextDetail;
+  // image: ElementImageDetail;
+  // html: ElementHTMLDetail;
+  // svg: ElementSVGDetail;
+  // group: ElementGroupDetail;
+  // path: ElementPathDetail;
 }
 
 // export type ElementType = 'text' | 'rect' | 'circle' | 'image' | 'svg' | 'html' | 'group';
@@ -168,12 +166,12 @@ export interface ElementOperations {
 export interface Element<T extends ElementType = ElementType, E extends Record<string, any> = Record<string, any>> extends ElementSize {
   uuid: string;
   name?: string;
-  type: T;
+  type: any;
   detail: ElementDetailMap[T];
   operations?: ElementOperations;
   extends?: E;
 }
 
-export type Elements = Element<ElementType>[];
+// export type Elements = Element<ElementType>[];
 
 export type ElementPosition = number[];
