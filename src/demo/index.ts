@@ -201,6 +201,21 @@ export const Demo = () => {
     // vinci.enable('info')
     vinci.disable('info')
     vinci.disable('ruler')
+    // 显示缩放比例
+    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
+    console.log(scale1);
+    // 设置缩放比例
+    const { width,height} = vinci.getViewInfo().viewSizeInfo
+    const { x,y} = vinci.getViewCenter()
+    console.log(width,height,x,y);
+    
+    
+    vinci.setViewScale({
+        scale: 0.2,
+        offsetX: -x,
+        offsetY: y-height
+    });
+    
 
     /**************** 标注点 ******************/
     
