@@ -20,7 +20,7 @@ export function drawLayout(ctx: ViewContext2D, layout: DataLayout, opts: Rendere
   if (layout.detail.overflow === 'hidden') {
     const { viewScaleInfo, viewSizeInfo } = opts;
     const elem: Element<'group'> = { id: 'layout', type: 'group', ...layout } as Element<'group'>;
-    const viewElemSize = calcViewElementSize(elem, { viewScaleInfo, viewSizeInfo }) || elem;
+    const viewElemSize = calcViewElementSize(elem, { viewScaleInfo }) || elem;
     const viewElem = { ...elem, ...viewElemSize };
     const { x, y, w, h, radiusList } = calcViewBoxSize(viewElem, {
       viewScaleInfo,

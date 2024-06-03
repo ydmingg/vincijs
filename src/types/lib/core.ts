@@ -6,8 +6,9 @@ import type { BoardBaseEventMap } from './board';
 export interface CoreOptions {
   width: number;
   height: number;
+  background?: string,
   devicePixelRatio?: number;
-  createCustomContext2D?: (opts: { width: number; height: number; devicePixelRatio: number }) => ViewContext2D;
+  createCustomContext2D?: (opts: { width: number; height: number; background: string, devicePixelRatio: number }) => ViewContext2D;
 }
 
 export type CursorType =

@@ -33,15 +33,17 @@ export function createBoardContent(
   opts: {
     width: number;
     height: number;
+    background: string;
     devicePixelRatio: number;
     offscreen?: boolean;
-    createCustomContext2D?: (opts: { width: number; height: number; devicePixelRatio: number }) => ViewContext2D;
+    createCustomContext2D?: (opts: { width: number; height: number; background: string; devicePixelRatio: number }) => ViewContext2D;
   }
 ): BoardContent {
-  const { width, height, devicePixelRatio, offscreen, createCustomContext2D } = opts;
+  const { width, height, background, devicePixelRatio, offscreen, createCustomContext2D } = opts;
   const ctxOpts = {
     width,
     height,
+    background,
     devicePixelRatio
   };
 

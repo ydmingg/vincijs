@@ -166,9 +166,9 @@ export const Demo = () => {
     // 渲染元素
     vinci.setData(data1)
     // 插入元素
-    vinci.addElement(svgData)
+    // vinci.addElement(svgData)
     // 居中
-    vinci.centerContent();
+    // vinci.centerContent();
     // 获取data
     // console.log(vinci.getData());
     // 切换试图
@@ -201,20 +201,25 @@ export const Demo = () => {
     // vinci.enable('info')
     vinci.disable('info')
     vinci.disable('ruler')
-    // 显示缩放比例
-    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
-    console.log(scale1);
-    // 设置缩放比例
-    const { width,height} = vinci.getViewInfo().viewSizeInfo
-    const { x,y} = vinci.getViewCenter()
-    console.log(width,height,x,y);
     
+    // 设置缩放比例
+    const { width,height,contextWidth,contextHeight} = vinci.getViewInfo().viewSizeInfo
+    const { x, y } = vinci.getViewCenter()
+    
+    console.log(x, y);
     
     vinci.setViewScale({
-        scale: 0.2,
-        offsetX: -x,
-        offsetY: y-height
+        scale: 1,
+        offsetX: -x ,
+        offsetY: -y
     });
+    console.log(vinci.getViewInfo());
+    
+    
+
+    // vinci.centerContent();
+    // 显示缩放比例
+    // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
     
 
     /**************** 标注点 ******************/
@@ -261,6 +266,3 @@ export const Demo = () => {
 //         }
 //     },
 // ]
-
-
-

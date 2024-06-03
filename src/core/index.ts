@@ -21,7 +21,7 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
   #container: HTMLDivElement;
 
   constructor(container: HTMLDivElement, opts: CoreOptions) {
-    const { devicePixelRatio = 1, width, height, createCustomContext2D } = opts;
+    const { devicePixelRatio = 1, width, height, background = "#f2f2f2", createCustomContext2D } = opts;
 
     // this.#opts = opts;
     this.#container = container;
@@ -30,13 +30,14 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
     this.#initContainer();
     container.appendChild(canvas);
 
-    const boardContent = createBoardContent(canvas, { width, height, devicePixelRatio, offscreen: true, createCustomContext2D });
+    const boardContent = createBoardContent(canvas, { width, height, background, devicePixelRatio, offscreen: true, createCustomContext2D });
     
     const board = new Board<E>({ boardContent, container });
     const sharer = board.getSharer();
     sharer.setActiveViewSizeInfo({
       width,
       height,
+      background: background,
       devicePixelRatio,
       contextWidth: width,
       contextHeight: height
