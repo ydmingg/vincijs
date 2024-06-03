@@ -1,13 +1,17 @@
 import { Vinci } from "../vinci/index";
 import { signIn,svgData } from "./data";
 
+// 
+import { formatNumber } from "../vinci/index";
+
+
 export const Demo = () => { 
     const app = document.querySelector("#app") as HTMLDivElement;
     const vinci = new Vinci(app, app.clientWidth, app.clientHeight);
 
     // const data = {
     //     elements:[
-    //         // {   
+    //         // {
     //         //     id: "0131202page1",
     //         //     name: "page1",
     //         //     title: "页面1",
@@ -28,7 +32,7 @@ export const Demo = () => {
     //         //         ]
     //         //     }
     //         // },
-    //         {   
+    //         {
     //             id: "0131202rect1",
     //             name: "rect1",
     //             // title: "矩形1",
@@ -46,7 +50,7 @@ export const Demo = () => {
         
     //             }
     //         },
-    //         {   
+    //         {
     //             id: "0131202text1",
     //             name: "text1",
     //             // title: "矩形1",
@@ -71,95 +75,96 @@ export const Demo = () => {
         
     //     ]
     // }
+    
     const data1 = [
         {   
             id: "013120d2page1",
             name: "page1",
             title: "页面1",
             type: "group",
-            x: -100,
-            y: 0,
-            w: 100,
-            h: 100,
-            detail: {
-                background: '#ccc',
-                borderWidth: 8,
-                borderColor: '#3f51b5',
-                children: []
-            }
-        },
-        {   
-            id: "0131202psage1",
-            name: "page1",
-            title: "页面1",
-            type: "group",
-            x: -50,
-            y: 0,
-            w: 100,
-            h: 100,
-            detail: {
-                background: '#ccc',
-                borderWidth: 8,
-                borderColor: '#3f51b5',
-                children: []
-            }
-        },
-        {   
-            id: "0131202page1",
-            name: "page1",
-            title: "页面1",
-            type: "group",
             x: 0,
             y: 0,
-            w: 100,
-            h: 100,
+            w: 400,
+            h: 400,
             detail: {
                 background: '#ccc',
-                borderWidth: 8,
+                borderWidth: 0,
                 borderColor: '#3f51b5',
                 children: []
             }
         },
-        {   
-            id: "0131202rectd1",
-            name: "rect1",
-            title: "矩形",
-            x: 100,
-            y: 100,
-            w: 100,
-            h: 100,
-            angle: 0,
-            type: "rect",
-            detail: {
-                background: 'red',
-                // borderWidth: 10,
-                // borderColor: '#3f51b5',
-                // draggable: true
+        // {   
+        //     id: "0131202psage1",
+        //     name: "page1",
+        //     title: "页面1",
+        //     type: "group",
+        //     x: 50,
+        //     y: 0,
+        //     w: 100,
+        //     h: 100,
+        //     detail: {
+        //         background: '#ccc',
+        //         borderWidth: 8,
+        //         borderColor: '#3f51b5',
+        //         children: []
+        //     }
+        // },
+        // {   
+        //     id: "0131202page1",
+        //     name: "page1",
+        //     title: "页面1",
+        //     type: "group",
+        //     x: 100,
+        //     y: 0,
+        //     w: 100,
+        //     h: 100,
+        //     detail: {
+        //         background: '#ccc',
+        //         borderWidth: 8,
+        //         borderColor: '#3f51b5',
+        //         children: []
+        //     }
+        // },
+        // {   
+        //     id: "0131202rectd1",
+        //     name: "rect1",
+        //     title: "矩形",
+        //     x: 150,
+        //     y: 100,
+        //     w: 100,
+        //     h: 100,
+        //     angle: 0,
+        //     type: "rect",
+        //     detail: {
+        //         background: 'red',
+        //         // borderWidth: 10,
+        //         // borderColor: '#3f51b5',
+        //         // draggable: true
     
-            }
-        },
-        {   
-            id: "0131202texd1",
-            name: "text1",
-            title: "文字",
-            x: 50,
-            y: 300,
-            w: 300,
-            h: 40,
-            angle: 0,
-            type: "text",
-            detail: {
-                text: "Piksel 协同设计",
-                color: "black",
-                fontSize: 40,
-                fontFamily: "DM Sans",
-                opacity: 1,
-                textAlign: "left",
-                lineHeight: 40,
-                fontWeight: "bold"
+        //     }
+        // },
+        // {   
+        //     id: "0131202texd1",
+        //     name: "text1",
+        //     title: "文字",
+        //     x: 50,
+        //     y: 300,
+        //     w: 300,
+        //     h: 40,
+        //     angle: 0,
+        //     type: "text",
+        //     detail: {
+        //         text: "Piksel 协同设计",
+        //         color: "black",
+        //         fontSize: 40,
+        //         fontFamily: "DM Sans",
+        //         opacity: 1,
+        //         textAlign: "left",
+        //         lineHeight: 40,
+        //         fontWeight: "bold"
     
-            }
-        },
+        //     }
+        // },
     
     ]
 
@@ -199,25 +204,27 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
+
     vinci.disable('info')
     vinci.disable('ruler')
-    
-    // 设置缩放比例
-    const { width,height,contextWidth,contextHeight} = vinci.getViewInfo().viewSizeInfo
-    const { x, y } = vinci.getViewCenter()
-    
-    console.log(x, y);
-    
-    vinci.setViewScale({
-        scale: 1,
-        offsetX: -x ,
-        offsetY: -y
-    });
-    console.log(vinci.getViewInfo());
-    
-    
 
-    // vinci.centerContent();
+    //
+    // formatNumber(scaleInfo.scale)}
+    const { width, height } = vinci.getViewInfo().viewSizeInfo
+    console.log(width,height);
+    
+    vinci.scale({
+        scale: 0.2,
+        point: {
+            x: width / 2,
+            y: height / 2
+        }
+    });
+    
+    vinci.centerContent();
+
+
+    
     // 显示缩放比例
     // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
     
@@ -225,6 +232,10 @@ export const Demo = () => {
     /**************** 标注点 ******************/
     
     // vinci.addElement()
+
+
+    
+
 
 }
 
@@ -266,3 +277,6 @@ export const Demo = () => {
 //         }
 //     },
 // ]
+
+
+
