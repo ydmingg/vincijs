@@ -247,8 +247,8 @@ export const Demo = () => {
     
     const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
     console.log(scale1);
-
-
+    
+    
     
     // 显示缩放比例
     // 
