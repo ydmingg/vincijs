@@ -37,8 +37,9 @@ function parseElement(element: string): HTMLNode {
   }
 
   const reg = new RegExp(attrRegExp);
-  let result = null;
+  let result:any;
   while (true) {
+    
     result = reg.exec(element);
 
     if (result === null) {
@@ -161,8 +162,8 @@ export function parseHTML(html: string) {
   return result;
 }
 
-function attrString(attrs: HTMLNode['attributes']) {
-  const buff = [];
+function attrString(attrs: HTMLNode['attributes']): string {
+  const buff:string[] = [];
   for (let key in attrs) {
     buff.push(key + '="' + attrs[key] + '"');
   }

@@ -987,7 +987,7 @@ export const svgData = {
     }
 }
 
-// 标注data
+// rectDev
 export const rectDev = {
     id: "rect1",
     name: "rect",
@@ -1003,10 +1003,14 @@ export const rectDev = {
 
 // 标注data
 export const markData = {
-    id: "c1",
+    id: "rect1",
     name: "标注点",
-    type: "mark",
-    number: 1,
-    x: 600,
-    y: 100
+    type: "rect",
+    x: 300,
+    y: 200,
+    w: 100,
+    h: 100,
+    detail: {
+        background: "#0000ff"
+    }
 }

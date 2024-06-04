@@ -1,5 +1,5 @@
 import { Vinci } from "../vinci/index";
-import { signIn,svgData,rectDev } from "./data";
+import { signIn,svgData,rectDev,markData } from "./data";
 
 // 
 import { formatNumber } from "../vinci/index";
@@ -170,24 +170,24 @@ export const Demo = () => {
 
     // 渲染元素
     vinci.setData(data1)
-    console.time()
-    for (let i = 0; i < 500; i++) {
-        const rectDev1 = {
-            id: "rect1"+ i,
-            name: "rect",
-            type: "rect",
-            x: 0,
-            y: 0,
-            w: 200,
-            h: 200,
-            detail: {
-                background: "#00ff00"
-            }
-        }
+    // console.time()
+    // for (let i = 0; i < 500; i++) {
+    //     const rectDev1 = {
+    //         id: "rect1"+ i,
+    //         name: "rect",
+    //         type: "rect",
+    //         x: 0,
+    //         y: 0,
+    //         w: 200,
+    //         h: 200,
+    //         detail: {
+    //             background: "#00ff00"
+    //         }
+    //     }
 
-        vinci.addElement(rectDev1)
-    }
-    console.timeEnd();
+    //     vinci.addElement(rectDev1)
+    // }
+    // console.timeEnd();
     
     // 插入元素
     // vinci.addElement(svgData)
@@ -229,6 +229,8 @@ export const Demo = () => {
 
     //
     // vinci.addElement(sv)
+
+    vinci.addElement(markData)
 
     const { x, y } = vinci.getViewCenter()
     
