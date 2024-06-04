@@ -28,12 +28,12 @@ export const keyDebugEnd0 = Symbol(`${key}_debug_end0`);
 export const selectWrapperBorderWidth = 2;
 export const resizeControllerBorderWidth = 4;
 export const areaBorderWidth = 1;
-export const wrapperColor = '#1973ba';
+// 修改选中元素的样式
+export const wrapperColor = '#00BD81';
 
 export const lockColor = '#5b5959b5';
 
 export const controllerSize = 10;
-// export const wrapperColor = '#1890ff';
 
 export const auxiliaryColor = '#f7276e';
 

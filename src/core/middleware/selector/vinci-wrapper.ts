@@ -142,7 +142,8 @@ export function drawArea(ctx: ViewContext2D, opts: { start: PointSize; end: Poin
   ctx.setLineDash([]);
   ctx.lineWidth = areaBorderWidth;
   ctx.strokeStyle = wrapperColor;
-  ctx.fillStyle = '#1976d24f';
+  // 框选颜色
+  ctx.fillStyle = 'rgba(25,210,151,.1)';
   ctx.beginPath();
   ctx.moveTo(start.x, start.y);
   ctx.lineTo(end.x, start.y);
@@ -159,7 +160,7 @@ export function drawListArea(ctx: ViewContext2D, opts: { areaSize: AreaSize }) {
   ctx.setLineDash([]);
   ctx.lineWidth = areaBorderWidth;
   ctx.strokeStyle = wrapperColor;
-  ctx.fillStyle = '#1976d21c';
+  ctx.fillStyle = 'rgba(25,210,151,.1)';
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x + w, y);

@@ -3,6 +3,9 @@ import { limitAngle, getDefaultElementDetailConfig } from '../../../tools';
 export const middlewareEventTextEdit = '@middleware/text-edit';
 export const middlewareEventTextChange = '@middleware/text-change';
 
+const textareaBorderColor = '1px solid #00BD81';
+const textareaBg = 'rgba(255,255,255,.3)';
+
 type TextEditEvent = {
   element: Element<'text'>;
   position: ElementPosition;
@@ -141,6 +144,14 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
       alignItems = 'end';
     }
 
+    // 修改文字选中时的样式
+    textarea.classList.add("selected-text");
+    const styleSheet = new CSSStyleSheet();
+    styleSheet.insertRule('.selected-text::selection{background: rgba(25,210,151,.4)}');
+
+    // // Firefox 和 Safari 需要以下步骤才能将样式表应用于文档
+    document.adoptedStyleSheets = [styleSheet];
+
     textarea.style.display = 'inline-flex';
     textarea.style.justifyContent = justifyContent;
     textarea.style.alignItems = alignItems;
@@ -153,11 +164,11 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     textarea.style.transform = `rotate(${limitAngle(element.angle || 0)}deg)`;
     // textarea.style.border = 'none';
     textarea.style.boxSizing = 'border-box';
-    textarea.style.border = '1px solid #1973ba';
+    textarea.style.border = textareaBorderColor;
     textarea.style.resize = 'none';
     textarea.style.overflow = 'hidden';
     textarea.style.wordBreak = 'break-all';
-    textarea.style.background = '#FFFFFF';
+    textarea.style.background = textareaBg;
     textarea.style.color = '#333333';
     textarea.style.fontSize = `${detail.fontSize * scale}px`;
     if(detail.lineHeight){
@@ -169,7 +180,6 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     textarea.style.margin = '0';
     textarea.style.outline = 'none';
 
-    // textarea.value = detail.text || '';
     textarea.innerText = detail.text || '';
     parent.appendChild(textarea);
   };
@@ -182,7 +192,6 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     canvasWrapper.style.left = `${left}px`;
     canvasWrapper.style.width = `${width}px`;
     canvasWrapper.style.height = `${height}px`;
-    // canvasWrapper.style.background = '#000000';
   };
 
   mask.addEventListener('click', () => {
