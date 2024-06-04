@@ -1,6 +1,6 @@
 import { EventEmitter } from '../tools';
-import type { DataLayout, LoadItemMap,Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
-import { drawElementList, drawLayout } from './vinci/index';
+import type { LoadItemMap,Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
+import { drawElementList } from './vinci/index';
 import { Loader } from './loader';
 
 export class Renderer extends EventEmitter<RendererEventMap> implements BoardRenderer {

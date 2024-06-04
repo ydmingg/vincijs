@@ -2,7 +2,7 @@ import type { VinciMode, VinciStorage } from '../types';
 import { Store } from '../tools';
 import {
   Core,
-  MiddlewareLayoutSelector,
+  // MiddlewareLayoutSelector,
   MiddlewareSelector,
   MiddlewareScroller,
   MiddlewareScaler,
@@ -26,10 +26,10 @@ export function runMiddlewares(core: Core<VinciEvent>, store: Store<VinciStorage
   }
 
   if (enableSelect === true) {
-    core.use(MiddlewareLayoutSelector);
+    // core.use(MiddlewareLayoutSelector);
     core.use(MiddlewareSelector);
   } else if (enableSelect === false) {
-    core.disuse(MiddlewareLayoutSelector);
+    // core.disuse(MiddlewareLayoutSelector);
     core.disuse(MiddlewareSelector);
   }
 

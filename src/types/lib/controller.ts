@@ -39,4 +39,4 @@ export interface ElementSizeController {
   rotate: ElementSizeControllerItem;
 }
 
-export type LayoutSizeController = Omit<ElementSizeController, 'rotate' | 'elementWrapper'>;
+// export type LayoutSizeController = Omit<ElementSizeController, 'rotate' | 'elementWrapper'>;

@@ -25,7 +25,7 @@ export type VinciEvent = CoreEventMap & {
       | 'setData'
       | 'undo'
       | 'redo'
-      | 'changeLayout' // TODO
+      // | 'changeLayout' // TODO
       | 'other';
   };
 };
