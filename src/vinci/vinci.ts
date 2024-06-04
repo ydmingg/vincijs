@@ -23,7 +23,7 @@ import {
   moveElementPosition,
   getElementPositionFromList,
   calcElementListSize,
-  filterCompactData,
+  // filterCompactData,
   calcViewCenterContent,
   calcViewCenter,
   Store
@@ -114,11 +114,11 @@ export class Vinci {
 
   getData(opts?: { compact?: boolean }): Data | null {
     const data = this.#core.getData();
-    if (data && opts?.compact === true) {
-      return filterCompactData(data, {
-        loadItemMap: this.#core.getLoadItemMap()
-      });
-    }
+    // if (data && opts?.compact === true) {
+    //   return filterCompactData(data, {
+    //     loadItemMap: this.#core.getLoadItemMap()
+    //   });
+    // }
     return data;
   }
 

@@ -50,7 +50,7 @@ function is(target: any): string {
 }
 
 export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
-  const assets: ElementAssets = data.assets || {};
+  // const assets: ElementAssets = data.assets || {};
 
   
   let sortedData = data;
@@ -62,39 +62,39 @@ export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
       if (elem.type === 'image' && (elem as Element<'image'>).detail.src) {
         const src = (elem as Element<'image'>).detail.src;
         const assetid = createAssetId(src);
-        if (!assets[assetid]) {
-          assets[assetid] = {
-            type: 'image',
-            value: src
-          };
-        }
+        // if (!assets[assetid]) {
+        //   assets[assetid] = {
+        //     type: 'image',
+        //     value: src
+        //   };
+        // }
         (elem as Element<'image'>).detail.src = assetid;
       } else if (elem.type === 'svg') {
         const svg = (elem as Element<'svg'>).detail.svg;
         const assetid = createAssetId(svg);
-        if (!assets[assetid]) {
-          assets[assetid] = {
-            type: 'svg',
-            value: svg
-          };
-        }
+        // if (!assets[assetid]) {
+        //   assets[assetid] = {
+        //     type: 'svg',
+        //     value: svg
+        //   };
+        // }
         (elem as Element<'svg'>).detail.svg = assetid;
       } else if (elem.type === 'html') {
         const html = (elem as Element<'html'>).detail.html;
         const assetid = createAssetId(html);
-        if (!assets[assetid]) {
-          assets[assetid] = {
-            type: 'html',
-            value: html
-          };
-        }
+        // if (!assets[assetid]) {
+        //   assets[assetid] = {
+        //     type: 'html',
+        //     value: html
+        //   };
+        // }
         (elem as Element<'html'>).detail.html = assetid;
       } else if (elem.type === 'group' && Array.isArray((elem as Element<'group'>).detail.children)) {
         const groupAssets = (elem as Element<'group'>).detail.assets || {};
         Object.keys(groupAssets).forEach((assetId) => {
-          if (!assets[assetId]) {
-            assets[assetId] = groupAssets[assetId];
-          }
+          // if (!assets[assetId]) {
+          //   assets[assetId] = groupAssets[assetId];
+          // }
         });
         delete (elem as Element<'group'>).detail.assets;
         _scanElements((elem as Element<'group'>).detail.children);
@@ -103,84 +103,84 @@ export function sortDataAsserts(data: Data, opts?: { clone?: boolean }): Data {
   };
 
   // _scanElements(sortedData.elements);
-  sortedData.assets = assets;
+  // sortedData.assets = assets;
   return sortedData;
 }
 
-export function filterCompactData(data: Data, opts?: { loadItemMap?: LoadItemMap }) {
-  const assets: ElementAssets = data.assets || {};
-  const sortedData = deepClone(data);
-  const loadItemMap = opts?.loadItemMap || {};
+// export function filterCompactData(data: Data, opts?: { loadItemMap?: LoadItemMap }) {
+//   // const assets: ElementAssets = data.assets || {};
+//   const sortedData = deepClone(data);
+//   // const loadItemMap = opts?.loadItemMap || {};
 
-  const _scanElements = (elems: Elements) => {
-    elems.forEach((elem: Element<ElementType>) => {
-      if (elem.type === 'image' && (elem as Element<'image'>).detail.src) {
-        const src = (elem as Element<'image'>).detail.src;
-        if (isAssetId(src) && !assets[src] && loadItemMap[src] && typeof loadItemMap[src]?.source === 'string') {
-          assets[src] = {
-            type: 'image',
-            value: loadItemMap[src].source as string
-          };
-        } else if (!assets[src]) {
-          const assetid = createAssetId(src);
-          if (!assets[assetid]) {
-            assets[assetid] = {
-              type: 'image',
-              value: src
-            };
-          }
-          (elem as Element<'image'>).detail.src = assetid;
-        }
-      } else if (elem.type === 'svg') {
-        const svg = (elem as Element<'svg'>).detail.svg;
+//   // const _scanElements = (elems: Elements) => {
+//   //   elems.forEach((elem: Element<ElementType>) => {
+//   //     if (elem.type === 'image' && (elem as Element<'image'>).detail.src) {
+//   //       const src = (elem as Element<'image'>).detail.src;
+//   //       if (isAssetId(src) && loadItemMap[src] && typeof loadItemMap[src]?.source === 'string') {
+//   //         // assets[src] = {
+//   //         //   type: 'image',
+//   //         //   value: loadItemMap[src].source as string
+//   //         // };
+//   //       } else if (!assets[src]) {
+//   //         // const assetid = createAssetId(src);
+//   //         // if (!assets[assetid]) {
+//   //         //   assets[assetid] = {
+//   //         //     type: 'image',
+//   //         //     value: src
+//   //         //   };
+//   //         // }
+//   //         (elem as Element<'image'>).detail.src = assetid;
+//   //       }
+//   //     } else if (elem.type === 'svg') {
+//   //       const svg = (elem as Element<'svg'>).detail.svg;
 
-        if (isAssetId(svg) && !assets[svg] && loadItemMap[svg] && typeof loadItemMap[svg]?.source === 'string') {
-          assets[svg] = {
-            type: 'svg',
-            value: loadItemMap[svg].source as string
-          };
-        } else if (!assets[svg]) {
-          const assetid = createAssetId(svg);
-          if (!assets[assetid]) {
-            assets[assetid] = {
-              type: 'svg',
-              value: svg
-            };
-          }
-          (elem as Element<'svg'>).detail.svg = assetid;
-        }
-      } else if (elem.type === 'html') {
-        const html = (elem as Element<'html'>).detail.html;
+//   //       if (isAssetId(svg) && !assets[svg] && loadItemMap[svg] && typeof loadItemMap[svg]?.source === 'string') {
+//   //         // assets[svg] = {
+//   //         //   type: 'svg',
+//   //         //   value: loadItemMap[svg].source as string
+//   //         // };
+//   //       } else if (!assets[svg]) {
+//   //         // const assetid = createAssetId(svg);
+//   //         // if (!assets[assetid]) {
+//   //         //   assets[assetid] = {
+//   //         //     type: 'svg',
+//   //         //     value: svg
+//   //         //   };
+//   //         // }
+//   //         (elem as Element<'svg'>).detail.svg = assetid;
+//   //       }
+//   //     } else if (elem.type === 'html') {
+//   //       const html = (elem as Element<'html'>).detail.html;
 
-        if (isAssetId(html) && !assets[html] && loadItemMap[html] && typeof loadItemMap[html]?.source === 'string') {
-          assets[html] = {
-            type: 'html',
-            value: loadItemMap[html].source as string
-          };
-        } else if (!assets[html]) {
-          const assetid = createAssetId(html);
-          if (!assets[assetid]) {
-            assets[assetid] = {
-              type: 'html',
-              value: html
-            };
-          }
-          (elem as Element<'html'>).detail.html = assetid;
-        }
-      } else if (elem.type === 'group' && Array.isArray((elem as Element<'group'>).detail.children)) {
-        const groupAssets = (elem as Element<'group'>).detail.assets || {};
-        Object.keys(groupAssets).forEach((assetId) => {
-          if (!assets[assetId]) {
-            assets[assetId] = groupAssets[assetId];
-          }
-        });
-        delete (elem as Element<'group'>).detail.assets;
-        _scanElements((elem as Element<'group'>).detail.children);
-      }
-    });
-  };
+//   //       // if (isAssetId(html) && !assets[html] && loadItemMap[html] && typeof loadItemMap[html]?.source === 'string') {
+//   //       // //   assets[html] = {
+//   //       // //     type: 'html',
+//   //       // //     value: loadItemMap[html].source as string
+//   //       // //   };
+//   //       // // } else if (!assets[html]) {
+//   //       // //   const assetid = createAssetId(html);
+//   //       // //   if (!assets[assetid]) {
+//   //       // //     assets[assetid] = {
+//   //       // //       type: 'html',
+//   //       // //       value: html
+//   //       // //     };
+//   //       // //   }
+//   //       //   // (elem as Element<'html'>).detail.html = assetid;
+//   //       // }
+//   //     } else if (elem.type === 'group' && Array.isArray((elem as Element<'group'>).detail.children)) {
+//   //       // const groupAssets = (elem as Element<'group'>).detail.assets || {};
+//   //       // Object.keys(groupAssets).forEach((assetId) => {
+//   //       //   // if (!assets[assetId]) {
+//   //       //   //   assets[assetId] = groupAssets[assetId];
+//   //       //   // }
+//   //       // });
+//   //       delete (elem as Element<'group'>).detail.assets;
+//   //       _scanElements((elem as Element<'group'>).detail.children);
+//   //     }
+//   //   });
+//   // };
 
-  _scanElements(sortedData.elements);
-  sortedData.assets = assets;
-  return sortedData;
-}
+//   // _scanElements(sortedData.elements);
+//   // sortedData.assets = assets;
+//   return sortedData;
+// }
