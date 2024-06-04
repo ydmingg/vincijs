@@ -209,7 +209,7 @@ export const Demo = () => {
     vinci.disable('ruler')
 
     //
-    // vinci.addElement(svgData)
+    // vinci.addElement(sv)
 
     const { x, y } = vinci.getViewCenter()
     
