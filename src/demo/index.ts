@@ -93,78 +93,78 @@ export const Demo = () => {
                 children: []
             }
         },
-        // {   
-        //     id: "0131202psage1",
-        //     name: "page1",
-        //     title: "页面1",
-        //     type: "group",
-        //     x: 50,
-        //     y: 0,
-        //     w: 100,
-        //     h: 100,
-        //     detail: {
-        //         background: '#ccc',
-        //         borderWidth: 8,
-        //         borderColor: '#3f51b5',
-        //         children: []
-        //     }
-        // },
-        // {   
-        //     id: "0131202page1",
-        //     name: "page1",
-        //     title: "页面1",
-        //     type: "group",
-        //     x: 100,
-        //     y: 0,
-        //     w: 100,
-        //     h: 100,
-        //     detail: {
-        //         background: '#ccc',
-        //         borderWidth: 8,
-        //         borderColor: '#3f51b5',
-        //         children: []
-        //     }
-        // },
-        // {   
-        //     id: "0131202rectd1",
-        //     name: "rect1",
-        //     title: "矩形",
-        //     x: 150,
-        //     y: 100,
-        //     w: 100,
-        //     h: 100,
-        //     angle: 0,
-        //     type: "rect",
-        //     detail: {
-        //         background: 'red',
-        //         // borderWidth: 10,
-        //         // borderColor: '#3f51b5',
-        //         // draggable: true
+        {   
+            id: "0131202psage1",
+            name: "page1",
+            title: "页面1",
+            type: "group",
+            x: 50,
+            y: 0,
+            w: 100,
+            h: 100,
+            detail: {
+                background: '#ccc',
+                borderWidth: 8,
+                borderColor: '#3f51b5',
+                children: []
+            }
+        },
+        {   
+            id: "0131202page1",
+            name: "page1",
+            title: "页面1",
+            type: "group",
+            x: 100,
+            y: 0,
+            w: 100,
+            h: 100,
+            detail: {
+                background: '#ccc',
+                borderWidth: 8,
+                borderColor: '#3f51b5',
+                children: []
+            }
+        },
+        {   
+            id: "0131202rectd1",
+            name: "rect1",
+            title: "矩形",
+            x: 150,
+            y: 100,
+            w: 100,
+            h: 100,
+            angle: 0,
+            type: "rect",
+            detail: {
+                background: 'red',
+                // borderWidth: 10,
+                // borderColor: '#3f51b5',
+                // draggable: true
     
-        //     }
-        // },
-        // {   
-        //     id: "0131202texd1",
-        //     name: "text1",
-        //     title: "文字",
-        //     x: 50,
-        //     y: 300,
-        //     w: 300,
-        //     h: 40,
-        //     angle: 0,
-        //     type: "text",
-        //     detail: {
-        //         text: "Piksel 协同设计",
-        //         color: "black",
-        //         fontSize: 40,
-        //         fontFamily: "DM Sans",
-        //         opacity: 1,
-        //         textAlign: "left",
-        //         lineHeight: 40,
-        //         fontWeight: "bold"
+            }
+        },
+        {   
+            id: "0131202texd1",
+            name: "text1",
+            title: "文字",
+            x: 50,
+            y: 300,
+            w: 300,
+            h: 40,
+            angle: 0,
+            type: "text",
+            detail: {
+                text: "Piksel 协同设计",
+                color: "black",
+                fontSize: 40,
+                fontFamily: "DM Sans",
+                opacity: 1,
+                textAlign: "left",
+                lineHeight: 40,
+                fontWeight: "bold"
     
-        //     }
-        // },
+            }
+        },
     
     ]
 
@@ -209,24 +209,28 @@ export const Demo = () => {
     vinci.disable('ruler')
 
     //
-    // formatNumber(scaleInfo.scale)}
-    const { width, height } = vinci.getViewInfo().viewSizeInfo
-    console.log(width,height);
+    // vinci.addElement(svgData)
+
+    const { x, y } = vinci.getViewCenter()
     
-    vinci.scale({
-        scale: 0.2,
-        point: {
-            x: width / 2,
-            y: height / 2
-        }
-    });
+    // 自定义缩放比例
     
-    vinci.centerContent();
+    vinci.centerContent({ data: data1 });
+    // vinci.scale({
+    //     scale: 0.8,
+    //     point: {
+    //         x: x,
+    //         y: y
+    //     }
+    // });
+    
+    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
+    console.log(scale1);
 
 
     
     // 显示缩放比例
-    // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
+    // 
     
 
     /**************** 标注点 ******************/
