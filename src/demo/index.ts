@@ -228,7 +228,7 @@ export const Demo = () => {
     vinci.disable('ruler')
 
     //
-    // vinci.addElement(sv)
+    // vinci.addElement(svgData)
 
     vinci.addElement(markData)
 
