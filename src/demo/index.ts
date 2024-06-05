@@ -78,58 +78,10 @@ export const Demo = () => {
     
     const data1 = [
         {   
-            id: "013120d2page1",
-            name: "page1",
-            title: "页面1",
-            type: "group",
-            x: 0,
-            y: 0,
-            w: 400,
-            h: 400,
-            detail: {
-                background: '#ccc',
-                borderWidth: 0,
-                borderColor: '#3f51b5',
-                children: []
-            }
-        },
-        {   
-            id: "0131202psage1",
-            name: "page1",
-            title: "页面1",
-            type: "group",
-            x: 50,
-            y: 0,
-            w: 100,
-            h: 100,
-            detail: {
-                background: '#ccc',
-                borderWidth: 8,
-                borderColor: '#3f51b5',
-                children: []
-            }
-        },
-        {   
-            id: "0131202page1",
-            name: "page1",
-            title: "页面1",
-            type: "group",
-            x: 100,
-            y: 0,
-            w: 100,
-            h: 100,
-            detail: {
-                background: '#ccc',
-                borderWidth: 8,
-                borderColor: '#3f51b5',
-                children: []
-            }
-        },
-        {   
             id: "0131202rectd1",
             name: "rect1",
             title: "矩形",
-            x: 150,
+            x: 50,
             y: 100,
             w: 100,
             h: 100,
@@ -137,34 +89,124 @@ export const Demo = () => {
             type: "rect",
             detail: {
                 background: 'red',
-                // borderWidth: 10,
-                // borderColor: '#3f51b5',
-                // draggable: true
-    
             }
         },
         {   
-            id: "0131202texd1",
-            name: "text1",
-            title: "文字",
-            x: 50,
-            y: 300,
-            w: 300,
-            h: 40,
+            id: "0131202recstd1",
+            name: "rect2",
+            title: "矩形",
+            x: 100,
+            y: 150,
+            w: 100,
+            h: 100,
             angle: 0,
-            type: "text",
+            type: "rect",
             detail: {
-                text: "Piksel 协同设计",
-                color: "black",
-                fontSize: 40,
-                fontFamily: "DM Sans",
-                opacity: 1,
-                textAlign: "left",
-                lineHeight: 40,
-                fontWeight: "bold"
-    
+                background: 'blue',
             }
         },
+        {   
+            id: "013120e2recstd1",
+            name: "rect3",
+            title: "矩形",
+            x: 150,
+            y: 200,
+            w: 100,
+            h: 100,
+            angle: 0,
+            type: "rect",
+            detail: {
+                background: 'green',
+            }
+        },
+        // {   
+        //     id: "013120d2page1",
+        //     name: "page1",
+        //     title: "页面1",
+        //     type: "group",
+        //     x: 0,
+        //     y: 0,
+        //     w: 400,
+        //     h: 400,
+        //     detail: {
+        //         background: '#ccc',
+        //         borderWidth: 0,
+        //         borderColor: '#3f51b5',
+        //         children: []
+        //     }
+        // },
+        // {   
+        //     id: "0131202psage1",
+        //     name: "page1",
+        //     title: "页面1",
+        //     type: "group",
+        //     x: 50,
+        //     y: 0,
+        //     w: 100,
+        //     h: 100,
+        //     detail: {
+        //         background: '#ccc',
+        //         borderWidth: 8,
+        //         borderColor: '#3f51b5',
+        //         children: []
+        //     }
+        // },
+        // {   
+        //     id: "0131202page1",
+        //     name: "page1",
+        //     title: "页面1",
+        //     type: "group",
+        //     x: 100,
+        //     y: 0,
+        //     w: 100,
+        //     h: 100,
+        //     detail: {
+        //         background: '#ccc',
+        //         borderWidth: 8,
+        //         borderColor: '#3f51b5',
+        //         children: []
+        //     }
+        // },
+        // {   
+        //     id: "0131202rectd1",
+        //     name: "rect1",
+        //     title: "矩形",
+        //     x: 150,
+        //     y: 100,
+        //     w: 100,
+        //     h: 100,
+        //     angle: 0,
+        //     type: "rect",
+        //     detail: {
+        //         background: 'red',
+        //         // borderWidth: 10,
+        //         // borderColor: '#3f51b5',
+        //         // draggable: true
+    
+        //     }
+        // },
+        // {   
+        //     id: "0131202texd1",
+        //     name: "text1",
+        //     title: "文字",
+        //     x: 50,
+        //     y: 300,
+        //     w: 300,
+        //     h: 40,
+        //     angle: 0,
+        //     type: "text",
+        //     detail: {
+        //         text: "Piksel 协同设计",
+        //         color: "black",
+        //         fontSize: 40,
+        //         fontFamily: "DM Sans",
+        //         opacity: 1,
+        //         textAlign: "left",
+        //         lineHeight: 40,
+        //         fontWeight: "bold"
+    
+        //     }
+        // },
     
     ]
 
@@ -223,40 +265,47 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
-
     vinci.disable('info')
     vinci.disable('ruler')
-
-    //
-    // vinci.addElement(svgData)
-
-    vinci.addElement(markData)
-
-    const { x, y } = vinci.getViewCenter()
     
     // 自定义缩放比例
+    // const { x, y } = vinci.getViewCenter()
+    // vinci.centerContent({ data: data1 });
+    // vinci.scale({
+    //     scale: 0.8,
+    //     point: {
+    //         x: x,
+    //         y: y
+    //     }
+    // });
+    // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
+    // console.log(scale1);
     
-    vinci.centerContent({ data: data1 });
-    vinci.scale({
-        scale: 0.8,
-        point: {
-            x: x,
-            y: y
-        }
-    });
+    // 上下层位置
+    const getData = vinci.getData()
+    // vinci.selectElement(getData![0].id)
+    console.log(getData);
+    if (!getData) return;
+    vinci.selectElement(getData[1].id)
+
+    // 数组已改变
+    getData.unshift(getData.splice(1, 1)[0]);
+    const stageArr = data1
+    console.log(stageArr);
     
-    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
-    console.log(scale1);
+    vinci.setData(stageArr)
+
     
     
+
+
     
-    // 显示缩放比例
-    // 
     
 
     /**************** 标注点 ******************/
+    // vinci.addElement(markData)
     
-    // vinci.addElement()
+
 
 
     
