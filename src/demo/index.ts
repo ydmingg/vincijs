@@ -1,4 +1,4 @@
-import { Vinci } from "../vinci/index";
+import { Vinci, vaildTouchPoint } from "../vinci/index";
 import { signIn,svgData,rectDev,markData } from "./data";
 
 // 
@@ -89,28 +89,30 @@ export const Demo = () => {
             type: "rect",
             detail: {
                 background: 'red',
+                visibility: false,
+                
             }
         },
         {   
             id: "0131202recstd1",
             name: "rect2",
             title: "矩形",
-            x: 100,
-            y: 150,
+            x: 120,
+            y: 130,
             w: 100,
             h: 100,
             angle: 0,
             type: "rect",
             detail: {
-                background: 'blue',
+                background: 'rgba(0,0,255,.5)',
             }
         },
         {   
             id: "013120e2recstd1",
             name: "rect3",
             title: "矩形",
-            x: 150,
-            y: 200,
+            x: 80,
+            y: 150,
             w: 100,
             h: 100,
             angle: 0,
@@ -265,8 +267,10 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
+    vinci.setMode('drag');
     vinci.disable('info')
     vinci.disable('ruler')
+    
     
     // 自定义缩放比例
     // const { x, y } = vinci.getViewCenter()
@@ -282,22 +286,26 @@ export const Demo = () => {
     // console.log(scale1);
     
     // 上下层位置
+    // if (!getData) return;
+    // vinci.selectElement(getData[2].id)
+    // 下一层，上一层，顶层，底层
     const getData = vinci.getData()
-    // vinci.selectElement(getData![0].id)
-    console.log(getData);
-    if (!getData) return;
-    vinci.selectElement(getData[1].id)
+    const elId = getData![2].id
+    document.documentElement.addEventListener('click', () => { 
+        const getData = vinci.getData(); 
 
-    // 数组已改变
-    getData.unshift(getData.splice(1, 1)[0]);
-    const stageArr = data1
-    console.log(stageArr);
+        if (getData && getData.length > 2) {
+          vinci.zIndex(elId, "down");
+          
+        }
+    });
     
-    vinci.setData(stageArr)
+    // 显示隐藏
+    document.documentElement.addEventListener('click', () => { 
+        vinci.visibility(elId, false)
+    })
 
     
-    
-
 
     
     

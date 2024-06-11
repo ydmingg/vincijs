@@ -181,6 +181,60 @@ export class Vinci {
     this.trigger(eventKeys.select, { positions });
   }
 
+  zIndex(id: string, position: "top" | "bottom" | "up" | "down") {
+    const core = this.#core;
+    let data: Data = core.getData() || [];
+    const currentIndex = data.findIndex(element => element.id === id);
+    
+    if (currentIndex === -1) return; 
+    
+    let newIndex: number;
+    switch (position) {
+      case "top":
+        newIndex = data.length - 1;
+        break;
+      case "bottom":
+        newIndex = 0;
+        break;
+      case "up":
+        newIndex = Math.min(data.length - 1, currentIndex + 1);
+        break;
+      case "down":
+        newIndex = Math.max(0, currentIndex - 1);
+        break;
+      default:
+        return;
+    }
+
+    if (newIndex !== currentIndex) {
+      const [element] = data.splice(currentIndex, 1);
+      data.splice(newIndex, 0, element);
+
+      core.setData(data);
+      core.refresh();
+      core.trigger(eventKeys.change, { data, type: 'moveElement' });
+    }
+  }
+
+  visibility(id: string, states: boolean ) { 
+    const core = this.#core;
+    let data: Data = core.getData() || [];
+
+    const elementIndex = data.findIndex(element => element.id === id);
+
+    if (elementIndex === -1) return; 
+
+    if (!data[elementIndex].operations) {
+      data[elementIndex].operations = {};
+    }
+
+    data[elementIndex].operations!.invisible = !states;
+
+    core.setData(data);
+    core.refresh();
+    core.trigger(eventKeys.change, { data, type: 'updateElement' });
+  }
+
   cancelElements() {
     this.trigger(eventKeys.select, { ids: [] });
   }

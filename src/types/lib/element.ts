@@ -82,6 +82,7 @@ export interface ElementBaseDetail {
   background?: string | LinearGradientColor | RadialGradientColor ;
   opacity?: number;
   clipPath?: ElementClipPath;
+  visibility?: boolean;
 }
 
 export interface ElementRectDetail extends ElementBaseDetail {}

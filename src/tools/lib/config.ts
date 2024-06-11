@@ -31,7 +31,8 @@ export function getDefaultElementDetailConfig(): DefaultElementDetailConfig {
     // lineHeight: 20,
     fontFamily: 'sans-serif',
     fontWeight: 400,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    visibility: true,
   };
   return config;
 }
