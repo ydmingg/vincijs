@@ -1,8 +1,4 @@
-import { Vinci, vaildTouchPoint } from "../vinci/index";
-import { signIn,svgData,rectDev,markData } from "./data";
-
-// 
-import { formatNumber } from "../vinci/index";
+import { Vinci,  } from "../vinci/index";
 
 
 export const Demo = () => { 
@@ -282,12 +278,13 @@ export const Demo = () => {
     //         y: y
     //     }
     // });
-    // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
+    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
     // console.log(scale1);
     
-    // 上下层位置
+    // 选择元素
     // if (!getData) return;
     // vinci.selectElement(getData[2].id)
+
     // 下一层，上一层，顶层，底层
     const getData = vinci.getData()
     const elId = getData![2].id
@@ -305,7 +302,8 @@ export const Demo = () => {
         vinci.visibility(elId, false)
     })
 
-    
+    // 获取元素对应的数组
+
 
     
     

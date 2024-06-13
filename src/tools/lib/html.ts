@@ -39,7 +39,6 @@ function parseElement(element: string): HTMLNode {
   const reg = new RegExp(attrRegExp);
   let result:any;
   while (true) {
-    
     result = reg.exec(element);
 
     if (result === null) {

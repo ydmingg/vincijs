@@ -14,6 +14,7 @@ export function calcViewCenterContent(data: Data, opts: { viewSizeInfo: ViewSize
   let offsetX: number = 0;
   let offsetY: number = 0;
   let scale: number = 1;
+  
   let contentX: number = data[0]?.x || 0;
   let contentY: number = data[0]?.y || 0;
   let contentW: number = data[0]?.w || 0;

@@ -1,5 +1,5 @@
 import { EventEmitter } from '../tools';
-import type { LoadItemMap,Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
+import type { LoadItemMap, Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
 import { drawElementList } from './vinci/index';
 import { Loader } from './loader';
 
@@ -44,7 +44,7 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
 
   drawData(data: Data, opts: RendererDrawOptions) {
     const loader = this.#loader;
-    const { calculator } = this.#opts;
+    const { calculator, sharer } = this.#opts;
     const viewContext = this.#opts.viewContext;
     viewContext.clearRect(0, 0, viewContext.canvas.width, viewContext.canvas.height);
     const parentElementSize = {
@@ -69,6 +69,7 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
       parentElementSize,
       // elementAssets: data.assets,
       parentOpacity: 1,
+      overrideElementMap: sharer?.getActiveOverrideElemenentMap(),
       ...opts
     };
     // if (data.layout) {

@@ -27,6 +27,4 @@ export type Matrix = [
   number
 ];
 
-export type Elements = Element<ElementType>[];
-
 export type ColorMatrix = Matrix;

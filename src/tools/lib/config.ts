@@ -32,6 +32,8 @@ export function getDefaultElementDetailConfig(): DefaultElementDetailConfig {
     fontFamily: 'sans-serif',
     fontWeight: 400,
     overflow: 'hidden',
+    minInlineSize: 'auto',
+    wordBreak: 'break-all',
     visibility: true,
   };
   return config;

@@ -1,5 +1,5 @@
 import type { BoardMiddleware, CoreEventMap, Element, ElementSize, ViewScaleInfo, ElementPosition } from '../../../types';
-import { limitAngle, getDefaultElementDetailConfig } from '../../../tools';
+import { limitAngle, getDefaultElementDetailConfig, enhanceFontFamliy } from '../../../tools';
 export const middlewareEventTextEdit = '@middleware/text-edit';
 export const middlewareEventTextChange = '@middleware/text-change';
 
@@ -28,7 +28,7 @@ type ExtendEventMap = Record<typeof middlewareEventTextEdit, TextEditEvent> & Re
 const defaultElementDetail = getDefaultElementDetailConfig();
 
 export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap & ExtendEventMap> = (opts) => {
-  const { eventHub, boardContent, viewer } = opts;
+  const { eventHub, boardContent, viewer,sharer } = opts;
   const canvas = boardContent.boardContext.canvas;
   // const textarea = document.createElement('textarea');
   const textarea = document.createElement('div');
@@ -56,9 +56,26 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     resetCanvasWrapper();
     resetTextArea(e);
     mask.style.display = 'block';
+    if (activeElem?.id) { 
+      sharer.setActiveOverrideElemenentMap({
+        [activeElem.id]: {
+          operations: { invisible: true }
+        }
+      })
+      viewer.drawFrame();
+    }
   };
 
   const hideTextArea = () => {
+    if (activeElem?.id) { 
+      const map = sharer.getActiveOverrideElemenentMap();
+      if (map) {
+        delete map[activeElem.id];
+      }
+      sharer.setActiveOverrideElemenentMap(map);
+      viewer.drawFrame();
+    }
+
     mask.style.display = 'none';
     activeElem = null;
     activePosition = [];
@@ -171,10 +188,8 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     textarea.style.background = textareaBg;
     textarea.style.color = '#333333';
     textarea.style.fontSize = `${detail.fontSize * scale}px`;
-    if(detail.lineHeight){
-      textarea.style.lineHeight = `${detail.lineHeight * scale}px`;
-    }
-    textarea.style.fontFamily = detail.fontFamily;
+    textarea.style.lineHeight = `${(detail.lineHeight || detail.fontSize) * scale}px`;
+    textarea.style.fontFamily = enhanceFontFamliy(detail.fontFamily);
     textarea.style.fontWeight = `${detail.fontWeight}`;
     textarea.style.padding = '0';
     textarea.style.margin = '0';

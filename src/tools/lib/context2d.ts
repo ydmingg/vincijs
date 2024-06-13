@@ -8,14 +8,9 @@ export class Context2D implements ViewContext2D {
   #ctx: CanvasRenderingContext2D;
   #opts: Required<ViewContext2DOptions>;
 
-  // private _width: number = 0;
-  // private _height: number = 0;
-
   constructor(ctx: CanvasRenderingContext2D | OffscreenRenderingContext, opts: ViewContext2DOptions) {
     this.#ctx = ctx as CanvasRenderingContext2D;
     this.#opts = { ...{ devicePixelRatio: 1, offscreenCanvas: null }, ...opts };
-    // this._width = ctx.canvas.width / devicePixelRatio;
-    // this._height = ctx.canvas.height / devicePixelRatio;
     this.$resetFont();
   }
 
@@ -188,7 +183,6 @@ export class Context2D implements ViewContext2D {
   }
 
   clearRect(x: number, y: number, w: number, h: number) {
-    
     return this.#ctx.clearRect(this.$doPixelRatio(x), this.$doPixelRatio(y), this.$doPixelRatio(w), this.$doPixelRatio(h));
   }
 
@@ -324,9 +318,7 @@ export class Context2D implements ViewContext2D {
   isPointInPath(x: number, y: number) {
     return this.#ctx.isPointInPath(this.$doPixelRatio(x), this.$doPixelRatio(y));
   }
-
-  // clip(fillRule?: CanvasFillRule): void;
-  // clip(path: Path2D, fillRule?: CanvasFillRule): void;
+  
   clip(...args: [fillRule?: CanvasFillRule | undefined] | [path: Path2D, fillRule?: CanvasFillRule | undefined]) {
     return this.#ctx.clip(...(args as any[]));
   }

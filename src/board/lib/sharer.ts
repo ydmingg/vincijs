@@ -14,9 +14,10 @@ const defaultActiveStorage: ActiveStore = {
   offsetRight: 0,
   offsetTop: 0,
   offsetBottom: 0,
+  overrideElementMap: null
 };
 
-export class Sharer implements StoreSharer<Record<string | number | symbol, any>> {
+export class Sharer implements StoreSharer<Record<string | number | symbol | any, any>> {
   #activeStore: Store<ActiveStore>;
   #sharedStore: Store<{
     [string: string | number | symbol]: any;
@@ -98,5 +99,13 @@ export class Sharer implements StoreSharer<Record<string | number | symbol, any>
       contextHeight: this.#activeStore.get('contextHeight')
     };
     return sizeInfo;
+  }
+  
+  getActiveOverrideElemenentMap(): Record<string, any> | null {
+    return this.#activeStore.get('overrideElementMap');
+  }
+
+  setActiveOverrideElemenentMap(map: Record<string, any> | null): void {
+    this.#activeStore.set('overrideElementMap', map);
   }
 }
