@@ -34,7 +34,10 @@ export function getDefaultElementDetailConfig(): DefaultElementDetailConfig {
     overflow: 'hidden',
     minInlineSize: 'auto',
     wordBreak: 'break-all',
+    clipPathStrokeWidth: 0,
+    clipPathStrokeColor: '#000000',
     visibility: true,
+    
   };
   return config;
 }
