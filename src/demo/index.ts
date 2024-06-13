@@ -101,6 +101,7 @@ export const Demo = () => {
             type: "rect",
             detail: {
                 background: 'rgba(0,0,255,.5)',
+                // overflow: 'hidden'
             }
         },
         {   
@@ -264,13 +265,14 @@ export const Demo = () => {
     // vinci.enable('scale')
     // vinci.enable('info')
     vinci.setMode('drag');
+    vinci.disable('scroll')
     vinci.disable('info')
     vinci.disable('ruler')
     
     
     // 自定义缩放比例
     // const { x, y } = vinci.getViewCenter()
-    // vinci.centerContent({ data: data1 });
+    vinci.centerContent({ data: data1 });
     // vinci.scale({
     //     scale: 0.8,
     //     point: {
@@ -278,8 +280,8 @@ export const Demo = () => {
     //         y: y
     //     }
     // });
-    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
-    // console.log(scale1);
+    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%";
+    console.log("缩放比例：",scale1);
     
     // 选择元素
     // if (!getData) return;
