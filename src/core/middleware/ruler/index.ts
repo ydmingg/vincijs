@@ -7,7 +7,7 @@ export const middlewareEventRuler = '@middleware/show-ruler';
 
 export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventMap> = (opts) => {
   const { boardContent, viewer, eventHub, calculator } = opts;
-  const { helperContext, underContext } = boardContent;
+  const { overlayContext, underlayContext } = boardContent;
   let show: boolean = true;
   let showGrid: boolean = true;
 
@@ -36,18 +36,18 @@ export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventM
       if (show === true) {
         const viewScaleInfo = getViewScaleInfoFromSnapshot(snapshot);
         const viewSizeInfo = getViewSizeInfoFromSnapshot(snapshot);
-        drawScrollerSelectedArea(helperContext, { snapshot, calculator });
+        drawScrollerSelectedArea(overlayContext, { snapshot, calculator });
 
-        drawRulerBackground(helperContext, { viewScaleInfo, viewSizeInfo });
+        drawRulerBackground(overlayContext, { viewScaleInfo, viewSizeInfo });
 
         const xList = calcXRulerScaleList({ viewScaleInfo, viewSizeInfo });
-        drawXRuler(helperContext, { scaleList: xList });
+        drawXRuler(overlayContext, { scaleList: xList });
 
         const yList = calcYRulerScaleList({ viewScaleInfo, viewSizeInfo });
-        drawYRuler(helperContext, { scaleList: yList });
+        drawYRuler(overlayContext, { scaleList: yList });
 
         if (showGrid === true) {
-          drawUnderGrid(underContext, {
+          drawUnderGrid(underlayContext, {
             xList,
             yList,
             viewScaleInfo,
