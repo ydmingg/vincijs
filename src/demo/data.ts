@@ -1,5 +1,5 @@
 // 外部数据
-export const signIn = {
+const signIn = {
     name: "Sign In",
     id: "c4268e7c-66c4-ab00-2313-8bdea47bdff1",
     type: "group",
@@ -974,7 +974,7 @@ export const signIn = {
 }
 
 // svg
-export const svgData = {
+const svgData = {
     name: "svg-001",
     id: "c4268e7c-6dc4-ab00-2313-8bdea47bd5f1",
     type: "svg",
@@ -988,7 +988,7 @@ export const svgData = {
 }
 
 // rectDev
-export const rectDev = {
+const rectDev = {
     id: "rect1",
     name: "rect",
     type: "rect",
@@ -1002,7 +1002,7 @@ export const rectDev = {
 }
 
 // 标注data
-export const markData = {
+const markData = {
     id: "rect1",
     name: "标注点",
     type: "rect",
@@ -1013,4 +1013,12 @@ export const markData = {
     detail: {
         background: "#0000ff"
     }
+}
+
+
+export default {
+    signIn,
+    svgData,
+    rectDev,
+    markData
 }

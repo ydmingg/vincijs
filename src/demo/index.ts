@@ -1,4 +1,5 @@
-import { Vinci,  } from "../vinci/index";
+import { Vinci } from "../vinci/index";
+import Data from "./data";
 
 
 export const Demo = () => { 
@@ -231,7 +232,7 @@ export const Demo = () => {
     // console.timeEnd();
     
     // 插入元素
-    // vinci.addElement(svgData)
+    vinci.addElement(Data.svgData)
     // 居中
     // vinci.centerContent();
     // 获取data
@@ -304,21 +305,7 @@ export const Demo = () => {
         vinci.visibility(elId, false)
     })
 
-    // 获取元素对应的数组
-
-
     
-    
-
-    /**************** 标注点 ******************/
-    // vinci.addElement(markData)
-    
-
-
-
-    
-
-
 }
 
 
@@ -359,6 +346,3 @@ export const Demo = () => {
 //         }
 //     },
 // ]
-
-
-
