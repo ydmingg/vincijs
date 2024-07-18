@@ -1016,7 +1016,7 @@ const markData = {
 }
 
 
-export default {
+export default{
     signIn,
     svgData,
     rectDev,

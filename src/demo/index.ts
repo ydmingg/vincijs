@@ -265,7 +265,7 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
-    vinci.setMode('drag');
+    vinci.setMode('select');
     vinci.disable('scroll')
     vinci.disable('info')
     vinci.disable('ruler')
@@ -345,4 +345,8 @@ export const Demo = () => {
 //             borderColor: '#3f51b5',
 //         }
 //     },
+<<<<<<< HEAD
 // ]
+=======
+// ]
+>>>>>>> test
