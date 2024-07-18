@@ -345,8 +345,4 @@ export const Demo = () => {
 //             borderColor: '#3f51b5',
 //         }
 //     },
-<<<<<<< HEAD
 // ]
-=======
-// ]
->>>>>>> test
