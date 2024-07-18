@@ -1,8 +1,5 @@
-import { Vinci, vaildTouchPoint } from "../vinci/index";
-import { signIn,svgData,rectDev,markData } from "./data";
-
-// 
-import { formatNumber } from "../vinci/index";
+import { Vinci } from "../vinci/index";
+import Data from "./data";
 
 
 export const Demo = () => { 
@@ -105,6 +102,7 @@ export const Demo = () => {
             type: "rect",
             detail: {
                 background: 'rgba(0,0,255,.5)',
+                // overflow: 'hidden'
             }
         },
         {   
@@ -234,7 +232,7 @@ export const Demo = () => {
     // console.timeEnd();
     
     // 插入元素
-    // vinci.addElement(svgData)
+    vinci.addElement(Data.svgData)
     // 居中
     // vinci.centerContent();
     // 获取data
@@ -267,14 +265,15 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
-    vinci.setMode('drag');
+    vinci.setMode('select');
+    vinci.disable('scroll')
     vinci.disable('info')
     vinci.disable('ruler')
     
     
     // 自定义缩放比例
     // const { x, y } = vinci.getViewCenter()
-    // vinci.centerContent({ data: data1 });
+    vinci.centerContent({ data: data1 });
     // vinci.scale({
     //     scale: 0.8,
     //     point: {
@@ -282,12 +281,13 @@ export const Demo = () => {
     //         y: y
     //     }
     // });
-    // const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%"
-    // console.log(scale1);
+    const scale1 = vinci.getViewInfo().viewScaleInfo.scale * 100 + "%";
+    console.log("缩放比例：",scale1);
     
-    // 上下层位置
+    // 选择元素
     // if (!getData) return;
     // vinci.selectElement(getData[2].id)
+
     // 下一层，上一层，顶层，底层
     const getData = vinci.getData()
     const elId = getData![2].id
@@ -306,19 +306,6 @@ export const Demo = () => {
     })
 
     
-
-    
-    
-
-    /**************** 标注点 ******************/
-    // vinci.addElement(markData)
-    
-
-
-
-    
-
-
 }
 
 
@@ -359,6 +346,3 @@ export const Demo = () => {
 //         }
 //     },
 // ]
-
-
-
