@@ -2,7 +2,7 @@ import type { CoreOptions } from './core';
 
 export type VinciMode = 'select' | 'drag' | 'readOnly';
 
-export type VinciFeature = 'ruler' | 'scroll' | 'scale' | 'info' | 'selectInGroup' | 'snapToGrid'; // TODO other feature
+export type VinciFeature = 'ruler' | 'scroll' | 'scale' | 'info' | 'selectInGroup'; // TODO other feature
 
 export interface VinciSettings {
   mode?: VinciMode;

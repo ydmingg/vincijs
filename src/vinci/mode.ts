@@ -112,5 +112,6 @@ export function changeMode(mode: VinciMode, core: Core<VinciEvent>, store: Store
   store.set('enableDrag', enableDrag);
   store.set('enableRuler', enableRuler);
   store.set('enableInfo', enableInfo);
+
   runMiddlewares(core, store);
 }

@@ -4,13 +4,15 @@ import { createBoardContent, validateElements } from '../tools';
 import { Cursor } from './lib/cursor';
 export { eventChange } from './config';
 
-export { MiddlewareSelector, middlewareEventSelect, middlewareEventSelectClear, middlewareEventSelectInGroup, middlewareEventSnapToGrid } from './middleware/selector';
+// export { MiddlewareSelector } from './middleware/selector';
+export { MiddlewareSelector, middlewareEventSelect, middlewareEventSelectClear, middlewareEventSelectInGroup } from './middleware/selector';
 export { MiddlewareScroller } from './middleware/scroller';
 export { MiddlewareScaler, middlewareEventScale } from './middleware/scaler';
 export { MiddlewareRuler, middlewareEventRuler } from './middleware/ruler';
 export { MiddlewareTextEditor, middlewareEventTextEdit, middlewareEventTextChange } from './middleware/text-editor';
 export { MiddlewareDragger } from './middleware/dragger';
 export { MiddlewareInfo } from './middleware/info';
+// export { MiddlewareLayoutSelector } from './middleware/layout-selector';
 
 export class Core<E extends CoreEventMap = CoreEventMap> {
   #board: Board<E>;

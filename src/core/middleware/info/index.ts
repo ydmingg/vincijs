@@ -11,7 +11,7 @@ const infoLineHeight = 16;
 
 export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => {
   const { boardContent, calculator } = opts;
-  const { overlayContext } = boardContent;
+  const { helperContext } = boardContent;
 
   return {
     name: '@middleware/info',
@@ -76,7 +76,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
             const h = formatNumber(elem.h, { decimalPlaces: 2 });
 
             // // test start ----
-            // const ctx = overlayContext;
+            // const ctx = helperContext;
             // ctx.beginPath();
             // ctx.moveTo(rectInfo.topLeft.x, rectInfo.topLeft.y);
             // ctx.lineTo(rectInfo.topRight.x, rectInfo.topRight.y);
@@ -91,7 +91,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
             const whText = `${formatNumber(w, { decimalPlaces: 0 })}x${formatNumber(h, { decimalPlaces: 0 })}`;
             const angleText = `${formatNumber(elem.angle || 0, { decimalPlaces: 0 })}°`;
 
-            drawSizeInfoText(overlayContext, {
+            drawSizeInfoText(helperContext, {
               point: {
                 x: rectInfo.bottom.x,
                 y: rectInfo.bottom.y + infoFontSize
@@ -105,7 +105,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
               background: infoBackground
             });
 
-            drawPositionInfoText(overlayContext, {
+            drawPositionInfoText(helperContext, {
               point: {
                 x: rectInfo.topLeft.x,
                 y: rectInfo.topLeft.y - infoFontSize * 2
@@ -119,7 +119,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
               background: infoBackground
             });
 
-            drawAngleInfoText(overlayContext, {
+            drawAngleInfoText(helperContext, {
               point: {
                 x: rectInfo.top.x + infoFontSize,
                 y: rectInfo.top.y - infoFontSize * 2

@@ -1,4 +1,4 @@
-import { Core,middlewareEventSelectInGroup, middlewareEventSnapToGrid } from '../core';
+import { Core, middlewareEventSelectInGroup } from '../core';
 import type {
   PointSize,
   VinciOptions,
@@ -74,10 +74,6 @@ export class Vinci {
       this.#core.refresh();
     } else if (feat === 'selectInGroup') {
       this.#core.trigger(middlewareEventSelectInGroup, {
-        enable: !!status
-      });
-    } else if (feat === 'snapToGrid') {
-      this.#core.trigger(middlewareEventSnapToGrid, {
         enable: !!status
       });
     }
@@ -345,8 +341,7 @@ export class Vinci {
 
   getViewCenter() {
     const { viewScaleInfo, viewSizeInfo } = this.getViewInfo();
-    const pointSize: PointSize = calcViewCenter({ viewScaleInfo, viewSizeInfo });
-    return pointSize;
+    return calcViewCenter({ viewScaleInfo, viewSizeInfo });
   }
 
   $onBoardWatcherEvents() {

@@ -6,7 +6,7 @@ import type { DeepScrollerSharedStorage } from './types';
 
 export const MiddlewareScroller: BoardMiddleware<DeepScrollerSharedStorage> = (opts) => {
   const { viewer, boardContent, sharer } = opts;
-  const { overlayContext } = boardContent;
+  const { helperContext } = boardContent;
   sharer.setSharedStorage(keyXThumbRect, null); // null | ElementSize
   sharer.setSharedStorage(keyYThumbRect, null); // null | ElementSize
 
@@ -48,7 +48,7 @@ export const MiddlewareScroller: BoardMiddleware<DeepScrollerSharedStorage> = (o
   };
 
   const getThumbType = (p: Point) => {
-    return isPointInScrollThumb(overlayContext, p, {
+    return isPointInScrollThumb(helperContext, p, {
       xThumbRect: sharer.getSharedStorage(keyXThumbRect),
       yThumbRect: sharer.getSharedStorage(keyYThumbRect)
     });
@@ -97,7 +97,7 @@ export const MiddlewareScroller: BoardMiddleware<DeepScrollerSharedStorage> = (o
       }
     },
     beforeDrawFrame({ snapshot }) {
-      const { xThumbRect, yThumbRect } = drawScroller(overlayContext, { snapshot });
+      const { xThumbRect, yThumbRect } = drawScroller(helperContext, { snapshot });
       sharer.setSharedStorage(keyXThumbRect, xThumbRect);
       sharer.setSharedStorage(keyYThumbRect, yThumbRect);
     }

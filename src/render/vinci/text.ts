@@ -1,18 +1,8 @@
 import type { Element, RendererDrawElementOptions, ViewContext2D } from '../../types';
-import { rotateElement, calcViewElementSize,is, isColorStr, getDefaultElementDetailConfig, enhanceFontFamliy } from '../../tools';
+import { rotateElement, calcViewElementSize,is, isColorStr, getDefaultElementDetailConfig } from '../../tools';
 import { drawBox } from './box';
 
 const detailConfig = getDefaultElementDetailConfig();
-
-// TODO
-function isTextWidthWithinErrorRange(w0: number, w1: number, scale: number): boolean {
-  if (scale < 0.5) {
-    if (w0 < w1 && (w0 - w1) / w0 > -0.15) {
-      return true;
-    }
-  }
-  return w0 >= w1;
-}
 
 export function drawText(ctx: ViewContext2D, elem: Element<'text'>, opts: RendererDrawElementOptions) {
   const { viewScaleInfo, viewSizeInfo, parentOpacity } = opts;
@@ -33,8 +23,6 @@ export function drawText(ctx: ViewContext2D, elem: Element<'text'>, opts: Render
         const originFontSize = detail.fontSize || detailConfig.fontSize;
         const fontSize = originFontSize * viewScaleInfo.scale;
 
-        if (fontSize < 2) return;
-
         const originLineHeight = detail.lineHeight || originFontSize;
         const lineHeight = originLineHeight * viewScaleInfo.scale;
 
@@ -43,89 +31,54 @@ export function drawText(ctx: ViewContext2D, elem: Element<'text'>, opts: Render
         ctx.$setFont({
           fontWeight: detail.fontWeight,
           fontSize: fontSize,
-          fontFamily: enhanceFontFamliy(detail.fontFamily)
+          fontFamily: detail.fontFamily
         });
-        let detailText = detail.text.replace(/\r\n/gi, '\n');
-        
-        if (detail.textTransform === 'lowercase') {
-          detailText = detailText.toLowerCase();
-        } else if (detail.textTransform === 'uppercase') {
-          detailText = detailText.toUpperCase();
-        }
-
+        const detailText = detail.text.replace(/\r\n/gi, '\n');
         const fontHeight = lineHeight;
         const detailTextList = detailText.split('\n');
         const lines: { text: string; width: number }[] = [];
 
         let lineNum = 0;
-        detailTextList.forEach((itemText: string, idx: number) => {
-          if (detail.minInlineSize === 'maxContent') {
-            lines.push({
-              text: itemText,
-              width: ctx.$undoPixelRatio(ctx.measureText(itemText).width)
-            });
-          } else { 
-            let lineText = '';
-            let splitStr = '';
-            let tempStrList: string[] = itemText.split(splitStr);
-            if (detail.wordBreak === 'normal') { 
-              const splitStr = ' ';
-              const wordList = itemText.split(splitStr);
-              tempStrList = [];
-              wordList.forEach((word: string, idx: number) => {
-                tempStrList.push(word);
-                if (idx < wordList.length - 1) {
-                  tempStrList.push(splitStr);
-                }
-              });
-            }
-            if (tempStrList.length === 1 && detail.overflow === 'visible') {
-              lines.push({
-                text: tempStrList[0],
-                width: ctx.$undoPixelRatio(ctx.measureText(tempStrList[0]).width)
-              });
-            } else if (tempStrList.length > 0) {
-              for (let i = 0; i < tempStrList.length; i++) {
-                if (isTextWidthWithinErrorRange(ctx.$doPixelRatio(w), ctx.measureText(lineText + tempStrList[i]).width, viewScaleInfo.scale)) {
-                  lineText += tempStrList[i] || '';
-                } else {
+        detailTextList.forEach((tempText: string, idx: number) => {
+          let lineText = '';
+
+          if (tempText.length > 0) {
+            for (let i = 0; i < tempText.length; i++) {
+              if (ctx.measureText(lineText + (tempText[i] || '')).width <= ctx.$doPixelRatio(w)) {
+                lineText += tempText[i] || '';
+              } else {
+                lines.push({
+                  text: lineText,
+                  width: ctx.$undoPixelRatio(ctx.measureText(lineText).width)
+                });
+                lineText = tempText[i] || '';
+                lineNum++;
+              }
+              if ((lineNum + 1) * fontHeight > h) {
+                break;
+              }
+              if (tempText.length - 1 === i) {
+                if ((lineNum + 1) * fontHeight <= h) {
                   lines.push({
                     text: lineText,
                     width: ctx.$undoPixelRatio(ctx.measureText(lineText).width)
                   });
-                  lineText = tempStrList[i] || '';
-                  lineNum++;
-                }
-                if ((lineNum + 1) * fontHeight > h && detail.overflow === 'hidden') {
+                  if (idx < detailTextList.length - 1) {
+                    lineNum++;
+                  }
                   break;
                 }
-                if (tempStrList.length - 1 === i) {
-                  if ((lineNum + 1) * fontHeight <= h) {
-                    lines.push({
-                      text: lineText,
-                      width: ctx.$undoPixelRatio(ctx.measureText(lineText).width)
-                    });
-                    if (idx < detailTextList.length - 1) {
-                      lineNum++;
-                    }
-                    break;
-                  }
-                }
               }
-            } else {
-              lines.push({
-                text: '',
-                width: 0
-              });
             }
+          } else {
+            lines.push({
+              text: '',
+              width: 0
+            });
           }
         });
 
         let startY = 0;
-        let eachLineStartY = 0;
-        if (fontHeight > fontSize) {
-          eachLineStartY = (fontHeight - fontSize) / 2;
-        }
         if (lines.length * fontHeight < h) {
           if (elem.detail.verticalAlign === 'top') {
             startY = 0;
@@ -159,7 +112,7 @@ export function drawText(ctx: ViewContext2D, elem: Element<'text'>, opts: Render
             } else if (detail.textAlign === 'right') {
               _x = x + (w - line.width);
             }
-            ctx.fillText(line.text, _x, _y + fontHeight * i + eachLineStartY);
+            ctx.fillText(line.text, _x, _y + fontHeight * i);
           });
         }
 

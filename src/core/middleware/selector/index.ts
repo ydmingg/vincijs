@@ -48,7 +48,6 @@ import {
   middlewareEventSelect,
   middlewareEventSelectClear,
   middlewareEventSelectInGroup,
-  middlewareEventSnapToGrid,
   keyActionType,
   keyResizeType,
   keyAreaStart,
@@ -65,7 +64,6 @@ import {
   keySelectedReferenceYLines,
   keyIsMoving,
   keyEnableSelectInGroup,
-  keyEnableSnapToGrid,
   controllerSize
   // keyDebugElemCenter,
   // keyDebugEnd0,
@@ -81,7 +79,7 @@ import { eventChange } from '../../config';
 export { keySelectedElementList, keyActionType, keyResizeType, keyGroupQueue };
 export type { DeepSelectorSharedStorage, ActionType };
 
-export { middlewareEventSelect, middlewareEventSelectClear, middlewareEventSelectInGroup, middlewareEventSnapToGrid };
+export { middlewareEventSelect, middlewareEventSelectClear, middlewareEventSelectInGroup };
 
 export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, CoreEventMap> = (opts) => {
   const { viewer, sharer, boardContent, calculator, eventHub } = opts;
@@ -90,7 +88,6 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
   let inBusyMode: 'resize' | 'drag' | 'drag-list' | 'area' | null = null;
 
   sharer.setSharedStorage(keyActionType, null);
-  sharer.setSharedStorage(keyEnableSnapToGrid, null);
 
   const getActiveElements = () => {
     return sharer.getSharedStorage(keySelectedElementList);
@@ -216,10 +213,6 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
     viewer.drawFrame();
   };
 
-  const setSnapToSnapCallback = (e: { enable: boolean }) => {
-    sharer.setSharedStorage(keyEnableSnapToGrid, !!e.enable);
-  };
-
   const selectInGroupCallback = (e: { enable: boolean }) => {
     sharer.setSharedStorage(keyEnableSelectInGroup, !!e.enable);
   };
@@ -230,15 +223,12 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
       eventHub.on(middlewareEventSelect, selectCallback);
       eventHub.on(middlewareEventSelectClear, selectClearCallback);
       eventHub.on(middlewareEventSelectInGroup, selectInGroupCallback);
-      eventHub.on(middlewareEventSnapToGrid, setSnapToSnapCallback);
-      
     },
 
     disuse() {
       eventHub.off(middlewareEventSelect, selectCallback);
       eventHub.off(middlewareEventSelectClear, selectClearCallback);
       eventHub.off(middlewareEventSelectInGroup, selectInGroupCallback);
-      eventHub.off(middlewareEventSnapToGrid, setSnapToSnapCallback);
     },
 
     hover: (e: PointWatcherEvent) => {
@@ -444,7 +434,6 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
       const resizeType = sharer.getSharedStorage(keyResizeType);
       const actionType = sharer.getSharedStorage(keyActionType);
       const groupQueue = sharer.getSharedStorage(keyGroupQueue);
-      const enableSnapToGrid = sharer.getSharedStorage(keyEnableSnapToGrid);
 
       if (actionType === 'drag') {
         inBusyMode = 'drag';
@@ -454,29 +443,27 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
           let totalMoveX = calculator.toGridNum(moveX / scale);
           let totalMoveY = calculator.toGridNum(moveY / scale);
 
-          if (enableSnapToGrid === true) { 
-            const referenceInfo = calcReferenceInfo(elems[0].id, {
-              calculator,
-              data,
-              groupQueue,
-              viewScaleInfo,
-              viewSizeInfo
-            });
-            try {
-              if (referenceInfo) {
-                if (is.x(referenceInfo.offsetX) && referenceInfo.offsetX !== null) {
-                  totalMoveX = calculator.toGridNum(totalMoveX + referenceInfo.offsetX);
-                }
-                if (is.y(referenceInfo.offsetY) && referenceInfo.offsetY !== null) {
-                  totalMoveY = calculator.toGridNum(totalMoveY + referenceInfo.offsetY);
-                }
-                sharer.setSharedStorage(keySelectedReferenceXLines, referenceInfo.xLines);
-                sharer.setSharedStorage(keySelectedReferenceYLines, referenceInfo.yLines);
+          const referenceInfo = calcReferenceInfo(elems[0].id, {
+            calculator,
+            data,
+            groupQueue,
+            viewScaleInfo,
+            viewSizeInfo
+          });
+          try {
+            if (referenceInfo) {
+              if (is.x(referenceInfo.offsetX) && referenceInfo.offsetX !== null) {
+                totalMoveX = calculator.toGridNum(totalMoveX + referenceInfo.offsetX);
               }
-            } catch (err) {
-              // eslint-disable-next-line no-console
-              console.error(err);
+              if (is.y(referenceInfo.offsetY) && referenceInfo.offsetY !== null) {
+                totalMoveY = calculator.toGridNum(totalMoveY + referenceInfo.offsetY);
+              }
+              sharer.setSharedStorage(keySelectedReferenceXLines, referenceInfo.xLines);
+              sharer.setSharedStorage(keySelectedReferenceYLines, referenceInfo.yLines);
             }
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(err);
           }
 
           elems[0].x = calculator.toGridNum(elems[0].x + totalMoveX);
@@ -493,8 +480,6 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
             viewSizeInfo,
             viewScaleInfo
           });
-
-
         }
         viewer.drawFrame();
       } else if (actionType === 'drag-list') {
@@ -748,7 +733,6 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
       const groupQueue: Element<'group'>[] = sharedStore[keyGroupQueue];
       const groupQueueVertexesList: ViewRectVertexes[] = sharedStore[keyGroupQueueVertexesList];
       const isMoving = sharedStore[keyIsMoving];
-      const enableSnapToGrid = sharedStore[keyEnableSnapToGrid];
 
       const drawBaseOpts = { calculator, viewScaleInfo, viewSizeInfo };
       // const selectedElementController = sharedStore[keySelectedElementController];
@@ -791,15 +775,10 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
           if (actionType === 'drag') {
             const xLines = sharer.getSharedStorage(keySelectedReferenceXLines);
             const yLines = sharer.getSharedStorage(keySelectedReferenceYLines);
-
-            if (enableSnapToGrid === true) { 
-              drawReferenceLines(helperContext, {
-                xLines,
-                yLines
-              });
-            }
-
-            
+            drawReferenceLines(helperContext, {
+              xLines,
+              yLines
+            });
           }
         }
       } else {
