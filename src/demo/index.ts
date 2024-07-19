@@ -301,9 +301,9 @@ export const Demo = () => {
     });
     
     // 显示隐藏
-    document.documentElement.addEventListener('click', () => { 
-        vinci.visibility(elId, false)
-    })
+    // document.documentElement.addEventListener('click', () => { 
+    //     vinci.visibility(elId, false)
+    // })
 
     
 }
