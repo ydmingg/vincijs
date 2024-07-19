@@ -120,8 +120,8 @@ export class Cursor {
           x: w / 2,
           y: h / 2
         };
-        canvas.width = w;
-        canvas.height = h;
+        canvas.width = w ;
+        canvas.height = h ;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         const radian = parseAngleToRadian(angle);
 

@@ -177,7 +177,7 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
     boardContext.canvas.style.backgroundColor = background;
     boardContext.canvas.style.width = `${width}px`;
     boardContext.canvas.style.height = `${height}px`;
-
+    
     underlayContext.canvas.width = width * devicePixelRatio;
     underlayContext.canvas.height = height * devicePixelRatio;
 

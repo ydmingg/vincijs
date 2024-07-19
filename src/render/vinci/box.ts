@@ -75,6 +75,7 @@ function drawClipPath(
   }
 ) {
   const { renderContent, originElem, calcElemSize, viewSizeInfo } = opts;
+  
   const totalScale = viewSizeInfo.devicePixelRatio;
   const { clipPath } = originElem?.detail || {};
   if (clipPath && calcElemSize && clipPath.commands) {

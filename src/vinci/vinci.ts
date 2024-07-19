@@ -41,8 +41,8 @@ export class Vinci {
     defaultStorage: getDefaultStorage()
   });
 
-  constructor(mount: HTMLDivElement, BoardWidth:number, BoardHeight:number) {
-    const boardStyles: VinciOptions = {width:BoardWidth, height:BoardHeight}
+  constructor(mount: HTMLDivElement, BoardWidth:number, BoardHeight:number, BoardDevicePixelRatio:number = 1) {
+    const boardStyles: VinciOptions = {width:BoardWidth, height:BoardHeight, devicePixelRatio:BoardDevicePixelRatio}
     const opts = { ...defaultSettings, ...boardStyles };
     const { width, height, devicePixelRatio, createCustomContext2D } = opts;
     const core = new Core<VinciEvent>(mount, { width, height, devicePixelRatio, createCustomContext2D });

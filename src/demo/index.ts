@@ -4,7 +4,11 @@ import Data from "./data";
 
 export const Demo = () => { 
     const app = document.querySelector("#app") as HTMLDivElement;
-    const vinci = new Vinci(app, app.clientWidth, app.clientHeight);
+    const vinci = new Vinci(
+        app,
+        app.clientWidth,
+        app.clientHeight,
+    );
 
     // const data = {
     //     elements:[
@@ -74,49 +78,50 @@ export const Demo = () => {
     // }
     
     const data1 = [
-        {   
-            id: "0131202rectd1",
-            name: "rect1",
-            title: "矩形",
-            x: 50,
-            y: 100,
-            w: 100,
-            h: 100,
-            angle: 0,
-            type: "rect",
-            detail: {
-                background: 'red',
-                visibility: false,
+        // {   
+        //     id: "0131202rectd1",
+        //     name: "rect1",
+        //     title: "矩形",
+        //     x: 50,
+        //     y: 100,
+        //     w: 100,
+        //     h: 100,
+        //     angle: 0,
+        //     type: "rect",
+        //     detail: {
+        //         background: 'red',
+        //         visibility: false,
                 
-            }
-        },
-        {   
-            id: "0131202recstd1",
-            name: "rect2",
-            title: "矩形",
-            x: 120,
-            y: 130,
-            w: 100,
-            h: 100,
-            angle: 0,
-            type: "rect",
-            detail: {
-                background: 'rgba(0,0,255,.5)',
-                // overflow: 'hidden'
-            }
-        },
+        //     }
+        // },
+        // {   
+        //     id: "0131202recstd1",
+        //     name: "rect2",
+        //     title: "矩形",
+        //     x: 120,
+        //     y: 130,
+        //     w: 100,
+        //     h: 100,
+        //     angle: 0,
+        //     type: "rect",
+        //     detail: {
+        //         background: 'rgba(0,0,255,.5)',
+        //         // overflow: 'hidden'
+        //     }
+        // },
         {   
             id: "013120e2recstd1",
             name: "rect3",
             title: "矩形",
             x: 80,
             y: 150,
-            w: 100,
-            h: 100,
+            w: 500,
+            h: 200,
             angle: 0,
             type: "rect",
             detail: {
                 background: 'green',
+                borderRadius: 20
             }
         },
         // {   
@@ -232,7 +237,7 @@ export const Demo = () => {
     // console.timeEnd();
     
     // 插入元素
-    vinci.addElement(Data.svgData)
+    // vinci.addElement(Data.svgData)
     // 居中
     // vinci.centerContent();
     // 获取data
@@ -265,7 +270,7 @@ export const Demo = () => {
     // vinci.enable('scroll')
     // vinci.enable('scale')
     // vinci.enable('info')
-    vinci.setMode('select');
+    vinci.setMode('drag');
     vinci.disable('scroll')
     vinci.disable('info')
     vinci.disable('ruler')
@@ -289,16 +294,16 @@ export const Demo = () => {
     // vinci.selectElement(getData[2].id)
 
     // 下一层，上一层，顶层，底层
-    const getData = vinci.getData()
-    const elId = getData![2].id
-    document.documentElement.addEventListener('click', () => { 
-        const getData = vinci.getData(); 
+    // const getData = vinci.getData()
+    // const elId = getData![2].id
+    // document.documentElement.addEventListener('click', () => { 
+    //     const getData = vinci.getData(); 
 
-        if (getData && getData.length > 2) {
-          vinci.zIndex(elId, "down");
+    //     if (getData && getData.length > 2) {
+    //       vinci.zIndex(elId, "down");
           
-        }
-    });
+    //     }
+    // });
     
     // 显示隐藏
     // document.documentElement.addEventListener('click', () => { 
