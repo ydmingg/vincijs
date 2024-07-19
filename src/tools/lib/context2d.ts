@@ -1,7 +1,7 @@
 import type { ViewContext2D, ViewContext2DOptions } from '../../types';
 
 const { defaultFontSize, defaultFontWeight } = { defaultFontSize:12, defaultFontWeight:'400' }
-const defaultFontFamily = `"PingFang SC",miui,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif`;
+const defaultFontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'`;
 
 export class Context2D implements ViewContext2D {
   #ctx: CanvasRenderingContext2D;
