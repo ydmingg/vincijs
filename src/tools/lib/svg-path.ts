@@ -27,19 +27,6 @@ export function generateSVGPath(commands: SVGPathCommand[]): string {
   return path;
 }
 
-// // Just support 'M', 'm', 'L', 'l', 'H', 'h', 'V', 'v', 'C', 'c', 'Q', 'q', 'T', 't'
-// // TODO 'A', 'a', 'Z', 'z', 'S', 's',
-// export function calcSVGPathSize(commands: SVGPathCommand[]): ElementSize {
-//   const points: [] = [];
-
-//   // TODO
-//   let x = 0;
-//   let y = 0;
-//   let w = 0;
-//   let h = 0;
-//   return { x, y, w, h };
-// }
-
 type FilterSVGPathResult = ElementSize & { detail: { commands: SVGPathCommand[] } };
 export function filterSVGPath(commands: SVGPathCommand[]): FilterSVGPathResult {
   const filteredCommands: SVGPathCommand[] = [];

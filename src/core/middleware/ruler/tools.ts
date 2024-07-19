@@ -1,24 +1,30 @@
-import type { Element, ViewScaleInfo, ViewSizeInfo, ViewContext2D, BoardViewerFrameSnapshot, ViewRectInfo, ViewCalculator } from '../../../types';
+import type {
+  Element,
+  ViewScaleInfo,
+  ViewSizeInfo,
+  ViewContext2D,
+  BoardViewerFrameSnapshot,
+  ViewRectInfo,
+  ViewCalculator,
+  MiddlewareRulerStyle
+} from '../../../types';
 import { formatNumber, rotateByCenter, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot } from '../../../tools';
 import type { DeepRulerSharedStorage } from './types';
 import { keySelectedElementList, keyActionType } from '../selector';
+import { rulerSize, fontSize, fontWeight, lineSize, fontFamily } from './config';
 
-const rulerSize = 16;
-const background = '#FFFFFFA8';
-const borderColor = '#00000080';
-const scaleColor = '#000000';
-const textColor = '#00000080';
-const fontFamily = 'monospace';
-const fontSize = 10;
-const fontWeight = 100;
-const gridColor = '#AAAAAA20';
-const gridKeyColor = '#AAAAAA40';
-const lineSize = 1;
-const selectedAreaColor = '#196097';
-
-// const rulerUnit = 10;
-// const rulerKeyUnit = 100;
-// const rulerSubKeyUnit = 50;
+// const rulerSize = 16;
+// const background = '#FFFFFFA8';
+// const borderColor = '#00000080';
+// const scaleColor = '#000000';
+// const textColor = '#00000080';
+// const fontFamily = 'monospace';
+// const fontSize = 10;
+// const fontWeight = 100;
+// const gridColor = '#AAAAAA20';
+// const gridKeyColor = '#AAAAAA40';
+// const lineSize = 1;
+// const selectedAreaColor = '#196097';
 
 interface RulerScale {
   num: number;
@@ -28,14 +34,40 @@ interface RulerScale {
   isSubKeyNum: boolean;
 }
 
-function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: number; viewOffset: number }): RulerScale[] {
+const limitRulerUnitList = [1, 2, 5, 10, 20, 50, 100, 200, 500];
+
+function limitRulerUnit(unit: number): number {
+  unit = Math.max(limitRulerUnitList[0], Math.min(unit, limitRulerUnitList[limitRulerUnitList.length - 1]));
+  for (let i = 0; i < limitRulerUnitList.length - 1; i++) {
+    const thisUnit = limitRulerUnitList[i];
+    const nextUnit = limitRulerUnitList[i + 1];
+    if (unit > nextUnit) {
+      continue;
+    }
+    if (unit === thisUnit) {
+      return unit;
+    }
+    if (unit === nextUnit) {
+      return unit;
+    }
+
+    const mid = (thisUnit + nextUnit) / 2;
+    if (unit <= mid) {
+      return thisUnit;
+    }
+    return nextUnit;
+  }
+  return unit;
+}
+
+function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: number; viewOffset: number }): { list: RulerScale[]; rulerUnit: number } {
   const { scale, viewLength, viewOffset } = opts;
   const list: RulerScale[] = [];
   let rulerUnit = 10;
 
   rulerUnit = formatNumber(rulerUnit / scale, { decimalPlaces: 0 });
-  rulerUnit = Math.max(10, Math.min(rulerUnit, 1000));
-
+  // rulerUnit = Math.max(10, Math.min(rulerUnit, 1000));
+  rulerUnit = limitRulerUnit(rulerUnit);
   const rulerKeyUnit = rulerUnit * 10;
   const rulerSubKeyUnit = rulerUnit * 5;
 
@@ -46,6 +78,7 @@ function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: 
   const remainderNum = startNum % viewUnit;
   const firstNum = (startNum - remainderNum + viewUnit) / scale;
   const firstPosition = startPosition + (viewUnit - remainderNum);
+
   while (firstPosition + index * viewUnit < viewLength) {
     const num = formatNumber(firstNum + index * rulerUnit, { decimalPlaces: 0 });
     const position = formatNumber(firstPosition + index * viewUnit, { decimalPlaces: 0 });
@@ -60,10 +93,10 @@ function calcRulerScaleList(opts: { axis: 'X' | 'Y'; scale: number; viewLength: 
     index++;
   }
 
-  return list;
+  return { list, rulerUnit };
 }
 
-export function calcXRulerScaleList(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): RulerScale[] {
+export function calcXRulerScaleList(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): { list: RulerScale[]; rulerUnit: number } {
   const { viewScaleInfo, viewSizeInfo } = opts;
   const { scale, offsetLeft } = viewScaleInfo;
   const { width } = viewSizeInfo;
@@ -75,7 +108,7 @@ export function calcXRulerScaleList(opts: { viewScaleInfo: ViewScaleInfo; viewSi
   });
 }
 
-export function calcYRulerScaleList(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): RulerScale[] {
+export function calcYRulerScaleList(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): { list: RulerScale[]; rulerUnit: number } {
   const { viewScaleInfo, viewSizeInfo } = opts;
   const { scale, offsetTop } = viewScaleInfo;
   const { height } = viewSizeInfo;
@@ -91,9 +124,11 @@ export function drawXRuler(
   ctx: ViewContext2D,
   opts: {
     scaleList: RulerScale[];
+    style: MiddlewareRulerStyle;
   }
 ) {
-  const { scaleList } = opts;
+  const { scaleList, style } = opts;
+  const { scaleColor, textColor } = style;
   const scaleDrawStart = rulerSize;
   const scaleDrawEnd = (rulerSize * 4) / 5;
   const subKeyScaleDrawEnd = (rulerSize * 2) / 5;
@@ -129,9 +164,11 @@ export function drawYRuler(
   ctx: ViewContext2D,
   opts: {
     scaleList: RulerScale[];
+    style: MiddlewareRulerStyle;
   }
 ) {
-  const { scaleList } = opts;
+  const { scaleList, style } = opts;
+  const { scaleColor, textColor } = style;
   const scaleDrawStart = rulerSize;
   const scaleDrawEnd = (rulerSize * 4) / 5;
   const subKeyScaleDrawEnd = (rulerSize * 2) / 5;
@@ -173,10 +210,13 @@ export function drawRulerBackground(
   opts: {
     viewScaleInfo: ViewScaleInfo;
     viewSizeInfo: ViewSizeInfo;
+    style: MiddlewareRulerStyle;
   }
 ) {
-  const { viewSizeInfo } = opts;
+  const { viewSizeInfo, style } = opts;
   const { width, height } = viewSizeInfo;
+
+  const { background, borderColor } = style;
 
   ctx.beginPath();
   ctx.moveTo(0, 0);
@@ -195,24 +235,26 @@ export function drawRulerBackground(
   ctx.stroke();
 }
 
-export function drawUnderGrid(
+export function drawGrid(
   ctx: ViewContext2D,
   opts: {
     xList: RulerScale[];
     yList: RulerScale[];
     viewScaleInfo: ViewScaleInfo;
     viewSizeInfo: ViewSizeInfo;
+    style: MiddlewareRulerStyle;
   }
 ) {
-  const { xList, yList, viewSizeInfo } = opts;
+  const { xList, yList, viewSizeInfo, style } = opts;
   const { width, height } = viewSizeInfo;
+  const { gridColor, gridPrimaryColor } = style;
   for (let i = 0; i < xList.length; i++) {
     const item = xList[i];
     ctx.beginPath();
     ctx.moveTo(item.position, 0);
     ctx.lineTo(item.position, height);
     if (item.isKeyNum === true || item.isSubKeyNum === true) {
-      ctx.strokeStyle = gridKeyColor;
+      ctx.strokeStyle = gridPrimaryColor;
     } else {
       ctx.strokeStyle = gridColor;
     }
@@ -228,7 +270,7 @@ export function drawUnderGrid(
     ctx.moveTo(0, item.position);
     ctx.lineTo(width, item.position);
     if (item.isKeyNum === true || item.isSubKeyNum === true) {
-      ctx.strokeStyle = gridKeyColor;
+      ctx.strokeStyle = gridPrimaryColor;
     } else {
       ctx.strokeStyle = gridColor;
     }
@@ -239,9 +281,13 @@ export function drawUnderGrid(
   // TODO
 }
 
-export function drawScrollerSelectedArea(ctx: ViewContext2D, opts: { snapshot: BoardViewerFrameSnapshot<DeepRulerSharedStorage>; calculator: ViewCalculator }) {
-  const { snapshot, calculator } = opts;
+export function drawScrollerSelectedArea(
+  ctx: ViewContext2D,
+  opts: { snapshot: BoardViewerFrameSnapshot<DeepRulerSharedStorage>; calculator: ViewCalculator; style: MiddlewareRulerStyle }
+) {
+  const { snapshot, calculator, style } = opts;
   const { sharedStore } = snapshot;
+  const { selectedAreaColor } = style;
   const selectedElementList = sharedStore[keySelectedElementList];
   const actionType = sharedStore[keyActionType];
 

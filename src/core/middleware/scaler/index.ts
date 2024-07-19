@@ -19,9 +19,7 @@ export const MiddlewareScaler: BoardMiddleware<Record<string, any>, CoreEventMap
       } else if (deltaY > 0) {
         newScaleNum = scale * 0.9;
       }
-      if (newScaleNum < minScale || newScaleNum > maxScale) {
-        return;
-      }
+      if (newScaleNum < minScale || newScaleNum > maxScale) return;
 
       const { moveX, moveY } = viewer.scale({ scale: newScaleNum, point });
       viewer.scroll({ moveX, moveY });

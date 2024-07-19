@@ -8,7 +8,7 @@ export interface CoreOptions {
   height: number;
   background?: string,
   devicePixelRatio?: number;
-  createCustomContext2D?: (opts: { width: number; height: number; background: string, devicePixelRatio: number }) => ViewContext2D;
+  createCustomContext2D?: (opts: { width: number; height: number; devicePixelRatio: number }) => ViewContext2D;
 }
 
 export type CursorType =
@@ -31,12 +31,14 @@ export interface CoreEventCursor {
 }
 
 export interface CoreEventSelect {
-  ids: string[];
+  uuids: string[];
   positions?: Array<Array<number>>;
 }
 export interface CoreEventChange {
   type: string;
   data: Data;
+  selectedElements?: Element[] | null;
+  hoverElement?: Element | null;
 }
 export interface CoreEventScale {
   scale: number;

@@ -16,7 +16,6 @@ import { deepResizeGroupElement } from './resize-element';
 
 const defaultViewWidth = 200;
 const defaultViewHeight = 200;
-// const defaultDetail = getDefaultElementDetailConfig();
 
 function createElementSize(type: ElementType, opts?: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): ElementSize {
   let x = 0;
@@ -192,16 +191,72 @@ export function moveElementPosition(
 
     let trimDeletePosIndex = -1;
     const trimDeletePosAction = 'down'; // +1
+    let isEffectToIndex = false;
 
-    for (let i = 0; i < from.length; i++) {
-      if (!(to[i] >= 0)) {
-        break;
+    if (from.length >= 1 && to.length >= 1) {
+      // isEffectToIndex
+      // false [2, 4] -> [1, 2]
+      // false [3, 4, 5] -> [4, 5]
+
+      // up -> down
+      // true  [2] -> [4]
+      // true  [2] -> [3, 4]
+      // true  [2, 3] -> [2, 3, 4]
+      if (from.length <= to.length) {
+        if (from.length === 1) {
+          if (from[0] < to[0]) {
+            isEffectToIndex = true;
+          }
+        } else {
+          for (let i = 0; i < from.length; i++) {
+            if (from[i] === to[i]) {
+              if (from.length === from.length - 1) {
+                isEffectToIndex = true;
+                break;
+              }
+            } else {
+              break;
+            }
+          }
+        }
       }
-      if (to[i] === from[i]) {
-        continue;
+
+      // down -> up
+      // true  [4] -> [2]
+      // true  [3, 4, 5] -> [3, 3]
+      // true  [3, 4, 5] -> [2]
+      if (from.length >= to.length) {
+        if (to.length === 1) {
+          if (to[0] < from[0]) {
+            isEffectToIndex = true;
+          }
+        } else {
+          for (let i = 0; i < to.length; i++) {
+            if (i === to.length - 1 && to[i] < from[i]) {
+              isEffectToIndex = true;
+            }
+            if (from[i] === to[i]) {
+              continue;
+            } else {
+              break;
+            }
+          }
+        }
       }
-      if (to[i] < from[i] && i == to.length - 1) {
-        trimDeletePosIndex = i;
+    }
+
+    if (isEffectToIndex === true) {
+      for (let i = 0; i < from.length; i++) {
+        if (!(to[i] >= 0)) {
+          break;
+        }
+        if (to[i] === from[i]) {
+          continue;
+        }
+
+        if (to[i] < from[i] && i == to.length - 1) {
+          trimDeletePosIndex = i;
+        }
       }
     }
 
@@ -256,11 +311,11 @@ function mergeElement<T extends Element<ElementType> = Element<ElementType>>(ori
   return originElem;
 }
 
-export function updateElementInList(id: string, updateContent: RecursivePartial<Element<ElementType>>, elements: Element[]): Element | null {
+export function updateElementInList(uuid: string, updateContent: RecursivePartial<Element<ElementType>>, elements: Element[]): Element | null {
   let targetElement: Element | null = null;
   for (let i = 0; i < elements.length; i++) {
     const elem = elements[i];
-    if (elem.id === id) {
+    if (elem.id === uuid) {
       if (elem.type === 'group' && elem.operations?.deepResize === true) {
         if ((updateContent.w && updateContent.w > 0) || (updateContent.h && updateContent.h > 0)) {
           deepResizeGroupElement(elem as Element<'group'>, {
@@ -274,7 +329,7 @@ export function updateElementInList(id: string, updateContent: RecursivePartial<
       targetElement = elem;
       break;
     } else if (elem.type === 'group') {
-      targetElement = updateElementInList(id, updateContent, (elem as Element<'group'>)?.detail?.children || []);
+      targetElement = updateElementInList(uuid, updateContent, (elem as Element<'group'>)?.detail?.children || []);
     }
   }
   return targetElement;

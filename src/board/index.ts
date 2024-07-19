@@ -1,6 +1,5 @@
 import { Renderer } from '../render';
 import {
-  // throttle,
   calcElementsContextSize,
   EventEmitter
 } from '../tools';
@@ -21,11 +20,10 @@ import { BoardWatcher } from './lib/watcher';
 import { Sharer } from './lib/sharer';
 import { Viewer } from './lib/viewer';
 
-// const throttleTime = 10; // ms
-
 interface BoardMiddlewareMapItem {
   status: 'enable' | 'disable';
   middlewareObject: BoardMiddlewareObject;
+  config: any;
 }
 
 export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
@@ -80,14 +78,8 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
   }
 
   destroy() {
-    // #opts
-    // #middlewareMap
-    // #middlewares
-    // #activeMiddlewareObjs
     this.#watcher.destroy();
     this.#renderer.destroy();
-    // this.#sharer.destroy();
-    // #viewer: Viewer;
     this.#calculator.destroy();
     this.#eventHub.destroy();
     this.#hasDestroyed = true;
@@ -114,9 +106,7 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     for (let i = 0; i < this.#activeMiddlewareObjs.length; i++) {
       const obj = this.#activeMiddlewareObjs[i];
       const result = obj?.pointStart?.(e);
-      if (result === false) {
-        return;
-      }
+      if (result === false) return;
     }
   }
 
@@ -276,7 +266,6 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     this.#sharer.setActiveStorage('data', data);
     const viewSizeInfo = sharer.getActiveViewSizeInfo();
     const viewScaleInfo = sharer.getActiveViewScaleInfo();
-    // const currentScaleInfo = sharer.getActiveViewScaleInfo();
     const newViewContextSize = calcElementsContextSize(data, {
       viewWidth: viewSizeInfo.width,
       viewHeight: viewSizeInfo.height,
@@ -285,11 +274,6 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     
     if (modifiedOptions) {
       // TODO
-      // this.#viewer.modifyViewVisibleInfoMap(data, {
-      //   viewSizeInfo,
-      //   viewScaleInfo,
-      //   modifyOptions: modifiedOptions
-      // });
       this.#viewer.resetViewVisibleInfoMap(data, {
         viewSizeInfo,
         viewScaleInfo
@@ -316,7 +300,7 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     return data;
   }
 
-  use(middleware: BoardMiddleware<any, any>) {
+  use<C extends any = any>(middleware: BoardMiddleware<any, any, any>, config?: Partial<C>) {
     if (this.#middlewareMap.has(middleware)) {
       const item = this.#middlewareMap.get(middleware);
       if (item) {
@@ -333,14 +317,15 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     const calculator = this.#calculator;
     const eventHub = this.#eventHub;
 
-    const obj = middleware({ boardContent, sharer, viewer, calculator, eventHub: eventHub as UtilEventEmitter<any>, container });
+    const obj = middleware({ boardContent, sharer, viewer, calculator, eventHub: eventHub as UtilEventEmitter<any>, container }, config);
     obj.use?.();
     this.#middlewares.push(middleware);
     this.#activeMiddlewareObjs.push(obj);
 
     this.#middlewareMap.set(middleware, {
       status: 'enable',
-      middlewareObject: obj
+      middlewareObject: obj,
+      config
     });
     this.#resetActiveMiddlewareObjs();
   }
@@ -382,9 +367,9 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
     const { width, height, devicePixelRatio } = newViewSize;
     const { boardContent } = this.#opts;
     boardContent.viewContext.$resize({ width, height, devicePixelRatio });
-    boardContent.helperContext.$resize({ width, height, devicePixelRatio });
+    boardContent.overlayContext.$resize({ width, height, devicePixelRatio });
     boardContent.boardContext.$resize({ width, height, devicePixelRatio });
-    boardContent.underContext.$resize({ width, height, devicePixelRatio });
+    boardContent.underlayContext.$resize({ width, height, devicePixelRatio });
     this.#viewer.drawFrame();
     this.#watcher.trigger('resize', viewSize);
     this.#sharer.setActiveViewSizeInfo(newViewSize);
@@ -392,9 +377,9 @@ export class Board<T extends BoardExtendEventMap = BoardExtendEventMap> {
 
   clear() {
     const { boardContent } = this.#opts;
-    const { underContext, helperContext, viewContext, boardContext } = boardContent;
-    underContext.clearRect(0, 0, underContext.canvas.width, underContext.canvas.height);
-    helperContext.clearRect(0, 0, helperContext.canvas.width, helperContext.canvas.height);
+    const { underlayContext, overlayContext, viewContext, boardContext } = boardContent;
+    underlayContext.clearRect(0, 0, underlayContext.canvas.width, underlayContext.canvas.height);
+    overlayContext.clearRect(0, 0, overlayContext.canvas.width, overlayContext.canvas.height);
     viewContext.clearRect(0, 0, viewContext.canvas.width, viewContext.canvas.height);
     boardContext.clearRect(0, 0, boardContext.canvas.width, boardContext.canvas.height);
     this.#handleClear();

@@ -27,7 +27,6 @@ import type {
   ResizeType,
   AreaSize
 } from './types';
-// import { keyDebugElemCenter, keyDebugEnd0, keyDebugEndHorizontal, keyDebugEndVertical, keyDebugStartHorizontal, keyDebugStartVertical } from './config';
 
 function parseRadian(angle: number) {
   return (angle * Math.PI) / 180;
@@ -173,7 +172,7 @@ export function getPointTarget(
 }
 
 export function resizeElement(
-  elem: Element<ElementType>,
+  elem: ElementSize,
   opts: {
     start: PointSize;
     end: PointSize;
@@ -822,7 +821,7 @@ export function resizeElement(
 }
 
 export function rotateElement(
-  elem: Element<ElementType>,
+  elem: ElementSize,
   opts: {
     center: PointSize;
     start: PointSize;
@@ -876,7 +875,7 @@ export function getSelectedListArea(
 
   for (let idx = 0; idx < data.length; idx++) {
     const elem = data[idx];
-    if (elem?.operations?.lock === true) {
+    if (elem?.operations?.locked === true) {
       continue;
     }
     const elemSize = calcViewElementSize(elem, { viewScaleInfo });

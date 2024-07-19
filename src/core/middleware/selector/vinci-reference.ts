@@ -1,5 +1,4 @@
-import type { ViewContext2D, PointSize } from '../../../types';
-import { referenceColor } from './config';
+import type { ViewContext2D, PointSize, MiddlewareSelectorStyle } from '../../../types';
 import { drawLine, drawCrossByCenter } from './vinci-base';
 
 export function drawReferenceLines(
@@ -7,9 +6,11 @@ export function drawReferenceLines(
   opts: {
     xLines?: Array<PointSize[]>;
     yLines?: Array<PointSize[]>;
+    style: MiddlewareSelectorStyle;
   }
 ) {
-  const { xLines, yLines } = opts;
+  const { xLines, yLines, style } = opts;
+  const { referenceColor } = style;
   const lineOpts = {
     borderColor: referenceColor,
     borderWidth: 1,

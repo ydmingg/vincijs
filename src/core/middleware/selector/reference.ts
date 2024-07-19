@@ -72,7 +72,7 @@ const getClosestNumInSortedKeys = (sortedKeys: number[], target: number) => {
 const isEqualNum = (a: number, b: number) => Math.abs(a - b) < 0.00001;
 
 export function calcReferenceInfo(
-  id: string,
+  uuid: string,
   opts: {
     data: Data;
     groupQueue: Element<'group'>[];
@@ -88,7 +88,7 @@ export function calcReferenceInfo(
   }
   const siblingViewRectInfoList: ViewRectInfo[] = [];
   targetElements.forEach((elem: Element) => {
-    if (elem.id !== id) {
+    if (elem.id !== uuid) {
       const info = calculator.calcViewRectInfoFromRange(elem.id, { checkVisible: true, viewScaleInfo, viewSizeInfo });
       if (info) {
         siblingViewRectInfoList.push(info);
@@ -96,7 +96,7 @@ export function calcReferenceInfo(
     }
   });
 
-  const targetRectInfo = calculator.calcViewRectInfoFromRange(id, { viewScaleInfo, viewSizeInfo });
+  const targetRectInfo = calculator.calcViewRectInfoFromRange(uuid, { viewScaleInfo, viewSizeInfo });
 
   if (!targetRectInfo) {
     return null;
@@ -235,7 +235,6 @@ export function calcReferenceInfo(
         yList: []
       };
       vLine.yList.push(newTargetBox.minY);
-      vLine.yList.push(newTargetBox.midY);
       vLine.yList.push(newTargetBox.maxY);
       vLine.yList.push(...(hRefLineDotMap?.[closestMinX] || []));
       vHelperLineDotMapList.push(vLine);
@@ -247,7 +246,6 @@ export function calcReferenceInfo(
         yList: []
       };
       vLine.yList.push(newTargetBox.minY);
-      vLine.yList.push(newTargetBox.midY);
       vLine.yList.push(newTargetBox.maxY);
       vLine.yList.push(...(hRefLineDotMap?.[closestMidX] || []));
       vHelperLineDotMapList.push(vLine);
@@ -259,7 +257,6 @@ export function calcReferenceInfo(
         yList: []
       };
       vLine.yList.push(newTargetBox.minY);
-      vLine.yList.push(newTargetBox.midY);
       vLine.yList.push(newTargetBox.maxY);
       vLine.yList.push(...(hRefLineDotMap?.[closestMaxX] || []));
       vHelperLineDotMapList.push(vLine);
@@ -273,7 +270,6 @@ export function calcReferenceInfo(
         xList: []
       };
       hLine.xList.push(newTargetBox.minX);
-      hLine.xList.push(newTargetBox.midX);
       hLine.xList.push(newTargetBox.maxX);
       hLine.xList.push(...(vRefLineDotMap?.[closestMinY] || []));
       hHelperLineDotMapList.push(hLine);
@@ -284,7 +280,6 @@ export function calcReferenceInfo(
         xList: []
       };
       hLine.xList.push(newTargetBox.minX);
-      hLine.xList.push(newTargetBox.midX);
       hLine.xList.push(newTargetBox.maxX);
       hLine.xList.push(...(vRefLineDotMap?.[closestMinY] || []));
       hHelperLineDotMapList.push(hLine);
@@ -295,7 +290,6 @@ export function calcReferenceInfo(
         xList: []
       };
       hLine.xList.push(newTargetBox.minX);
-      hLine.xList.push(newTargetBox.midX);
       hLine.xList.push(newTargetBox.maxX);
       hLine.xList.push(...(vRefLineDotMap?.[closestMaxY] || []));
       hHelperLineDotMapList.push(hLine);

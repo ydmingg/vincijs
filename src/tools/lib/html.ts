@@ -1,4 +1,3 @@
-// Thanks to: https://github.com/HenrikJoreteg/html-parse-stringify/
 import { HTMLNode } from '../../types';
 
 const attrRegExp = /\s([^'"/\s><]+?)[\s/>]|([^\s=]+)=\s?(".*?"|'.*?')/g;

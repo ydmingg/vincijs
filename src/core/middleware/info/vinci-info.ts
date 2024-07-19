@@ -1,13 +1,14 @@
-import type { PointSize, ViewContext2D } from '../../../types';
+import type { PointSize, ViewContext2D, MiddlewareInfoStyle } from '../../../types';
 import { rotateByCenter } from '../../../tools';
 
 const fontFamily = 'monospace';
 
 export function drawSizeInfoText(
   ctx: ViewContext2D,
-  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string }
+  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string, style: MiddlewareInfoStyle }
 ) {
-  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight } = opts;
+  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight, style } = opts;
+  const { textColor, textBackground } = style;
 
   rotateByCenter(ctx, angle, rotateCenter, () => {
     ctx.$setFont({
@@ -30,7 +31,8 @@ export function drawSizeInfoText(
       y: point.y
     };
     ctx.setLineDash([]);
-    ctx.fillStyle = background;
+    ctx.fillStyle = textBackground
+    // ctx.fillStyle = background;
     ctx.beginPath();
     ctx.moveTo(bgStart.x, bgStart.y);
     ctx.lineTo(bgEnd.x, bgStart.y);
@@ -39,7 +41,8 @@ export function drawSizeInfoText(
     ctx.closePath();
     ctx.fill();
 
-    ctx.fillStyle = color;
+    // ctx.fillStyle = color;
+    ctx.fillStyle = textColor
     ctx.textBaseline = 'top';
     ctx.fillText(text, textStart.x, textStart.y + padding);
   });
@@ -47,9 +50,10 @@ export function drawSizeInfoText(
 
 export function drawPositionInfoText(
   ctx: ViewContext2D,
-  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string }
+  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string, style: MiddlewareInfoStyle }
 ) {
-  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight } = opts;
+  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight, style } = opts;
+  const { textBackground, textColor } = style;
 
   rotateByCenter(ctx, angle, rotateCenter, () => {
     ctx.$setFont({
@@ -72,7 +76,8 @@ export function drawPositionInfoText(
       y: point.y
     };
     ctx.setLineDash([]);
-    ctx.fillStyle = background;
+    // ctx.fillStyle = background;
+    ctx.fillStyle = textBackground
     ctx.beginPath();
     ctx.moveTo(bgStart.x, bgStart.y);
     ctx.lineTo(bgEnd.x, bgStart.y);
@@ -81,7 +86,8 @@ export function drawPositionInfoText(
     ctx.closePath();
     ctx.fill();
 
-    ctx.fillStyle = color;
+    // ctx.fillStyle = color;
+    ctx.fillStyle = textColor
     ctx.textBaseline = 'top';
     ctx.fillText(text, textStart.x, textStart.y + padding);
   });
@@ -89,9 +95,10 @@ export function drawPositionInfoText(
 
 export function drawAngleInfoText(
   ctx: ViewContext2D,
-  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string }
+  opts: { point: PointSize; rotateCenter: PointSize; angle: number; text: string; fontSize: number; lineHeight: number; color: string; background: string, style: MiddlewareInfoStyle }
 ) {
-  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight } = opts;
+  const { point, rotateCenter, angle, text, color, background, fontSize, lineHeight, style } = opts;
+  const { textBackground, textColor } = style;
 
   rotateByCenter(ctx, angle, rotateCenter, () => {
     ctx.$setFont({
@@ -114,7 +121,8 @@ export function drawAngleInfoText(
       y: point.y
     };
     ctx.setLineDash([]);
-    ctx.fillStyle = background;
+    // ctx.fillStyle = background;
+    ctx.fillStyle = textBackground
     ctx.beginPath();
     ctx.moveTo(bgStart.x, bgStart.y);
     ctx.lineTo(bgEnd.x, bgStart.y);
@@ -123,7 +131,8 @@ export function drawAngleInfoText(
     ctx.closePath();
     ctx.fill();
 
-    ctx.fillStyle = color;
+    // ctx.fillStyle = color;
+    ctx.fillStyle = textColor
     ctx.textBaseline = 'top';
     ctx.fillText(text, textStart.x, textStart.y + padding);
   });

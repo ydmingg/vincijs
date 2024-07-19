@@ -2,7 +2,7 @@ export { delay, compose, throttle, debounce } from './lib/time';
 export { downloadImageFromCanvas, parseFileToBase64, pickFile, parseFileToText, downloadFileFromText } from './lib/file';
 export { toColorHexStr, toColorHexNum, isColorStr, colorNameToHex, colorToCSS, colorToLinearGradientCSS, mergeHexColorAlpha } from './lib/color';
 export { createid, isAssetId, createAssetId } from './lib/id';
-export { deepClone,sortDataAsserts, deepCloneElement } from './lib/data';
+export { deepClone, sortDataAsserts, deepCloneElement, filterCompactData } from './lib/data';
 export { istype } from './lib/istype';
 export { loadImage, loadSVG, loadHTML } from './lib/load';
 export { is } from './lib/is';
@@ -86,4 +86,5 @@ export {
 export { deepResizeGroupElement } from './lib/resize-element';
 export { calcViewCenterContent, calcViewCenter } from './lib/view-content';
 export { modifyElement, getModifiedElement } from './lib/modify';
-// export { ModifyRecorder } from './lib/modify-recorder';
+export { enhanceFontFamliy } from './lib/text';
+export { flatElementList } from './lib/flat';

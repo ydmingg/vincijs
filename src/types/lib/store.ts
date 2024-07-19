@@ -1,14 +1,12 @@
 import { Data } from './data';
-import {
-  // ViewRectVertexes,
-  ViewScaleInfo,
-  ViewSizeInfo
-} from './view';
+import { ViewScaleInfo, ViewSizeInfo } from './view';
+import { Element } from './element';
+import { RecursivePartial } from './tools';
 
 export type ActiveStore = ViewSizeInfo &
   ViewScaleInfo & {
     data: Data | null;
-    // selectedViewRectVertexes: ViewRectVertexes | null;
+    overrideElementMap: Record<string, RecursivePartial<Element>> | null;
   };
 
 export interface StoreSharer<S extends Record<any, any> = any> {
@@ -23,4 +21,6 @@ export interface StoreSharer<S extends Record<any, any> = any> {
   setActiveViewScaleInfo(viewScaleInfo: ViewScaleInfo): void;
   setActiveViewSizeInfo(size: ViewSizeInfo): void;
   getActiveViewSizeInfo(): ViewSizeInfo;
+  // setActiveOverrideElemenentMap(map: Record<string, RecursivePartial<Element>> | null): void;
+  // getActiveOverrideElemenentMap(): Record<string, RecursivePartial<Element>> | null;
 }

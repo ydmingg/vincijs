@@ -19,7 +19,7 @@ export function drawRect(ctx: ViewContext2D, elem: Element<'rect'>, opts: Render
           viewSizeInfo,
           parentOpacity,
           renderContent: () => {
-            // empty
+            // is
           }
         });
       }

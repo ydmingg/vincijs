@@ -1,6 +1,13 @@
 import { EventEmitter } from '../tools';
-import type { LoadItemMap,Data, BoardRenderer, RendererOptions, RendererEventMap, RendererDrawOptions } from '../types';
-import { drawElementList } from './vinci/index';
+import type {
+  LoadItemMap,
+  Data,
+  BoardRenderer,
+  RendererOptions,
+  RendererEventMap,
+  RendererDrawOptions
+} from '../types';
+import { drawElementList, drawGlobalBackground } from './vinci/index';
 import { Loader } from './loader';
 
 export class Renderer extends EventEmitter<RendererEventMap> implements BoardRenderer {
@@ -32,8 +39,6 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
       this.trigger('load', e);
     });
     loader.on('error', (e) => {
-      // TODO
-      // eslint-disable-next-line no-console
       console.error(e);
     });
   }
@@ -44,7 +49,7 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
 
   drawData(data: Data, opts: RendererDrawOptions) {
     const loader = this.#loader;
-    const { calculator } = this.#opts;
+    const { calculator, sharer } = this.#opts;
     const viewContext = this.#opts.viewContext;
     viewContext.clearRect(0, 0, viewContext.canvas.width, viewContext.canvas.height);
     const parentElementSize = {
@@ -53,31 +58,17 @@ export class Renderer extends EventEmitter<RendererEventMap> implements BoardRen
       w: opts.viewSizeInfo.width,
       h: opts.viewSizeInfo.height
     };
-    // if (data.underlay) {
-    //   drawUnderlay(viewContext, data.underlay, {
-    //     loader,
-    //     calculator,
-    //     parentElementSize,
-    //     parentOpacity: 1,
-    //     ...opts
-    //   });
-    // }
     
     const drawOpts = {
       loader,
       calculator,
       parentElementSize,
-      // elementAssets: data.assets,
       parentOpacity: 1,
+      // overrideElementMap: sharer?.getActiveOverrideElemenentMap(),
       ...opts
     };
-    // if (data.layout) {
-    //   drawLayout(viewContext, data.layout as DataLayout, drawOpts, () => {
-    //     drawElementList(viewContext, data, drawOpts);
-    //   });
-    // } else {
-    //   drawElementList(viewContext, data, drawOpts);
-    // }
+
+    // drawGlobalBackground(viewContext, data.global, drawOpts);
     drawElementList(viewContext, data, drawOpts);
   }
 

@@ -1,5 +1,5 @@
 import type { BoardMiddleware, CoreEventMap, Element, ElementSize, ViewScaleInfo, ElementPosition } from '../../../types';
-import { limitAngle, getDefaultElementDetailConfig } from '../../../tools';
+import { limitAngle, getDefaultElementDetailConfig, enhanceFontFamliy } from '../../../tools';
 export const middlewareEventTextEdit = '@middleware/text-edit';
 export const middlewareEventTextChange = '@middleware/text-change';
 
@@ -28,7 +28,7 @@ type ExtendEventMap = Record<typeof middlewareEventTextEdit, TextEditEvent> & Re
 const defaultElementDetail = getDefaultElementDetailConfig();
 
 export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap & ExtendEventMap> = (opts) => {
-  const { eventHub, boardContent, viewer } = opts;
+  const { eventHub, boardContent, viewer, sharer } = opts;
   const canvas = boardContent.boardContext.canvas;
   // const textarea = document.createElement('textarea');
   const textarea = document.createElement('div');
@@ -44,21 +44,30 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
   canvasWrapper.style.position = 'absolute';
   mask.appendChild(canvasWrapper);
 
-  mask.style.position = 'fixed';
-  mask.style.top = '0';
-  mask.style.bottom = '0';
-  mask.style.left = '0';
-  mask.style.right = '0';
-  mask.style.display = 'none';
-  container.appendChild(mask);
-
   const showTextArea = (e: TextEditEvent) => {
     resetCanvasWrapper();
     resetTextArea(e);
     mask.style.display = 'block';
+    if (activeElem?.id) {
+      sharer.setActiveOverrideElemenentMap({
+        [activeElem.id]: {
+          operations: { invisible: true }
+        }
+      });
+      viewer.drawFrame();
+    }
   };
 
   const hideTextArea = () => {
+    if (activeElem?.id) {
+      const map = sharer.getActiveOverrideElemenentMap();
+      if (map) {
+        delete map[activeElem.id];
+      }
+      sharer.setActiveOverrideElemenentMap(map);
+      viewer.drawFrame();
+    }
+
     mask.style.display = 'none';
     activeElem = null;
     activePosition = [];
@@ -144,14 +153,6 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
       alignItems = 'end';
     }
 
-    // 修改文字选中时的样式
-    textarea.classList.add("selected-text");
-    const styleSheet = new CSSStyleSheet();
-    styleSheet.insertRule('.selected-text::selection{background: rgba(25,210,151,.4)}');
-
-    // // Firefox 和 Safari 需要以下步骤才能将样式表应用于文档
-    document.adoptedStyleSheets = [styleSheet];
-
     textarea.style.display = 'inline-flex';
     textarea.style.justifyContent = justifyContent;
     textarea.style.alignItems = alignItems;
@@ -164,22 +165,22 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     textarea.style.transform = `rotate(${limitAngle(element.angle || 0)}deg)`;
     // textarea.style.border = 'none';
     textarea.style.boxSizing = 'border-box';
-    textarea.style.border = textareaBorderColor;
+    textarea.style.border = '1px solid #1973ba';
     textarea.style.resize = 'none';
     textarea.style.overflow = 'hidden';
     textarea.style.wordBreak = 'break-all';
-    textarea.style.background = textareaBg;
-    textarea.style.color = '#333333';
+    textarea.style.borderRadius = `${(typeof detail.borderRadius === 'number' ? detail.borderRadius : 0) * scale}px`;
+    textarea.style.background = `${detail.background || 'transparent'}`;
+    textarea.style.color = `${detail.color || '#333333'}`;
     textarea.style.fontSize = `${detail.fontSize * scale}px`;
-    if(detail.lineHeight){
-      textarea.style.lineHeight = `${detail.lineHeight * scale}px`;
-    }
-    textarea.style.fontFamily = detail.fontFamily;
+    textarea.style.lineHeight = `${(detail.lineHeight || detail.fontSize) * scale}px`;
+    textarea.style.fontFamily = enhanceFontFamliy(detail.fontFamily);
     textarea.style.fontWeight = `${detail.fontWeight}`;
     textarea.style.padding = '0';
     textarea.style.margin = '0';
     textarea.style.outline = 'none';
 
+    // textarea.value = detail.text || '';
     textarea.innerText = detail.text || '';
     parent.appendChild(textarea);
   };
@@ -192,6 +193,7 @@ export const MiddlewareTextEditor: BoardMiddleware<ExtendEventMap, CoreEventMap 
     canvasWrapper.style.left = `${left}px`;
     canvasWrapper.style.width = `${width}px`;
     canvasWrapper.style.height = `${height}px`;
+    // canvasWrapper.style.background = '#000000';
   };
 
   mask.addEventListener('click', () => {

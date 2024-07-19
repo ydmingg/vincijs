@@ -27,8 +27,8 @@ export interface ViewSizeInfo extends ViewContextSize {
 export interface BoardContent {
   boardContext: ViewContext2D;
   viewContext: ViewContext2D;
-  helperContext: ViewContext2D;
-  underContext: ViewContext2D;
+  overlayContext: ViewContext2D;
+  underlayContext: ViewContext2D;
   drawView: () => void;
 }
 
@@ -53,7 +53,6 @@ export interface ViewCalculator {
     p: Point,
     opts: { data: Data; viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo; groupQueue?: Element<'group'>[] }
   ): { index: number; element: null | Element<ElementType>; groupQueueIndex: number };
-
   resetViewVisibleInfoMap(
     data: Data,
     opts: {
@@ -61,10 +60,9 @@ export interface ViewCalculator {
       viewSizeInfo: ViewSizeInfo;
     }
   ): void;
-  
   updateVisiableStatus(opts: { viewScaleInfo: ViewScaleInfo; viewSizeInfo: ViewSizeInfo }): void;
   calcViewRectInfoFromOrigin(
-    id: string,
+    uuid: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
@@ -72,7 +70,7 @@ export interface ViewCalculator {
     }
   ): ViewRectInfo | null;
   calcViewRectInfoFromRange(
-    id: string,
+    uuid: string,
     opts: {
       checkVisible?: boolean;
       viewScaleInfo: ViewScaleInfo;
@@ -125,5 +123,5 @@ export type ViewVisibleInfo = ViewRectInfoMap & {
 };
 
 export type ViewVisibleInfoMap = {
-  [id: string]: ViewVisibleInfo;
+  [uuid: string]: ViewVisibleInfo;
 };

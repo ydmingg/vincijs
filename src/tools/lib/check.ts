@@ -1,4 +1,3 @@
-// import { DataElementAttrs } from '../../types';
 import { is } from './is';
 
 function attrs(attrs: any): boolean {

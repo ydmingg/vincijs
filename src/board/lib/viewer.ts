@@ -4,7 +4,6 @@ import type {
   BoardViewer,
   BoardViewerEventMap,
   BoardViewerOptions,
-  // BoardViewerStorage,
   ActiveStore,
   BoardViewerFrameSnapshot,
   ViewScaleInfo,
@@ -104,8 +103,6 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
     const { sharer } = this.#opts;
     const activeStore: ActiveStore = sharer.getActiveStoreSnapshot();
     const sharedStore: Record<string, any> = sharer.getSharedStoreSnapshot();
-    // const activeStore: ActiveStore = sharer.getActiveStoreSnapshot({ deepClone: true });
-    // const sharedStore: Record<string, any> = sharer.getSharedStoreSnapshot({ deepClone: true });
     this.#drawFrameSnapshotQueue.push({
       activeStore,
       sharedStore
@@ -174,18 +171,17 @@ export class Viewer extends EventEmitter<BoardViewerEventMap> implements BoardVi
     const newViewSize = { ...originViewSize, ...viewSize };
 
     const { width, height, background, devicePixelRatio } = newViewSize;
-    const { underContext, boardContext, helperContext, viewContext } = this.#opts.boardContent;
+    const { underlayContext, boardContext, overlayContext, viewContext } = this.#opts.boardContent;
     boardContext.canvas.width = width * devicePixelRatio;
     boardContext.canvas.height = height * devicePixelRatio;
     boardContext.canvas.style.width = `${width}px`;
     boardContext.canvas.style.height = `${height}px`;
-    boardContext.canvas.style.background = background;
 
-    underContext.canvas.width = width * devicePixelRatio;
-    underContext.canvas.height = height * devicePixelRatio;
+    underlayContext.canvas.width = width * devicePixelRatio;
+    underlayContext.canvas.height = height * devicePixelRatio;
 
-    helperContext.canvas.width = width * devicePixelRatio;
-    helperContext.canvas.height = height * devicePixelRatio;
+    overlayContext.canvas.width = width * devicePixelRatio;
+    overlayContext.canvas.height = height * devicePixelRatio;
 
     viewContext.canvas.width = width * devicePixelRatio;
     viewContext.canvas.height = height * devicePixelRatio;

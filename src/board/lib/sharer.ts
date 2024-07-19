@@ -1,4 +1,4 @@
-import type { ActiveStore, StoreSharer, ViewScaleInfo, ViewSizeInfo } from '../../types';
+import type { ActiveStore, Element, ElementDetailMap, RecursivePartial, StoreSharer, ViewScaleInfo, ViewSizeInfo } from '../../types';
 import { Store } from '../../tools';
 
 const defaultActiveStorage: ActiveStore = {
@@ -14,6 +14,7 @@ const defaultActiveStorage: ActiveStore = {
   offsetRight: 0,
   offsetTop: 0,
   offsetBottom: 0,
+  overrideElementMap: null
 };
 
 export class Sharer implements StoreSharer<Record<string | number | symbol, any>> {
@@ -99,4 +100,12 @@ export class Sharer implements StoreSharer<Record<string | number | symbol, any>
     };
     return sizeInfo;
   }
+
+  // getActiveOverrideElemenentMap(): Record<string, RecursivePartial<Element<keyof ElementDetailMap, Record<string, any>>>> | null {
+  //   return this.#activeStore.get('overrideElementMap');
+  // }
+
+  // setActiveOverrideElemenentMap(map: Record<string, RecursivePartial<Element<keyof ElementDetailMap, Record<string, any>>>> | null): void {
+  //   this.#activeStore.set('overrideElementMap', map);
+  // }
 }

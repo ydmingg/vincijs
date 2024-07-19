@@ -19,15 +19,16 @@ function isValidMode(mode: string | VinciMode) {
 
 export function runMiddlewares(core: Core<VinciEvent>, store: Store<VinciStorage>) {
   const { enableRuler, enableScale, enableScroll, enableSelect, enableTextEdit, enableDrag, enableInfo } = store.getSnapshot();
+  const styles = store.get('middlewareStyles');
   if (enableScroll === true) {
-    core.use(MiddlewareScroller);
+    core.use(MiddlewareScroller, styles?.scroller);
   } else if (enableScroll === false) {
     core.disuse(MiddlewareScroller);
   }
 
   if (enableSelect === true) {
-    // core.use(MiddlewareLayoutSelector);
-    core.use(MiddlewareSelector);
+    // core.use(MiddlewareLayoutSelector, styles?.layoutSelector);
+    core.use(MiddlewareSelector, styles?.selector);
   } else if (enableSelect === false) {
     // core.disuse(MiddlewareLayoutSelector);
     core.disuse(MiddlewareSelector);
@@ -40,7 +41,7 @@ export function runMiddlewares(core: Core<VinciEvent>, store: Store<VinciStorage
   }
 
   if (enableRuler === true) {
-    core.use(MiddlewareRuler);
+    core.use(MiddlewareRuler, styles?.ruler);
   } else if (enableRuler === false) {
     core.disuse(MiddlewareRuler);
   }
@@ -58,7 +59,7 @@ export function runMiddlewares(core: Core<VinciEvent>, store: Store<VinciStorage
   }
 
   if (enableInfo === true) {
-    core.use(MiddlewareInfo);
+    core.use(MiddlewareInfo, styles?.info);
   } else if (enableInfo === false) {
     core.disuse(MiddlewareInfo);
   }
@@ -71,7 +72,7 @@ export function changeMode(mode: VinciMode, core: Core<VinciEvent>, store: Store
   let enableTextEdit: boolean = false;
   let enableDrag: boolean = false;
   let enableRuler: boolean = false;
-  const enableInfo: boolean = true;
+  let enableInfo: boolean = false;
 
   let innerMode: VinciMode = 'select';
   store.set('mode', innerMode);
@@ -79,13 +80,14 @@ export function changeMode(mode: VinciMode, core: Core<VinciEvent>, store: Store
     innerMode = mode;
   } else {
     // eslint-disable-next-line no-console
-    console.warn(`${mode} is invalid mode of Vinci.js`);
+    console.warn(`${mode} is invalid mode of iDraw.js`);
   }
 
   if (innerMode === 'select') {
     enableScale = true;
     enableScroll = true;
     enableSelect = true;
+    enableInfo = true;
     enableTextEdit = true;
     enableDrag = false;
     enableRuler = true;
@@ -112,6 +114,5 @@ export function changeMode(mode: VinciMode, core: Core<VinciEvent>, store: Store
   store.set('enableDrag', enableDrag);
   store.set('enableRuler', enableRuler);
   store.set('enableInfo', enableInfo);
-
   runMiddlewares(core, store);
 }

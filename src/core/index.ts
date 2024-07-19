@@ -5,7 +5,13 @@ import { Cursor } from './lib/cursor';
 export { eventChange } from './config';
 
 // export { MiddlewareSelector } from './middleware/selector';
-export { MiddlewareSelector, middlewareEventSelect, middlewareEventSelectClear, middlewareEventSelectInGroup } from './middleware/selector';
+export {
+  MiddlewareSelector,
+  middlewareEventSelect,
+  middlewareEventSelectClear,
+  middlewareEventSelectInGroup,
+  middlewareEventSnapToGrid
+} from './middleware/selector';
 export { MiddlewareScroller } from './middleware/scroller';
 export { MiddlewareScaler, middlewareEventScale } from './middleware/scaler';
 export { MiddlewareRuler, middlewareEventRuler } from './middleware/ruler';
@@ -64,11 +70,11 @@ export class Core<E extends CoreEventMap = CoreEventMap> {
     container.style.position = 'relative';
   }
 
-  use(middleware: BoardMiddleware<any, any>) {
-    this.#board.use(middleware);
+  use<C extends any = any>(middleware: BoardMiddleware<any, any, any>, config?: C) {
+    this.#board.use<C>(middleware, config);
   }
 
-  disuse(middleware: BoardMiddleware<any, any>) {
+  disuse(middleware: BoardMiddleware<any, any, any>) {
     this.#board.disuse(middleware);
   }
 

@@ -1,4 +1,4 @@
-import { Core, middlewareEventSelectInGroup } from '../core';
+import { Core, middlewareEventSelectInGroup, middlewareEventSnapToGrid } from '../core';
 import type {
   PointSize,
   VinciOptions,
@@ -28,7 +28,7 @@ import {
   calcViewCenter,
   Store
 } from '../tools';
-import { defaultSettings, getDefaultStorage, defaultMode } from './config';
+import { defaultSettings, getDefaultStorage, defaultMode, parseStyles } from './config';
 import { exportImageFileBlobURL } from './file';
 import type { ExportImageFileBaseOptions, ExportImageFileResult } from './file';
 import { eventKeys } from './event';
@@ -74,6 +74,10 @@ export class Vinci {
       this.#core.refresh();
     } else if (feat === 'selectInGroup') {
       this.#core.trigger(middlewareEventSelectInGroup, {
+        enable: !!status
+      });
+    } else if (feat === 'snapToGrid') {
+      this.#core.trigger(middlewareEventSnapToGrid, {
         enable: !!status
       });
     }
@@ -141,7 +145,6 @@ export class Vinci {
 
   centerContent(opts?: { data?: Data }) {
     const data = opts?.data || this.#core.getData();
-    
     const { viewSizeInfo } = this.getViewInfo();
     if ((Array.isArray(data) && data.length > 0)) {
       const result = calcViewCenterContent(data, { viewSizeInfo });
@@ -180,6 +183,8 @@ export class Vinci {
   selectElementsByPositions(positions: ElementPosition[]) {
     this.trigger(eventKeys.select, { positions });
   }
+
+
 
   zIndex(id: string, position: "top" | "bottom" | "up" | "down") {
     const core = this.#core;
@@ -341,7 +346,8 @@ export class Vinci {
 
   getViewCenter() {
     const { viewScaleInfo, viewSizeInfo } = this.getViewInfo();
-    return calcViewCenter({ viewScaleInfo, viewSizeInfo });
+    const pointSize: PointSize = calcViewCenter({ viewScaleInfo, viewSizeInfo });
+    return pointSize;
   }
 
   $onBoardWatcherEvents() {

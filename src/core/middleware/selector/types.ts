@@ -28,12 +28,9 @@ import {
   keySelectedElementListVertexes,
   keySelectedElementController,
   keySelectedElementPosition,
-  keySelectedReferenceXLines,
-  keySelectedReferenceYLines,
   keyIsMoving,
   keyEnableSelectInGroup,
-
-  // debug keys
+  keyEnableSnapToGrid,
   keyDebugElemCenter,
   keyDebugEnd0,
   keyDebugEndHorizontal,
@@ -41,6 +38,7 @@ import {
   keyDebugStartHorizontal,
   keyDebugStartVertical
 } from './config';
+// import { keyLayoutIsSelected } from '../layout-selector';
 
 export {
   Data,
@@ -103,10 +101,9 @@ export type DeepSelectorSharedStorage = {
   [keySelectedElementListVertexes]: ViewRectVertexes | null;
   [keySelectedElementController]: ElementSizeController | null;
   [keySelectedElementPosition]: ElementPosition;
-  [keySelectedReferenceXLines]: Array<PointSize[]>;
-  [keySelectedReferenceYLines]: Array<PointSize[]>;
   [keyIsMoving]: boolean | null;
   [keyEnableSelectInGroup]: boolean | null;
+  [keyEnableSnapToGrid]: boolean | null;
 
   [keyDebugElemCenter]: PointSize | null;
   [keyDebugEnd0]: PointSize | null;
@@ -114,4 +111,7 @@ export type DeepSelectorSharedStorage = {
   [keyDebugEndVertical]: PointSize | null;
   [keyDebugStartHorizontal]: PointSize | null;
   [keyDebugStartVertical]: PointSize | null;
+
+  // layout-selector
+  // [keyLayoutIsSelected]: boolean | null;
 };

@@ -3,7 +3,6 @@ import type { Element, ElementType, ElementAssets, ElementSize, ElementGroupDeta
 // 定义Data的类型是一个数组
 export type Data = Element<ElementType>[]
 
-
 export type Matrix = [
   number,
   number,

@@ -1,13 +1,29 @@
-import type { BoardMiddleware, CoreEventMap } from '../../../types';
+import type { BoardMiddleware, CoreEventMap, MiddlewareRulerConfig } from '../../../types';
 import { getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot } from '../../../tools';
-import { drawRulerBackground, drawXRuler, drawYRuler, calcXRulerScaleList, calcYRulerScaleList, drawUnderGrid, drawScrollerSelectedArea } from './tools';
+import { drawRulerBackground, drawXRuler, drawYRuler, calcXRulerScaleList, calcYRulerScaleList, drawGrid, drawScrollerSelectedArea } from './tools';
 import type { DeepRulerSharedStorage } from './types';
+import { defaultStyle } from './config';
 
 export const middlewareEventRuler = '@middleware/show-ruler';
 
-export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventMap> = (opts) => {
+export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventMap, MiddlewareRulerConfig> = (opts, config) => {
   const { boardContent, viewer, eventHub, calculator } = opts;
-  const { helperContext, underContext } = boardContent;
+  const { overlayContext, underlayContext } = boardContent;
+  const innerConfig = {
+    ...defaultStyle,
+    ...config
+  };
+  const { background, borderColor, scaleColor, textColor, gridColor, gridPrimaryColor, selectedAreaColor } = innerConfig;
+  const style = {
+    background,
+    borderColor,
+    scaleColor,
+    textColor,
+    gridColor,
+    gridPrimaryColor,
+    selectedAreaColor
+  };
+
   let show: boolean = true;
   let showGrid: boolean = true;
 
@@ -36,22 +52,25 @@ export const MiddlewareRuler: BoardMiddleware<DeepRulerSharedStorage, CoreEventM
       if (show === true) {
         const viewScaleInfo = getViewScaleInfoFromSnapshot(snapshot);
         const viewSizeInfo = getViewSizeInfoFromSnapshot(snapshot);
-        drawScrollerSelectedArea(helperContext, { snapshot, calculator });
 
-        drawRulerBackground(helperContext, { viewScaleInfo, viewSizeInfo });
+        drawScrollerSelectedArea(overlayContext, { snapshot, calculator, style });
 
-        const xList = calcXRulerScaleList({ viewScaleInfo, viewSizeInfo });
-        drawXRuler(helperContext, { scaleList: xList });
+        drawRulerBackground(overlayContext, { viewScaleInfo, viewSizeInfo, style });
 
-        const yList = calcYRulerScaleList({ viewScaleInfo, viewSizeInfo });
-        drawYRuler(helperContext, { scaleList: yList });
+        const { list: xList, rulerUnit } = calcXRulerScaleList({ viewScaleInfo, viewSizeInfo });
+        drawXRuler(overlayContext, { scaleList: xList, style });
+
+        const { list: yList } = calcYRulerScaleList({ viewScaleInfo, viewSizeInfo });
+        drawYRuler(overlayContext, { scaleList: yList, style });
 
         if (showGrid === true) {
-          drawUnderGrid(underContext, {
+          const ctx = rulerUnit === 1 ? overlayContext : underlayContext;
+          drawGrid(ctx, {
             xList,
             yList,
             viewScaleInfo,
-            viewSizeInfo
+            viewSizeInfo,
+            style
           });
         }
       }

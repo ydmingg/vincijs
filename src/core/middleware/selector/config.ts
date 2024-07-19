@@ -1,3 +1,5 @@
+import type { MiddlewareSelectorStyle } from '../../../types';
+
 export const key = 'SELECT';
 // export const keyHoverElement = Symbol(`${key}_hoverElementSize`);
 export const keyActionType = Symbol(`${key}_actionType`); // 'select' | 'drag-list' | 'drag-list-end' | 'drag' | 'hover' | 'resize' | 'area' | null = null;
@@ -11,12 +13,11 @@ export const keySelectedElementList = Symbol(`${key}_selectedElementList`); // A
 export const keySelectedElementListVertexes = Symbol(`${key}_selectedElementListVertexes`); // ViewRectVertexes | null
 export const keySelectedElementController = Symbol(`${key}_selectedElementController`); // ElementSizeController
 export const keySelectedElementPosition = Symbol(`${key}_selectedElementPosition`); // ElementPosition | []
-export const keySelectedReferenceXLines = Symbol(`${key}_selectedReferenceXLines`); // Array<PointSize[]>
-export const keySelectedReferenceYLines = Symbol(`${key}_selectedReferenceYLines`); // Array<PointSize[]>
 export const keyGroupQueue = Symbol(`${key}_groupQueue`); // Array<Element<'group'>> | []
 export const keyGroupQueueVertexesList = Symbol(`${key}_groupQueueVertexesList`); // Array<ViewRectVertexes> | []
 export const keyIsMoving = Symbol(`${key}_isMoving`); // boolean | null
-export const keyEnableSelectInGroup = Symbol(`${key}_canSelectInGroup`);
+export const keyEnableSelectInGroup = Symbol(`${key}_enableSelectInGroup`);
+export const keyEnableSnapToGrid = Symbol(`${key}_enableSnapToGrid`);
 
 export const keyDebugElemCenter = Symbol(`${key}_debug_elemCenter`);
 export const keyDebugStartVertical = Symbol(`${key}_debug_startVertical`);
@@ -28,19 +29,22 @@ export const keyDebugEnd0 = Symbol(`${key}_debug_end0`);
 export const selectWrapperBorderWidth = 2;
 export const resizeControllerBorderWidth = 4;
 export const areaBorderWidth = 1;
-// 修改选中元素的样式
-export const wrapperColor = '#00BD81';
-
-export const lockColor = '#5b5959b5';
-
 export const controllerSize = 10;
 
-export const auxiliaryColor = '#f7276e';
+// 修改选中元素的样式
+const activeColor = '#00BD81';
+const lockedColor = '#5b5959b5';
+const activeAreaColor = '#f7276e';
+const referenceColor = '#f7276e';
 
-export const referenceColor = '#f7276e';
+export const defaultStyle: MiddlewareSelectorStyle = {
+    activeColor,
+    activeAreaColor,
+    lockedColor,
+    referenceColor
+};
 
 export const middlewareEventSelect: string = '@middleware/select';
-
 export const middlewareEventSelectClear: string = '@middleware/select-clear';
-
 export const middlewareEventSelectInGroup: string = '@middleware/select-in-group';
+export const middlewareEventSnapToGrid: string = '@middleware/snap-to-grid';

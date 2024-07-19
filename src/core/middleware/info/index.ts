@@ -1,17 +1,27 @@
-import type { BoardMiddleware, ViewRectInfo, Element } from '../../../types';
+import type { BoardMiddleware, ViewRectInfo, Element, MiddlewareInfoConfig } from '../../../types';
 import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createid, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
-import { keySelectedElementList, keyActionType, keyGroupQueue } from '../selector';
+import { keySelectedElementList, keyHoverElement, keyActionType, keyGroupQueue } from '../selector';
 import { drawSizeInfoText, drawPositionInfoText, drawAngleInfoText } from './vinci-info';
 import type { DeepInfoSharedStorage } from './types';
+import { defaltStyle } from './config';
 
 const infoBackground = '#1973bac6';
 const infoTextColor = '#ffffff';
 const infoFontSize = 10;
 const infoLineHeight = 16;
 
-export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => {
+export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage, any, MiddlewareInfoConfig> = (opts, config) => {
   const { boardContent, calculator } = opts;
-  const { helperContext } = boardContent;
+  const { overlayContext } = boardContent;
+  const innerConfig = {
+    ...defaltStyle,
+    ...config
+  };
+  const { textBackground, textColor } = innerConfig;
+  const style = {
+    textBackground,
+    textColor
+  };
 
   return {
     name: '@middleware/info',
@@ -20,12 +30,11 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
       const { sharedStore } = snapshot;
 
       const selectedElementList = sharedStore[keySelectedElementList];
+      const hoverElement = sharedStore[keyHoverElement];
       const actionType = sharedStore[keyActionType];
       const groupQueue = sharedStore[keyGroupQueue] || [];
 
-      // console.log('resizeType ===== ', resizeType);
-
-      if (selectedElementList.length === 1) {
+      if (selectedElementList.length === 1 && !hoverElement?.operations?.locked) {
         const elem = selectedElementList[0];
         if (elem && ['select', 'drag', 'resize'].includes(actionType as string)) {
           const viewScaleInfo = getViewScaleInfoFromSnapshot(snapshot);
@@ -33,8 +42,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
           const { x, y, w, h, angle } = elem;
           const totalGroupQueue = [
             ...groupQueue,
-            ...[
-              {
+            ...[{
                 id: createid(),
                 x,
                 y,
@@ -43,8 +51,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
                 angle,
                 type: 'group',
                 detail: { children: [] }
-              } as Element<'group'>
-            ]
+              } as Element<'group'>]
           ];
 
           const calcOpts = { viewScaleInfo, viewSizeInfo };
@@ -75,23 +82,11 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
             const w = formatNumber(elem.w, { decimalPlaces: 2 });
             const h = formatNumber(elem.h, { decimalPlaces: 2 });
 
-            // // test start ----
-            // const ctx = helperContext;
-            // ctx.beginPath();
-            // ctx.moveTo(rectInfo.topLeft.x, rectInfo.topLeft.y);
-            // ctx.lineTo(rectInfo.topRight.x, rectInfo.topRight.y);
-            // ctx.lineTo(rectInfo.bottomRight.x, rectInfo.bottomRight.y);
-            // ctx.lineTo(rectInfo.bottomLeft.x, rectInfo.bottomLeft.y);
-            // ctx.closePath();
-            // ctx.strokeStyle = 'red';
-            // ctx.stroke();
-            // // test end ----
-
             const xyText = `${formatNumber(x, { decimalPlaces: 0 })},${formatNumber(y, { decimalPlaces: 0 })}`;
             const whText = `${formatNumber(w, { decimalPlaces: 0 })}x${formatNumber(h, { decimalPlaces: 0 })}`;
             const angleText = `${formatNumber(elem.angle || 0, { decimalPlaces: 0 })}°`;
 
-            drawSizeInfoText(helperContext, {
+            drawSizeInfoText(overlayContext, {
               point: {
                 x: rectInfo.bottom.x,
                 y: rectInfo.bottom.y + infoFontSize
@@ -102,10 +97,11 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
               fontSize: infoFontSize,
               lineHeight: infoLineHeight,
               color: infoTextColor,
-              background: infoBackground
+              background: infoBackground,
+              style
             });
 
-            drawPositionInfoText(helperContext, {
+            drawPositionInfoText(overlayContext, {
               point: {
                 x: rectInfo.topLeft.x,
                 y: rectInfo.topLeft.y - infoFontSize * 2
@@ -116,10 +112,11 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
               fontSize: infoFontSize,
               lineHeight: infoLineHeight,
               color: infoTextColor,
-              background: infoBackground
+              background: infoBackground,
+              style
             });
 
-            drawAngleInfoText(helperContext, {
+            drawAngleInfoText(overlayContext, {
               point: {
                 x: rectInfo.top.x + infoFontSize,
                 y: rectInfo.top.y - infoFontSize * 2
@@ -130,7 +127,8 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage> = (opts) => 
               fontSize: infoFontSize,
               lineHeight: infoLineHeight,
               color: infoTextColor,
-              background: infoBackground
+              background: infoBackground,
+              style
             });
           }
         }

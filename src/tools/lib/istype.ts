@@ -49,11 +49,4 @@ export const istype = {
     return parsePrototype(data) === 'Promise';
   }
 
-  // nodeList (data: any): boolean {
-  //   return parsePrototype(data) === 'NodeList';
-  // },
-
-  // imageData(data: any): boolean {
-  //   return parsePrototype(data) === 'ImageData';
-  // }
 };

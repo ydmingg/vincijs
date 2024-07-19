@@ -1,4 +1,4 @@
-export * from '../types';
+export type * from '../types';
 export {
   Core,
   MiddlewareSelector,
@@ -122,7 +122,8 @@ export {
   calcElementViewRectInfo,
   calcElementOriginRectInfo,
   calcElementViewRectInfoMap,
-  sortElementsViewVisiableInfoMap
+  sortElementsViewVisiableInfoMap,
+  flatElementList
 } from '../tools';
 export { Vinci } from './vinci';
 export { eventKeys } from './event';

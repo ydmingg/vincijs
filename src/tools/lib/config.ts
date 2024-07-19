@@ -1,5 +1,4 @@
 import type {
-  // ViewScaleInfo,
   DefaultElementDetailConfig,
   ElementSize,
   ElementRectDetail,
@@ -31,7 +30,11 @@ export function getDefaultElementDetailConfig(): DefaultElementDetailConfig {
     // lineHeight: 20,
     fontFamily: 'sans-serif',
     fontWeight: 400,
+    minInlineSize: 'auto',
+    wordBreak: 'break-all',
     overflow: 'hidden',
+    clipPathStrokeWidth: 1,
+    clipPathStrokeColor: "red",
     visibility: true,
   };
   return config;

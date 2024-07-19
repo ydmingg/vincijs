@@ -8,13 +8,13 @@ import type {
   ViewScaleInfo,
   ViewSizeInfo,
   ElementSizeController,
-  ViewCalculator
+  ViewCalculator,
+  MiddlewareSelectorStyle
 } from '../../../types';
 import { rotateElementVertexes, calcViewPointSize, calcViewVertexes, calcViewElementSize } from '../../../tools';
 import type { AreaSize } from './types';
-import { resizeControllerBorderWidth, areaBorderWidth, wrapperColor, selectWrapperBorderWidth, lockColor, controllerSize } from './config';
+import { resizeControllerBorderWidth, areaBorderWidth, selectWrapperBorderWidth, controllerSize } from './config';
 import { drawVertexes, drawLine, drawCircleController, drawCrossVertexes } from './vinci-base';
-// import { drawAuxiliaryExperimentBox } from './draw-auxiliary';
 
 export function drawHoverVertexesWrapper(
   ctx: ViewContext2D,
@@ -22,34 +22,41 @@ export function drawHoverVertexesWrapper(
   opts: {
     viewScaleInfo: ViewScaleInfo;
     viewSizeInfo: ViewSizeInfo;
+    style: MiddlewareSelectorStyle;
   }
 ) {
   if (!vertexes) {
     return;
   }
-  const wrapperOpts = { borderColor: wrapperColor, borderWidth: 1, background: 'transparent', lineDash: [] };
+  const { style } = opts;
+  const { activeColor } = style;
+  const wrapperOpts = { borderColor: activeColor, borderWidth: 1, background: 'transparent', lineDash: [] };
   drawVertexes(ctx, calcViewVertexes(vertexes, opts), wrapperOpts);
 }
 
-export function drawLockVertexesWrapper(
+export function drawLockedVertexesWrapper(
   ctx: ViewContext2D,
   vertexes: ViewRectVertexes | null,
   opts: {
     viewScaleInfo: ViewScaleInfo;
     viewSizeInfo: ViewSizeInfo;
     controller?: ElementSizeController | null;
+    style: MiddlewareSelectorStyle;
   }
 ) {
   if (!vertexes) {
     return;
   }
-  const wrapperOpts = { borderColor: lockColor, borderWidth: 1, background: 'transparent', lineDash: [] };
+
+  const { style } = opts;
+  const { lockedColor } = style;
+  const wrapperOpts = { borderColor: lockedColor, borderWidth: 1, background: 'transparent', lineDash: [] };
   drawVertexes(ctx, calcViewVertexes(vertexes, opts), wrapperOpts);
 
   const { controller } = opts;
   if (controller) {
     const { topLeft, topRight, bottomLeft, bottomRight, topMiddle, bottomMiddle, leftMiddle, rightMiddle } = controller;
-    const ctrlOpts = { ...wrapperOpts, borderWidth: 1, background: lockColor };
+    const ctrlOpts = { ...wrapperOpts, borderWidth: 1, background: lockedColor };
 
     drawCrossVertexes(ctx, calcViewVertexes(topMiddle.vertexes, opts), ctrlOpts);
     drawCrossVertexes(ctx, calcViewVertexes(bottomMiddle.vertexes, opts), ctrlOpts);
@@ -72,24 +79,23 @@ export function drawSelectedElementControllersVertexes(
     viewSizeInfo: ViewSizeInfo;
     element: Element | null;
     calculator: ViewCalculator;
+    style: MiddlewareSelectorStyle;
   }
 ) {
   if (!controller) {
     return;
   }
   const {
-    hideControllers
-    // calculator, element, viewScaleInfo, viewSizeInfo
+    hideControllers,
+    style
   } = opts;
+  
+  const { activeColor } = style;
   const { elementWrapper, topLeft, topRight, bottomLeft, bottomRight, top, rotate } = controller;
-  const wrapperOpts = { borderColor: wrapperColor, borderWidth: selectWrapperBorderWidth, background: 'transparent', lineDash: [] };
+  const wrapperOpts = { borderColor: activeColor, borderWidth: selectWrapperBorderWidth, background: 'transparent', lineDash: [] };
   const ctrlOpts = { ...wrapperOpts, borderWidth: resizeControllerBorderWidth, background: '#FFFFFF' };
 
   drawVertexes(ctx, calcViewVertexes(elementWrapper, opts), wrapperOpts);
-  // drawVertexes(ctx, calcViewVertexes(left.vertexes, opts), ctrlOpts);
-  // drawVertexes(ctx, calcViewVertexes(right.vertexes, opts), ctrlOpts);
-  // drawVertexes(ctx, calcViewVertexes(top.vertexes, opts), ctrlOpts);
-  // drawVertexes(ctx, calcViewVertexes(bottom.vertexes, opts), ctrlOpts);
   if (!hideControllers) {
     drawLine(ctx, calcViewPointSize(top.center, opts), calcViewPointSize(rotate.center, opts), { ...ctrlOpts, borderWidth: 2 });
     drawVertexes(ctx, calcViewVertexes(topLeft.vertexes, opts), ctrlOpts);
@@ -99,12 +105,6 @@ export function drawSelectedElementControllersVertexes(
     drawCircleController(ctx, calcViewPointSize(rotate.center, opts), { ...ctrlOpts, size: controllerSize, borderWidth: 2 });
   }
 
-  // drawAuxiliaryExperimentBox(ctx, {
-  //   calculator,
-  //   element,
-  //   viewScaleInfo,
-  //   viewSizeInfo
-  // });
 }
 
 export function drawElementListShadows(ctx: ViewContext2D, elements: Element<ElementType>[], opts?: Omit<RendererDrawElementOptions, 'loader'>) {
@@ -137,13 +137,13 @@ export function drawElementListShadows(ctx: ViewContext2D, elements: Element<Ele
   });
 }
 
-export function drawArea(ctx: ViewContext2D, opts: { start: PointSize; end: PointSize }) {
-  const { start, end } = opts;
+export function drawArea(ctx: ViewContext2D, opts: { start: PointSize; end: PointSize; style: MiddlewareSelectorStyle }) {
+  const { start, end, style } = opts;
+  const { activeColor, activeAreaColor } = style;
   ctx.setLineDash([]);
   ctx.lineWidth = areaBorderWidth;
-  ctx.strokeStyle = wrapperColor;
-  // 框选颜色
-  ctx.fillStyle = 'rgba(25,210,151,.1)';
+  ctx.strokeStyle = activeColor;
+  ctx.fillStyle = activeAreaColor;
   ctx.beginPath();
   ctx.moveTo(start.x, start.y);
   ctx.lineTo(end.x, start.y);
@@ -154,13 +154,14 @@ export function drawArea(ctx: ViewContext2D, opts: { start: PointSize; end: Poin
   ctx.fill();
 }
 
-export function drawListArea(ctx: ViewContext2D, opts: { areaSize: AreaSize }) {
-  const { areaSize } = opts;
+export function drawListArea(ctx: ViewContext2D, opts: { areaSize: AreaSize; style: MiddlewareSelectorStyle }) {
+  const { areaSize, style } = opts;
+  const { activeColor, activeAreaColor } = style;
   const { x, y, w, h } = areaSize;
   ctx.setLineDash([]);
   ctx.lineWidth = areaBorderWidth;
-  ctx.strokeStyle = wrapperColor;
-  ctx.fillStyle = 'rgba(25,210,151,.1)';
+  ctx.strokeStyle = activeColor;
+  ctx.fillStyle = activeAreaColor;
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x + w, y);
@@ -177,11 +178,14 @@ export function drawGroupQueueVertexesWrappers(
   opts: {
     viewScaleInfo: ViewScaleInfo;
     viewSizeInfo: ViewSizeInfo;
+    style: MiddlewareSelectorStyle;
   }
 ) {
+  const { style } = opts;
+  const { activeColor } = style;
   for (let i = 0; i < vertexesList.length; i++) {
     const vertexes = vertexesList[i];
-    const wrapperOpts = { borderColor: wrapperColor, borderWidth: selectWrapperBorderWidth, background: 'transparent', lineDash: [4, 4] };
+    const wrapperOpts = { borderColor: activeColor, borderWidth: selectWrapperBorderWidth, background: 'transparent', lineDash: [4, 4] };
     drawVertexes(ctx, calcViewVertexes(vertexes, opts), wrapperOpts);
   }
 }

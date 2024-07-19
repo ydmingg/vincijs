@@ -12,7 +12,6 @@ export function isColorStr(color?: string): boolean {
   return typeof color === 'string' && (/^\#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(color) || /^[a-z]{1,}$/i.test(color));
 }
 
-// https://stackoverflow.com/questions/1573053/javascript-function-to-convert-color-names-to-hex-codes
 const colorNameMap: Record<string, string> = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
