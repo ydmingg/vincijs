@@ -296,8 +296,8 @@ export const Demo = () => {
     // 下一层，上一层，顶层，底层
     // const getData = vinci.getData()
     // const elId = getData![2].id
-    // document.documentElement.addEventListener('click', () => { 
-    //     const getData = vinci.getData(); 
+    // document.documentElement.addEventListener('click', () => {
+    //     const getData = vinci.getData();
 
     //     if (getData && getData.length > 2) {
     //       vinci.zIndex(elId, "down");
@@ -306,9 +306,21 @@ export const Demo = () => {
     // });
     
     // 显示隐藏
-    // document.documentElement.addEventListener('click', () => { 
+    // document.documentElement.addEventListener('click', () => {
     //     vinci.visibility(elId, false)
     // })
+
+    vinci.getImageBlobURL({ devicePixelRatio: 1 }).then((res) => { 
+        const img = document.createElement('img')
+        const { blobURL } = res
+        img.src = blobURL!.toString()
+        console.log(img);
+        
+        const popup = document.querySelector("#popup") as HTMLDivElement
+        popup.appendChild(img)
+        
+    })
+
 
     
 }
