@@ -1,7 +1,7 @@
 export { delay, compose, throttle, debounce } from './lib/time';
 export { downloadImageFromCanvas, parseFileToBase64, pickFile, parseFileToText, downloadFileFromText } from './lib/file';
 export { toColorHexStr, toColorHexNum, isColorStr, colorNameToHex, colorToCSS, colorToLinearGradientCSS, mergeHexColorAlpha } from './lib/color';
-export { createid, isAssetId, createAssetId } from './lib/id';
+export { createId, isAssetId, createAssetId } from './lib/id';
 export { deepClone, sortDataAsserts, deepCloneElement, filterCompactData } from './lib/data';
 export { istype } from './lib/istype';
 export { loadImage, loadSVG, loadHTML } from './lib/load';

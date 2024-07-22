@@ -21,11 +21,11 @@ export const funLine = (Vinci, Data) => {
         }
     
     ]
-    
+
     // 渲染元素
     Vinci.setData(data)
     Vinci.centerContent({ data: data });
-
+    
 
 
 

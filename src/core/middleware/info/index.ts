@@ -1,5 +1,5 @@
 import type { BoardMiddleware, ViewRectInfo, Element, MiddlewareInfoConfig } from '../../../types';
-import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createid, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
+import { formatNumber, getViewScaleInfoFromSnapshot, getViewSizeInfoFromSnapshot, createId, limitAngle, rotatePoint, parseAngleToRadian } from '../../../tools';
 import { keySelectedElementList, keyHoverElement, keyActionType, keyGroupQueue } from '../selector';
 import { drawSizeInfoText, drawPositionInfoText, drawAngleInfoText } from './vinci-info';
 import type { DeepInfoSharedStorage } from './types';
@@ -43,7 +43,7 @@ export const MiddlewareInfo: BoardMiddleware<DeepInfoSharedStorage, any, Middlew
           const totalGroupQueue = [
             ...groupQueue,
             ...[{
-                id: createid(),
+                id: createId(),
                 x,
                 y,
                 w,

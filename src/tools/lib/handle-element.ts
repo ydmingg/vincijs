@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { RecursivePartial, Element, Elements, ElementPosition, ElementSize, ElementType, ViewScaleInfo, ViewSizeInfo } from '../../types';
-import { createid } from './id';
+import { createId } from './id';
 import {
   defaultText,
   getDefaultElementRectDetail,
@@ -88,7 +88,7 @@ export function createElement<T extends ElementType>(
   const elem: Element<T> = {
     ...elementSize,
     ...baseElem,
-    id: createid(),
+    id: createId(),
     type,
     detail: {
       ...detail,

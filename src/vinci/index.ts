@@ -30,7 +30,7 @@ export {
   colorToCSS,
   colorToLinearGradientCSS,
   mergeHexColorAlpha,
-  createid,
+  createId,
   isAssetId,
   createAssetId,
   deepClone,

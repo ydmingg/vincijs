@@ -1,5 +1,5 @@
 import type { Data, ElementAssets, Elements, ElementType, Element, LoadItemMap } from '../../types';
-import { createAssetId, createid, isAssetId } from './id';
+import { createAssetId, createId, isAssetId } from './id';
 
 export function deepClone<T = any>(target: T): T {
   function _clone(t: T) {
@@ -31,7 +31,7 @@ export function deepClone<T = any>(target: T): T {
 export function deepCloneElement<T extends Element = Element>(element: T): T {
   const elem = deepClone(element);
   const _resetid = (e: Element) => {
-    e.id = createid();
+    e.id = createId();
     if (e.type === 'group' && (e as Element<'group'>).detail.children) {
       (e as Element<'group'>).detail.children.forEach((child) => {
         _resetid(child);

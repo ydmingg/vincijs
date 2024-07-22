@@ -1,5 +1,5 @@
 import type { RendererLoader, LoaderEventMap, LoadFunc, LoadContent, LoadItem, LoadItemMap, LoadElementType, Element, ElementAssets } from '../types';
-import { loadImage, loadHTML, loadSVG, EventEmitter, createAssetId, isAssetId, createid } from '../tools';
+import { loadImage, loadHTML, loadSVG, EventEmitter, createAssetId, isAssetId, createId } from '../tools';
 
 const supportElementTypes: LoadElementType[] = ['image', 'svg', 'html'];
 
@@ -18,7 +18,7 @@ const getAssetIdFromElement = (element: Element<'image' | 'svg' | 'html'>) => {
     }
     return createAssetId(source);
   }
-  return createAssetId(`${createid()}-${element.id}-${createid()}-${createid()}`);
+  return createAssetId(`${createId()}-${element.id}-${createId()}-${createId()}`);
 };
 
 export class Loader extends EventEmitter<LoaderEventMap> implements RendererLoader {
