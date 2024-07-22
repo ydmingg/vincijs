@@ -1,7 +1,6 @@
 import { Vinci } from "../vinci/index";
 import Data from "./data";
 
-
 export const Demo = () => { 
     const app = document.querySelector("#app") as HTMLDivElement;
     const vinci = new Vinci(
@@ -94,7 +93,7 @@ export const Demo = () => {
                 
         //     }
         // },
-        // {   
+        // {
         //     id: "0131202recstd1",
         //     name: "rect2",
         //     title: "矩形",
@@ -109,6 +108,7 @@ export const Demo = () => {
         //         // overflow: 'hidden'
         //     }
         // },
+        
         {   
             id: "013120e2recstd1",
             name: "rect3",

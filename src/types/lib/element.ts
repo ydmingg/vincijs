@@ -156,6 +156,10 @@ export type ElementPathDetail = ElementBaseDetail & {
   fillRule?: string; // "evenodd" | "nonzero"
 };
 
+export type ElementLineDetail = ElementBaseDetail & {
+  
+}
+
 export interface ElementDetailMap {
   rect: ElementRectDetail;
   circle: ElementCircleDetail;
@@ -165,6 +169,7 @@ export interface ElementDetailMap {
   svg: ElementSVGDetail;
   group: ElementGroupDetail;
   path: ElementPathDetail;
+  line: ElementLineDetail;
 }
 
 // export type ElementType = 'text' | 'rect' | 'circle' | 'image' | 'svg' | 'html' | 'group';
