@@ -1,6 +1,3 @@
-import { Vinci } from "@src/vinci";
-import Data from "@src/demo/data";
-
 export const funScale = (Vinci, Data) => { 
     // 数据
     const data = [
