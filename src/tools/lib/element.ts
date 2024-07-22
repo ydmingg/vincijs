@@ -252,7 +252,7 @@ export function findElementFromList(id: string, list: Element<ElementType>[]): E
 
 export function findElementsFromList(ids: string[], list: Element<ElementType>[]): Element<ElementType>[] {
   const result: Element<ElementType>[] = [];
-
+  
   function _find(elements: Element<ElementType>[]) {
     for (let i = 0; i < elements.length; i++) {
       const elem = elements[i];

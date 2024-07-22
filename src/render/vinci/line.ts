@@ -20,6 +20,8 @@ export function drawLine(ctx: ViewContext2D, elem: Element<'line'>, opts: Render
           parentOpacity,
           renderContent: () => {
             // is
+            console.log(viewElem);
+            
           }
         });
       }

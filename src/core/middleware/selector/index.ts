@@ -156,7 +156,7 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
     }
 
     if (opts?.triggerEvent === true) {
-      eventHub.trigger(middlewareEventSelect, { uuids: list.map((elem) => elem.id) });
+      eventHub.trigger(middlewareEventSelect, { ids: list.map((elem) => elem.id) });
     }
   };
 
@@ -193,14 +193,15 @@ export const MiddlewareSelector: BoardMiddleware<DeepSelectorSharedStorage, Core
 
   clear();
 
-  const selectCallback = ({ uuids, positions }: { uuids: string[]; positions: ElementPosition[] }) => {
+  const selectCallback = ({ ids, positions }: { ids: string[]; positions: ElementPosition[] }) => {
+    
     let elements: Element[] = [];
     const actionType = sharer.getSharedStorage(keyActionType);
     const data = sharer.getActiveStorage('data');
     if (positions && Array.isArray(positions)) {
       elements = findElementsFromListByPositions(positions, data || []);
     } else {
-      elements = findElementsFromList(uuids, data || []);
+      elements = findElementsFromList(ids, data || []);
     }
 
     let needRefresh = false;
