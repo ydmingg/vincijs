@@ -124,6 +124,7 @@ export const funDefault = (Vinci, Data) => {
 
     // 渲染元素
     Vinci.setData(data)
+    Vinci.centerContent({ data: data });
     // console.time()
     // for (let i = 0; i < 500; i++) {
     //     const rectDev1 = {

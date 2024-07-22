@@ -11,13 +11,16 @@ export const Demo = () => {
     );
 
     // 设置显示方式
+    
     vinci.setMode('select');
     vinci.disable('scroll')
     vinci.disable('info')
     vinci.disable('ruler')
 
-    funDefault(vinci, data);
+    // funDefault(vinci, data);
     // funScale(vinci, data);
     // funOverflow(vinci, data);
+
+    
     
 }

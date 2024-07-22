@@ -54,6 +54,8 @@ export const funOverflow = (Vinci,Data) => {
 
     // 渲染元素
     Vinci.setData(data)
+    Vinci.centerContent({ data: data });
+    
     // 下一层，上一层，顶层，底层
     const getData = Vinci.getData()
     const elId = getData[2].id
