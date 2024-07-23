@@ -155,6 +155,7 @@ export function calcElementsContextSize(
       if (ves.length === 4) {
         const xList = [ves[0].x, ves[1].x, ves[2].x, ves[3].x];
         const yList = [ves[0].y, ves[1].y, ves[2].y, ves[3].y];
+        
         elemSize.x = Math.min(...xList);
         elemSize.y = Math.min(...yList);
         elemSize.w = Math.abs(Math.max(...xList) - Math.min(...xList));

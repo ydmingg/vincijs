@@ -2,6 +2,7 @@ import type { Element, ElementType, ElementSize, RendererDrawElementOptions, Vie
 import { rotateElement, calcViewBoxSize, calcViewElementSize } from '../../tools';
 import { drawCircle } from './circle';
 import { drawRect } from './rect';
+import { drawLine } from './line';
 import { drawImage } from './image';
 import { drawText } from './text';
 import { drawSVG } from './svg';
@@ -34,6 +35,10 @@ export function drawElement(ctx: ViewContext2D, elem: Element<ElementType>, opts
       }
       case 'circle': {
         drawCircle(ctx, elem as Element<'circle'>, opts);
+        break;
+      }
+      case 'line': { 
+        drawLine(ctx, elem as Element<'line'>, opts);
         break;
       }
       case 'text': {

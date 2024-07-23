@@ -5,7 +5,7 @@ import { drawBox, drawBoxShadow } from './box';
 export function drawLine(ctx: ViewContext2D, elem: Element<'line'>, opts: RendererDrawElementOptions) {
   const { viewScaleInfo, viewSizeInfo, parentOpacity } = opts;
   const { x, y, w, h, angle } = calcViewElementSize(elem, { viewScaleInfo }) || elem;
-
+  
   const viewElem = { ...elem, ...{ x, y, w, h, angle } };
   rotateElement(ctx, { x, y, w, h, angle }, () => {
     drawBoxShadow(ctx, viewElem, {
@@ -20,7 +20,6 @@ export function drawLine(ctx: ViewContext2D, elem: Element<'line'>, opts: Render
           parentOpacity,
           renderContent: () => {
             // is
-            console.log(viewElem);
             
           }
         });

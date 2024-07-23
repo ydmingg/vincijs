@@ -17,7 +17,7 @@ const defaultActiveStorage: ActiveStore = {
   overrideElementMap: null
 };
 
-export class Sharer implements StoreSharer<Record<string | number | symbol, any>> {
+export class Sharer implements StoreSharer<Record<string | number | symbol | any, any>> {
   #activeStore: Store<ActiveStore>;
   #sharedStore: Store<{
     [string: string | number | symbol]: any;
@@ -101,11 +101,11 @@ export class Sharer implements StoreSharer<Record<string | number | symbol, any>
     return sizeInfo;
   }
 
-  // getActiveOverrideElemenentMap(): Record<string, RecursivePartial<Element<keyof ElementDetailMap, Record<string, any>>>> | null {
-  //   return this.#activeStore.get('overrideElementMap');
-  // }
+  getActiveOverrideElemenentMap(): Record<string, any> | null {
+    return this.#activeStore.get('overrideElementMap');
+  }
 
-  // setActiveOverrideElemenentMap(map: Record<string, RecursivePartial<Element<keyof ElementDetailMap, Record<string, any>>>> | null): void {
-  //   this.#activeStore.set('overrideElementMap', map);
-  // }
+  setActiveOverrideElemenentMap(map: Record<string, any> | null): void {
+    this.#activeStore.set('overrideElementMap', map);
+  }
 }

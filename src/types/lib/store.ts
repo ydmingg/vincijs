@@ -21,6 +21,6 @@ export interface StoreSharer<S extends Record<any, any> = any> {
   setActiveViewScaleInfo(viewScaleInfo: ViewScaleInfo): void;
   setActiveViewSizeInfo(size: ViewSizeInfo): void;
   getActiveViewSizeInfo(): ViewSizeInfo;
-  // setActiveOverrideElemenentMap(map: Record<string, RecursivePartial<Element>> | null): void;
-  // getActiveOverrideElemenentMap(): Record<string, RecursivePartial<Element>> | null;
+  setActiveOverrideElemenentMap(map: Record<string, RecursivePartial<Element>> | null): void;
+  getActiveOverrideElemenentMap(): Record<string, RecursivePartial<Element>> | null;
 }
